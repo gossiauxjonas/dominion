@@ -2,7 +2,7 @@ package logic.test;
 
 import logic.Main;
 import logic.Rechthoek;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -16,6 +16,7 @@ public class MainTest {
     @Test
     public void testRechthoekToString() {
         Rechthoek rechthoek = new Rechthoek();
+        assertEquals(rechthoek.toString(), "base: 5 height: 10");
 
     }
 
