@@ -1,22 +1,17 @@
 package logic.test;
 
-import logic.Main;
 import logic.Rechthoek;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
- * Created by Asus on 20/03/16.
+ * Created by Asus on 21/03/16.
  */
-
-public class MainTest {
-
+public class AapTest {
     @Test
-    public void testRechthoekToString() {
+    public void testVierkantToString() {
         Rechthoek rechthoek = new Rechthoek();
         assertEquals("base: 5 height: 10", rechthoek.toString());
-
     }
-
 }
