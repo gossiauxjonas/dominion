@@ -14,4 +14,10 @@ public class AapTest {
         Rechthoek rechthoek = new Rechthoek();
         assertEquals("base: 5 height: 10", rechthoek.toString());
     }
+
+    @Test
+    public void testJasper()
+    {
+        assertEquals(true,true);
+    }
 }
