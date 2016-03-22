@@ -1,14 +1,15 @@
 package logic;
 
-public class Main {
-    private Rechthoek rechthoek = new Rechthoek();
+import logic.TreasureCard;
 
-    private void run() {
-        System.out.println(rechthoek.toString());
-    }
+/**
+ * Created by Asus on 21/03/16.
+ */
+public class main {
 
     public static void main(String[] args) {
-        Main main = new Main();
-	    main.run();
+        TreasureCard t = new TreasureCard(0, 1);
+        System.out.println( t.toString());
     }
+
 }
