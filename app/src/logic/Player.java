@@ -9,7 +9,8 @@ import java.util.Random;
  */
 
 public class Player {
-    Random random = new Random(25);
+
+    Random random = new Random(500);
     private List hand;
     private List discard;
     private List deck;
@@ -18,6 +19,7 @@ public class Player {
         hand = new ArrayList<>();
         discard = new ArrayList<>();
         deck = createNewDeck(copper, estate);
+        drawCard(5);
     }
 
     private List createNewDeck(TreasureCard copper, VictoryCard estate) {
@@ -38,6 +40,40 @@ public class Player {
 
     public List getHand() {
         return hand;
+    }
+
+    public List getDiscard() { return discard; }
+
+    public void drawCard(int amount) {
+        for(int i = 0; i < amount; i++) {
+            if(deck.size() == 0) {
+                fillDeck();
+            }
+            hand.add(deck.remove(deck.size()-1));
+        }
+    }
+
+    public void removeCardFromHand(int place) {
+        discard.add(hand.remove(place));
+    }
+
+    public void emptyHand() {
+        int cardsInHand = hand.size();
+        for (int i = 0; i < cardsInHand; i++) {
+            removeCardFromHand(0);
+        }
+    }
+
+    public void endTurn() {
+        emptyHand();
+        drawCard(5);
+    }
+
+    public void fillDeck() {
+        List temp = discard;
+        discard = null;
+        shuffle(temp);
+        deck = temp;
     }
 
     public void shuffle(List cardArray) {

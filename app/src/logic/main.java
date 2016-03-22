@@ -26,12 +26,32 @@ public class main {
         Random random = new Random(25);
         for (int i = 0; i < 50; i++) {
             System.out.println(random.nextInt(3));
-        }*/
+        }
+
         TreasureCard copper = new TreasureCard("copper", 0, 1);
         VictoryCard estate = new VictoryCard("estate", 2, 1);
         Player player1 = new Player(copper, estate);
         System.out.println(player1.getDeck().size());
         System.out.println(player1.getHand().size());
+
+        List<Integer> list1 = new ArrayList<Integer>();
+        List<Integer> list2 = new ArrayList<Integer>();
+        list1.add(5);
+        list1.add(7);
+        System.out.println(list1);
+        System.out.println(list2);
+        list2.add(list1.remove(1));
+        System.out.println(list1);
+        System.out.println(list2);*/
+        TreasureCard copper = new TreasureCard("copper", 0, 1);
+        VictoryCard estate = new VictoryCard("estate", 2, 1);
+        Player player = new Player(copper, estate);
+        System.out.println(player.getHand());
+        System.out.println(player.getDiscard());
+        player.emptyHand();
+        System.out.println(player.getHand());
+        System.out.println(player.getDiscard());
+
     }
 
 }
