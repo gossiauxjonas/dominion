@@ -5,10 +5,17 @@ package logic;
  */
 
 public class BasicCard {
+
+    String cardName;
     private int price;
 
-    public BasicCard(int price) {
+    public BasicCard(String cardName, int price) {
+        this.cardName = cardName;
         this.price = price;
+    }
+
+    public String getCardName() {
+        return cardName;
     }
 
     public int getPrice() {

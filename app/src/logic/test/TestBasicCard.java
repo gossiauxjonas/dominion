@@ -18,9 +18,16 @@ public class TestBasicCard {
 
     @Before
     public void setUp() {
-        rootCard1 = new BasicCard(2);
-        rootCard2 = new BasicCard(3);
-        rootCard3 = new BasicCard(0);
+        rootCard1 = new BasicCard("cardtitle", 2);
+        rootCard2 = new BasicCard("card", 3);
+        rootCard3 = new BasicCard("dominion", 0);
+    }
+
+    @Test
+    public void testBasicCardTitleGetter() {
+        assertEquals(rootCard1.getCardName(), "cardtitle");
+        assertEquals(rootCard2.getCardName(), "card");
+        assertEquals(rootCard3.getCardName(), "dominion");
     }
 
     @Test
