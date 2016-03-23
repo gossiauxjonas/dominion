@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Player {
 
-    Random random = new Random(500);
+    private Random random = new Random(500);
     private List hand;
     private List discard;
     private List deck;
@@ -19,7 +19,7 @@ public class Player {
         hand = new ArrayList<>();
         discard = new ArrayList<>();
         deck = createNewDeck(copper, estate);
-        drawCard(5);
+        drawCardToHand(5);
     }
 
     private List createNewDeck(TreasureCard copper, VictoryCard estate) {
@@ -42,38 +42,68 @@ public class Player {
         return hand;
     }
 
-    public List getDiscard() { return discard; }
+    public int amountCardsDeck() {
+        return deck.size();
+    }
 
-    public void drawCard(int amount) {
+    public int amountCardsHand() {
+        return hand.size();
+    }
+
+    public int amountCardsDiscard() {
+        return discard.size();
+    }
+
+    public Object drawCardFromDeck() {
+        return deck.remove(amountCardsDeck()-1);
+    }
+
+    public void drawCardToHand(int amount) {
         for(int i = 0; i < amount; i++) {
-            if(deck.size() == 0) {
+            if(amountCardsDeck() == 0) {
                 fillDeck();
             }
-            hand.add(deck.remove(deck.size()-1));
+            hand.add(drawCardFromDeck()); //remove() returns object that was removed
         }
     }
 
-    public void removeCardFromHand(int place) {
-        discard.add(hand.remove(place));
+    public void discardCardFromHand(int place) {
+        toDiscard(hand.remove(place));
     }
 
     public void emptyHand() {
-        int cardsInHand = hand.size();
+        int cardsInHand = amountCardsHand();
         for (int i = 0; i < cardsInHand; i++) {
-            removeCardFromHand(0);
+            discardCardFromHand(0);
         }
+    }
+
+    public void fillDeck() {
+        int cardsInDiscard = amountCardsDiscard();
+        for (int i = 0; i < cardsInDiscard; i++) {
+            deck.add(discard.remove(0));
+        }
+        shuffle(deck);
     }
 
     public void endTurn() {
         emptyHand();
-        drawCard(5);
+        drawCardToHand(5);
     }
 
-    public void fillDeck() {
-        List temp = discard;
-        discard = null;
-        shuffle(temp);
-        deck = temp;
+    public Object playCard(int place) {
+        return hand.get(place);
+    }
+
+    public void putDeckOnDiscard() {
+        int cardsInDeck = amountCardsDeck();
+        for (int i = 0; i < cardsInDeck; i++) {
+            toDiscard(drawCardFromDeck());
+        }
+    }
+
+    public void toDiscard(Object card) {
+        discard.add(card);
     }
 
     public void shuffle(List cardArray) {
