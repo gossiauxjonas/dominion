@@ -12,13 +12,14 @@ public class Player {
 
     private Random random = new Random(500);
     private List hand;
-    private List discard;
-    private List deck;
+    private List discardDeck;
+    private List drawDeck;
+
 
     public Player(TreasureCard copper, VictoryCard estate) {
         hand = new ArrayList<>();
-        discard = new ArrayList<>();
-        deck = createNewDeck(copper, estate);
+        discardDeck = new ArrayList<>();
+        drawDeck = createNewDeck(copper, estate);
         drawCardToHand(5);
     }
 
@@ -34,8 +35,8 @@ public class Player {
         return newDeck;
     }
 
-    public List getDeck() {
-        return deck;
+    public List getDrawDeck() {
+        return drawDeck;
     }
 
     public List getHand() {
@@ -43,7 +44,7 @@ public class Player {
     }
 
     public int amountCardsDeck() {
-        return deck.size();
+        return drawDeck.size();
     }
 
     public int amountCardsHand() {
@@ -51,19 +52,19 @@ public class Player {
     }
 
     public int amountCardsDiscard() {
-        return discard.size();
+        return discardDeck.size();
     }
 
     public Object drawCardFromDeck() {
-        return deck.remove(amountCardsDeck()-1);
-    }
+        return drawDeck.remove(amountCardsDeck()-1);
+    } //remove() returns object that was removed
 
     public void drawCardToHand(int amount) {
         for(int i = 0; i < amount; i++) {
             if(amountCardsDeck() == 0) {
                 fillDeck();
             }
-            hand.add(drawCardFromDeck()); //remove() returns object that was removed
+            hand.add(drawCardFromDeck());
         }
     }
 
@@ -81,9 +82,9 @@ public class Player {
     public void fillDeck() {
         int cardsInDiscard = amountCardsDiscard();
         for (int i = 0; i < cardsInDiscard; i++) {
-            deck.add(discard.remove(0));
+            drawDeck.add(discardDeck.remove(0));
         }
-        shuffle(deck);
+        shuffle(drawDeck);
     }
 
     public void endTurn() {
@@ -103,7 +104,7 @@ public class Player {
     }
 
     public void toDiscard(Object card) {
-        discard.add(card);
+        discardDeck.add(card);
     }
 
     public void shuffle(List cardArray) {

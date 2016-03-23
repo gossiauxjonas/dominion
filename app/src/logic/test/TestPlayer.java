@@ -1,6 +1,5 @@
 package logic.test;
 
-import junit.framework.Assert;
 import logic.Player;
 import logic.TreasureCard;
 import logic.VictoryCard;
@@ -48,8 +47,8 @@ public class TestPlayer {
 
     @Test
     public void testDrawCardFromDeck() {
-        Object copy1 = player0.getDeck().get(4);
-        Object copy2 = player0.getDeck().get(3);
+        Object copy1 = player0.getDrawDeck().get(4);
+        Object copy2 = player0.getDrawDeck().get(3);
         Object safe1 = player0.drawCardFromDeck();
         assertEquals(player0.amountCardsDeck(), 4);
         assertEquals(safe1, copy1);
