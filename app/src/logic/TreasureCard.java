@@ -8,8 +8,8 @@ public class TreasureCard extends BasicCard {
 
     private int coinValue;
 
-    public TreasureCard(String cardName, int price, int coinValue) {
-        super(cardName, price);
+    public TreasureCard(int price, int coinValue) {
+        super(price);
         this.coinValue = coinValue;
     }
 
