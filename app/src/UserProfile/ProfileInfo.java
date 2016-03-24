@@ -1,8 +1,5 @@
 package UserProfile;
 
-import java.util.Date;
-import java.util.Objects;
-
 /**
  * Created by Nick Casier on 23/03/16.
  */
@@ -10,8 +7,14 @@ public class ProfileInfo {
     private String name;
     private String mail;
     private String password;
-    private Date birthDate;
+    private String birthDate;
     private int gameID; //for the moment int, will probably change
+
+    private void setName() {name = "Nick";}
+    private void setMail() {mail = "casiernick@gmail.com";}
+    private void setPassword() {password = "Password1234";}
+    private void setBirthDate() {birthDate = "13/10/1996";}
+    private void setGameID(){gameID=55;}
 
     public String getName(){
         return name;
@@ -25,15 +28,16 @@ public class ProfileInfo {
         return password;
     }
 
-    public Date getBirthDate(){
+    public String getBirthDate(){
         return birthDate;
     }
 
     public int getGameID() {return gameID; }
 
+    public Object[] profileSetupObjects = {name, mail, password, birthDate, gameID};
 
-    public static Object[] profileSetup = {"Nick", "casiernick@gmail.com", "Password1234", "13/10/1996", 55};
-
-
+    public Object[] getProfileSetupObjects() {
+        return profileSetupObjects;
+    }
 
 }
