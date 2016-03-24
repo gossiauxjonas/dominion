@@ -15,12 +15,6 @@ public class MainFrame extends JFrame {
         content.add(new GamePanel());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
-        
-
-
-
-
-
 
 
 
