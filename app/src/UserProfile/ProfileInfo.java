@@ -1,16 +1,17 @@
 package UserProfile;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Nick Casier on 23/03/16.
  */
-public class Profile {
+public class ProfileInfo {
     private String name;
     private String mail;
     private String password;
     private Date birthDate;
-    private int gameID; //for the moment String, will change
+    private int gameID; //for the moment int, will probably change
 
     public String getName(){
         return name;
@@ -28,9 +29,11 @@ public class Profile {
         return birthDate;
     }
 
-    public int getGameID()
-    {
-        return gameID;
-    }
+    public int getGameID() {return gameID; }
+
+
+    public static Object[] profileSetup = {"Nick", "casiernick@gmail.com", "Password1234", "13/10/1996", 55};
+
+
 
 }
