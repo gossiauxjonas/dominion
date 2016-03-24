@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Jonasty on 24/03/2016.
  */
+
 public class GamePanel extends JPanel {
     private JButton startButton;
     private JButton exitButton;
@@ -45,6 +46,11 @@ public class GamePanel extends JPanel {
         setBackground(Color.green.darker().darker());
         add(hoofdPanel, BorderLayout.SOUTH);
 
+        JTextField textField = new JTextField();
+        hoofdPanel.add(textField);
+
+
+
 
     }
 
@@ -53,6 +59,8 @@ public class GamePanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                
 
 
 
