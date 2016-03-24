@@ -3,41 +3,48 @@ package UserProfile;
 /**
  * Created by Nick Casier on 23/03/16.
  */
-public class ProfileInfo {
+
+public class ProfileInfo
+{
     private String name;
     private String mail;
     private String password;
     private String birthDate;
-    private int gameID; //for the moment int, will probably change
+    private int gameID;
 
-    private void setName() {name = "Nick";}
-    private void setMail() {mail = "casiernick@gmail.com";}
-    private void setPassword() {password = "Password1234";}
-    private void setBirthDate() {birthDate = "13/10/1996";}
-    private void setGameID(){gameID=55;}
+    public void setName()
+    {
 
-    public String getName(){
+    }
+}
+
+/**
+public class ProfileInfo {
+    private String name = "Nick";
+    private String mail = "casiernick@gmail.com";
+    private String password = "Passwd1234";
+    private String birthDate = "13/10/1996";
+    private int gameID = 55; //for the moment int, will probably change
+
+    private String getName(){
         return name;
     }
 
-    public String getMail(){
+    private String getMail(){
         return mail;
     }
 
-    public String getPassword(){
+    private String getPassword(){
         return password;
     }
 
-    public String getBirthDate(){
+    private String getBirthDate(){
         return birthDate;
     }
 
-    public int getGameID() {return gameID; }
+    private int getGameID() {return gameID; }
 
-    public Object[] profileSetupObjects = {name, mail, password, birthDate, gameID};
-
-    public Object[] getProfileSetupObjects() {
-        return profileSetupObjects;
-    }
+    private Object[] profileSetupObjects = {name, mail, password, birthDate, gameID};
 
 }
+ */
