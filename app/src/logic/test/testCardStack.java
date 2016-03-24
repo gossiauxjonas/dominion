@@ -57,7 +57,16 @@ public class testCardStack {
         assertEquals(actionStack4P.getAmountOfCards(), 10);
     }
 
-    //Cards that in herit from ActionCard not tested yet.
+    @Test
+    public void testAmountSmithyActionCard() {
+        Smithy smithy = new Smithy();
+        CardStack smithyStack2P = new CardStack(2, smithy);
+        assertEquals(smithyStack2P.getAmountOfCards(), 10);
+        CardStack smithyStack3P = new CardStack(3, smithy);
+        assertEquals(smithyStack3P.getAmountOfCards(), 10);
+        CardStack smithyStack4P = new CardStack(4, smithy);
+        assertEquals(smithyStack4P.getAmountOfCards(), 10);
+    }
 
     @Test
     public void testAmountGarden() {
