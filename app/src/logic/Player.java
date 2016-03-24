@@ -11,20 +11,20 @@ import java.util.Random;
 public class Player {
 
     private Random random = new Random(500);
-    private List hand;
-    private List discardDeck;
-    private List drawDeck;
+    private List<BasicCard> hand;
+    private List<BasicCard> discardDeck;
+    private List<BasicCard> drawDeck;
 
 
     public Player(TreasureCard copper, VictoryCard estate) {
-        hand = new ArrayList<>();
-        discardDeck = new ArrayList<>();
+        hand = new ArrayList<BasicCard>();
+        discardDeck = new ArrayList<BasicCard>();
         drawDeck = createNewDeck(copper, estate);
         drawCardToHand(5);
     }
 
     private List createNewDeck(TreasureCard copper, VictoryCard estate) {
-        List<Object> newDeck = new ArrayList<>();
+        List<BasicCard> newDeck = new ArrayList<BasicCard>();
         for (int i = 0; i < 7; i++) {
             newDeck.add(copper);
         }
@@ -55,9 +55,9 @@ public class Player {
         return discardDeck.size();
     }
 
-    public Object drawCardFromDeck() {
+    public BasicCard drawCardFromDeck() {
         return drawDeck.remove(amountCardsDeck()-1);
-    } //remove() returns object that was removed
+    } //remove() returns BasicCard that was removed
 
     public void drawCardToHand(int amount) {
         for(int i = 0; i < amount; i++) {
@@ -92,7 +92,7 @@ public class Player {
         drawCardToHand(5);
     }
 
-    public Object playCard(int place) {
+    public BasicCard playCard(int place) {
         return hand.get(place);
     }
 
@@ -103,15 +103,15 @@ public class Player {
         }
     }
 
-    public void toDiscard(Object card) {
+    public void toDiscard(BasicCard card) {
         discardDeck.add(card);
     }
 
-    public void shuffle(List cardArray) {
+    public void shuffle(List<BasicCard> cardArray) {
         for (int i = 0; i < cardArray.size()*10; i++) {
             int first = random.nextInt(cardArray.size());
             int second = random.nextInt(cardArray.size());
-            Object temp = cardArray.get(first);
+            BasicCard temp = cardArray.get(first);
             cardArray.set(first, cardArray.get(second));
             cardArray.set(second, temp);
         }
