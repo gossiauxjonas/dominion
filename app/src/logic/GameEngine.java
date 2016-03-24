@@ -2,11 +2,11 @@ package logic;
 
 /**
  * Created by jasper on 23/03/2016.
- */
+ **/
 
 
 public class GameEngine {
-    private int turn = 1;
+    private int round = 1;
     private int AmountOfPlayers = 2;
     private int[] ArrayPlayers = new int[AmountOfPlayers];
     //Player player1 = new Player();
@@ -20,18 +20,19 @@ public class GameEngine {
 
     public void gameLoop() {
         boolean gameEnd = false;
-        while (!gameEnd) {
-            //if (player = player1 && turn == 1) {choseStartingPlayer()}
-            //startTurn();
-            //endTurn();
-            //cleanTable();
-            //nextTurn();
-            //winCondition();
-            //endOfGame(gameEnd);
+
+        while (!gameEnd) if (round == 1) {
+            ShufflePlayers(AmountOfPlayers);
         }
+        //startTurn();
+        //endTurn();
+        //cleanTable();
+        //nextTurn();
+        //winCondition();
+        //endOfGame(gameEnd);
     }
 
-    public int[] choseStartingPlayer(int AmountOfPlayers) {
+    public int[] ShufflePlayers(int AmountOfPlayers) {
 
         for (int i = 0; i < AmountOfPlayers * 50; i++) {
             //shufflePlayers
@@ -41,10 +42,15 @@ public class GameEngine {
         return ArrayPlayers;
     }
 
-    public void startTurn() {
+
+
+
+    public void startTurn(int[] ArrayPlayers) {
         int action = 1;
         int buy = 1;
         int AmountOfCoins = 0;
+        //selecteer player 1
+
     }
 
     private boolean winCondition() {
@@ -58,6 +64,7 @@ public class GameEngine {
 
 
     public void endTurn() {
+        round += 1;
 
 
     }
@@ -75,7 +82,7 @@ public class GameEngine {
 
     public boolean endOfGame(boolean gameEnd) //stoppen met spelen method
     {
-        if (winCondition() == false) gameEnd = true;
+        if (!winCondition()) gameEnd = true;
 
         return gameEnd;
 
