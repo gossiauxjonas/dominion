@@ -6,8 +6,8 @@ package logic;
 
 public class ActionCard extends BasicCard {
 
-    public ActionCard(String cardName, int price) {
-        super(cardName, price);
+    public ActionCard(int price) {
+        super(price);
     }
 
 }
