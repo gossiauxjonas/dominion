@@ -8,8 +8,8 @@ public class VictoryCard extends BasicCard {
 
     private int victoryPoints;
 
-    public VictoryCard(String cardName, int price, int victoryPoints) {
-        super(cardName, price);
+    public VictoryCard(int price, int victoryPoints) {
+        super(price);
         this.victoryPoints = victoryPoints;
     }
 
