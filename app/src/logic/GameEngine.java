@@ -13,20 +13,22 @@ public class GameEngine {
     //Player player2 = new Player();
 
 
-    public GameEngine() {
-        boolean gameEnd = false;
-        if (!gameEnd) gameLoop();
+    public void GameEngine() {
+        gameLoop();
 
     }
 
     public void gameLoop() {
-        //if (turn == 1 && Player == player1) {choseStartingPlayer()}
-        //startTurn();
-        //endTurn();
-        //cleanTable();
-        //nextTurn();
-        //winCondition();
-        //endOfGame();
+        boolean gameEnd = false;
+        while (!gameEnd) {
+            //if (player = player1 && turn == 1) {choseStartingPlayer()}
+            //startTurn();
+            //endTurn();
+            //cleanTable();
+            //nextTurn();
+            //winCondition();
+            //endOfGame(gameEnd);
+        }
     }
 
     public int[] choseStartingPlayer(int AmountOfPlayers) {
@@ -38,14 +40,25 @@ public class GameEngine {
         }
         return ArrayPlayers;
     }
-    public boolean winCondition(){
-        boolean victory = false;
 
+    public void startTurn() {
+        int action = 1;
+        int buy = 1;
+        int AmountOfCoins = 0;
+    }
+
+    private boolean winCondition() {
+        boolean victory = false;
+        while (!victory) {
+            //check als de 3 stapels leeg zijn of province stapel leeg is
+            //roep method op die in shop zit die de stapels overloopt
+        }
         return victory;
     }
 
 
     public void endTurn() {
+
 
     }
 
@@ -60,7 +73,8 @@ public class GameEngine {
     }
 
 
-    public boolean endOfGame(boolean gameEnd) {
+    public boolean endOfGame(boolean gameEnd) //stoppen met spelen method
+    {
         if (winCondition() == false) gameEnd = true;
 
         return gameEnd;
