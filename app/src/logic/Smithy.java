@@ -9,4 +9,8 @@ public class Smithy extends ActionCard {
         super(4);
     }
 
+    public void playAction(Player player) {
+        player.drawCardToHand(3);
+    }
+
 }

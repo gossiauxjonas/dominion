@@ -3,6 +3,7 @@ package logic;
 /**
  * Created by Indy Van Mol on 24/03/16.
  */
+
 public class CardStack {
 
     private int amountOfCards;
@@ -57,13 +58,8 @@ public class CardStack {
         return amountOfCards;
     }
 
-    private void incrementAmountOfCards() {
+    public void decrementStack() {
         amountOfCards--;
-    }
-
-    public BasicCard pullCard() {
-        incrementAmountOfCards();
-        return getCard();
     }
 
 }

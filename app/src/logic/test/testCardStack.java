@@ -122,4 +122,15 @@ public class testCardStack {
         CardStack provinceStack4P = new CardStack(4, province);
         assertEquals(provinceStack4P.getAmountOfCards(), 12);
     }
+
+    @Test
+    public void testDecrementStack() {
+        Smithy smithy = new Smithy();
+        CardStack smithyStack = new CardStack(2, smithy);
+        smithyStack.decrementStack();
+        assertEquals(smithyStack.getAmountOfCards(), 9);
+        smithyStack.decrementStack();
+        smithyStack.decrementStack();
+        assertEquals(smithyStack.getAmountOfCards(), 7);
+    }
 }
