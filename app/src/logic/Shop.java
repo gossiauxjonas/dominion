@@ -6,7 +6,7 @@ package logic;
 
 public class Shop {
 
-    private CardStack[] shopArray;
+    public CardStack[] shopArray;
     private int emptyStacks;
     private boolean open;
 
@@ -31,6 +31,8 @@ public class Shop {
     public int priceOfCard(int place) {
         return shopArray[place].getCard().getPrice();
     }
+
+    public int cardsLeftInStack(int place) {return shopArray[place].getAmountOfCards(); }
 
     public BasicCard buyCard(int place) {
         shopArray[place].decrementStack();
