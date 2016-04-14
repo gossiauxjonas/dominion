@@ -40,7 +40,7 @@ public class TestShop {
     CardStack duchyStack3 = new CardStack(3, duchy);
     CardStack provinceStack1 = new CardStack(2, province);
     CardStack provinceStack2 = new CardStack(2, province);
-    CardStack provinceStack3  = new CardStack(3, province);
+    CardStack provinceStack3 = new CardStack(3, province);
     CardStack curseStack1 = new CardStack(2, curse);
     CardStack curseStack2 = new CardStack(2, curse);
     CardStack curseStack3 = new CardStack(3, curse);
@@ -88,13 +88,13 @@ public class TestShop {
     public void setUp() {
         //Shop constructors
         shop1 = new Shop(copperStack1, silverStack1, goldStack1, actionCardStack1_1, actionCardStack1_2
-                        , actionCardStack1_3, actionCardStack1_4, actionCardStack1_5, actionCardStack1_6
-                        , actionCardStack1_7, actionCardStack1_8, actionCardStack1_9, actionCardStack1_10
-                        , estateStack1, duchyStack1, provinceStack1, curseStack1);
+                , actionCardStack1_3, actionCardStack1_4, actionCardStack1_5, actionCardStack1_6
+                , actionCardStack1_7, actionCardStack1_8, actionCardStack1_9, actionCardStack1_10
+                , estateStack1, duchyStack1, provinceStack1, curseStack1);
         shop2 = new Shop(copperStack2, silverStack2, goldStack2, actionCardStack2_1, actionCardStack2_2
-                        , actionCardStack2_3, actionCardStack2_4, actionCardStack2_5, actionCardStack2_6
-                        , actionCardStack2_7, actionCardStack2_8, actionCardStack2_9, actionCardStack2_10
-                        , estateStack2, duchyStack2, provinceStack2, curseStack2);
+                , actionCardStack2_3, actionCardStack2_4, actionCardStack2_5, actionCardStack2_6
+                , actionCardStack2_7, actionCardStack2_8, actionCardStack2_9, actionCardStack2_10
+                , estateStack2, duchyStack2, provinceStack2, curseStack2);
         shop3 = new Shop(copperStack3, silverStack3, goldStack3, actionCardStack3_1, actionCardStack3_2
                 , actionCardStack3_3, actionCardStack3_4, actionCardStack3_5, actionCardStack3_6
                 , actionCardStack3_7, actionCardStack3_8, actionCardStack3_9, actionCardStack3_10

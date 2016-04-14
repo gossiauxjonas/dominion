@@ -24,7 +24,7 @@ public class CardStack {
         if (card.getClass().equals(Garden.class)) {
             if (amountPlayers > 2) amountOfCards = 12;
             else amountOfCards = 8;
-        } else  {
+        } else {
             amountOfCards = 10;
         }
     }
@@ -32,7 +32,7 @@ public class CardStack {
     private void setAmountTreasureCard(int amountPlayers) {
         switch (card.getPrice()) {
             case 0:
-                amountOfCards = 60-amountPlayers*7;
+                amountOfCards = 60 - amountPlayers * 7;
                 break;
             case 3:
                 amountOfCards = 40;
@@ -47,7 +47,7 @@ public class CardStack {
         if (card.getPrice() > 0) {
             if (amountPlayers > 2) amountOfCards = 12;
             else amountOfCards = 8;
-        } else amountOfCards = amountPlayers*10-10;
+        } else amountOfCards = amountPlayers * 10 - 10;
     }
 
     public BasicCard getCard() {

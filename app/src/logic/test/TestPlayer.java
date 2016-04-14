@@ -29,7 +29,7 @@ public class TestPlayer {
     public void setUp() {
         copper = new TreasureCard(0, 1);
         estate = new VictoryCard(2, 1);
-        player0 = new  Player(copper, estate);
+        player0 = new Player(copper, estate);
         player1 = new Player(copper, estate);
         player2 = new Player(copper, estate);
         player3 = new Player(copper, estate);

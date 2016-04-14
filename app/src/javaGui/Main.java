@@ -10,7 +10,7 @@ public class Main {
         main.run();
     }
 
-    private void run(){
+    private void run() {
         new MainFrame();
     }
 

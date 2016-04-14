@@ -13,27 +13,28 @@ public class ProfileInfo {
     private Date birthDate;
     private int gameID; //for the moment int, will probably change
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getMail(){
+    public String getMail() {
         return mail;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
-    public Date getBirthDate(){
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public int getGameID() {return gameID; }
+    public int getGameID() {
+        return gameID;
+    }
 
 
     public static Object[] profileSetup = {"Nick", "casiernick@gmail.com", "Password1234", "13/10/1996", 55};
-
 
 
 }

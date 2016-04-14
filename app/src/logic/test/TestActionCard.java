@@ -6,5 +6,4 @@ package logic.test;
 public class TestActionCard {
 
 
-
 }
