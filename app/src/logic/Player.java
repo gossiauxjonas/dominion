@@ -56,12 +56,12 @@ public class Player {
     }
 
     public BasicCard drawCardFromDeck() {
-        return drawDeck.remove(amountCardsDeck()-1);
+        return drawDeck.remove(amountCardsDeck() - 1);
     } //remove() returns BasicCard that was removed
 
     public void drawCardToHand(int amount) {
-        for(int i = 0; i < amount; i++) {
-            if(amountCardsDeck() == 0) {
+        for (int i = 0; i < amount; i++) {
+            if (amountCardsDeck() == 0) {
                 fillDeck();
             }
             hand.add(drawCardFromDeck());
@@ -108,7 +108,7 @@ public class Player {
     }
 
     public void shuffle(List<BasicCard> cardArray) {
-        for (int i = 0; i < cardArray.size()*10; i++) {
+        for (int i = 0; i < cardArray.size() * 10; i++) {
             int first = random.nextInt(cardArray.size());
             int second = random.nextInt(cardArray.size());
             BasicCard temp = cardArray.get(first);

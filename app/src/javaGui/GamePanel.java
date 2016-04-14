@@ -50,8 +50,6 @@ public class GamePanel extends JPanel {
         hoofdPanel.add(textField);
 
 
-
-
     }
 
     private void addListener() {
@@ -59,9 +57,6 @@ public class GamePanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                
-
 
 
             }
