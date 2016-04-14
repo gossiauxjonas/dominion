@@ -46,21 +46,23 @@ public class GamePanel extends JPanel {
         setBackground(Color.green.darker().darker());
         add(hoofdPanel, BorderLayout.SOUTH);
 
-        JTextField textField = new JTextField();
-        hoofdPanel.add(textField);
+
+
+
 
 
 
 
     }
 
-    private void addListener() {
+    public void addListener() {
         startButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                
+
+
 
 
 

@@ -9,6 +9,7 @@ public class GameEngine {
     private int round = 1;
     private int AmountOfPlayers = 2;
     private int[] ArrayPlayers = new int[AmountOfPlayers];
+
     //Player player1 = new Player();
     //Player player2 = new Player();
 
@@ -50,6 +51,7 @@ public class GameEngine {
         int buy = 1;
         int AmountOfCoins = 0;
         //selecteer player 1
+
 
     }
 
