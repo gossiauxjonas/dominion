@@ -11,9 +11,14 @@ public class ConsoleReadingDemo {
         Scanner in = new Scanner(System.in);
         //int i = in.nextInt();
         System.out.print("Name player1: ");
-        String s = in.next();
+        String s1 = in.next();
         System.out.println();
-        System.out.println(s);
+        System.out.print("Name player2: ");
+        String s2 = in.next();
+        System.out.println();
+        System.out.println("The players are: "+ s1 + " and "+ s2);
+
+
     }
 
 
