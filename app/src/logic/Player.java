@@ -17,7 +17,7 @@ public class Player {
     private List<BasicCard> drawDeck;
 
 
-    public Player(String name, BasicCard copper, BasicCard estate) {
+    public Player(String name, TreasureCard copper, VictoryCard estate) {
         this.name = name;
         hand = new ArrayList<BasicCard>();
         discardDeck = new ArrayList<BasicCard>();

@@ -7,11 +7,11 @@ package logic;
 
 public class GameEngine {
 
-    BasicCard copper = new TreasureCard(0, 1);
+    TreasureCard copper = new TreasureCard(0, 1);
     BasicCard silver = new TreasureCard(3, 2);
     BasicCard gold = new TreasureCard(6, 3);
     BasicCard actionCard = new ActionCard(4);
-    BasicCard estate = new VictoryCard(2, 1);
+    VictoryCard estate = new VictoryCard(2, 1);
     BasicCard duchy = new VictoryCard(5, 3);
     BasicCard province = new VictoryCard(8, 6);
     BasicCard curse = new VictoryCard(0, -1);
@@ -35,11 +35,11 @@ public class GameEngine {
     CardStack actionCardStack9 = new CardStack(2, actionCard);
     CardStack actionCardStack10 = new CardStack(2, actionCard);
 
-    Shop shop;
+    private Shop shop;
 
     private Player[] players;
 
-    public void GameEngine(String player1, String player2) {
+    public GameEngine(String player1, String player2) {
         players = new Player[]{new Player(player1, copper, estate), new Player(player2, copper, estate)};
         shop = new Shop(copperStack, silverStack, goldStack, actionCardStack1, actionCardStack2
                 , actionCardStack3, actionCardStack4, actionCardStack5, actionCardStack6
@@ -47,5 +47,11 @@ public class GameEngine {
                 , estateStack, duchyStack, provinceStack, curseStack);
 
     }
+
+    public Player getPlayer(int playersTurn) {
+        return players[playersTurn];
+    }
+
+
 
 }
