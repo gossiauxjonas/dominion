@@ -10,13 +10,15 @@ import java.util.Random;
 
 public class Player {
 
-    private Random random = new Random(500);
+    private Random random = new Random();
+    private String name;
     private List<BasicCard> hand;
     private List<BasicCard> discardDeck;
     private List<BasicCard> drawDeck;
 
 
-    public Player(TreasureCard copper, VictoryCard estate) {
+    public Player(String name, TreasureCard copper, VictoryCard estate) {
+        this.name = name;
         hand = new ArrayList<BasicCard>();
         discardDeck = new ArrayList<BasicCard>();
         drawDeck = createNewDeck(copper, estate);
@@ -115,6 +117,10 @@ public class Player {
             cardArray.set(first, cardArray.get(second));
             cardArray.set(second, temp);
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
 }
