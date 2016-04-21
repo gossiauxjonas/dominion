@@ -48,11 +48,4 @@ public class GameEngine {
 
     }
 
-    public void gameLoop() {
-        while (shop.isOpen()) {
-            
-        }
-    }
-
-
 }
