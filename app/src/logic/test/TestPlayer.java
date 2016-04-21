@@ -27,16 +27,17 @@ public class TestPlayer {
 
     @Before
     public void setUp() {
+        String name = "name";
         copper = new TreasureCard(0, 1);
         estate = new VictoryCard(2, 1);
-        player0 = new Player(copper, estate);
-        player1 = new Player(copper, estate);
-        player2 = new Player(copper, estate);
-        player3 = new Player(copper, estate);
-        player4 = new Player(copper, estate);
-        player5 = new Player(copper, estate);
-        player6 = new Player(copper, estate);
-        player7 = new Player(copper, estate);
+        player0 = new Player(name, copper, estate);
+        player1 = new Player(name, copper, estate);
+        player2 = new Player(name, copper, estate);
+        player3 = new Player(name, copper, estate);
+        player4 = new Player(name, copper, estate);
+        player5 = new Player(name, copper, estate);
+        player6 = new Player(name, copper, estate);
+        player7 = new Player(name, copper, estate);
     }
 
     @Test
