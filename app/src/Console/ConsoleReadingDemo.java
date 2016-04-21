@@ -13,13 +13,13 @@ public class ConsoleReadingDemo {
         Scanner in = new Scanner(System.in);
         //int i = in.nextInt();
         System.out.print("Name player1: ");
-        String player1 = in.next();
+        String player1 = (String)in.next();
         System.out.print("Name player2: ");
-        String player2 = in.next();
+        String player2 = (String)in.next();
         System.out.println();
         System.out.println("The players are: "+ player1 + " and "+ player2);
-        GameEngine game = new gameLogic(player1, player2);
-        
+        GameEngine game = new GameEngine(player1, player2);
+
 
 
 
