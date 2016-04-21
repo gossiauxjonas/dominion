@@ -12,7 +12,6 @@ public class ConsoleReadingDemo {
         //int i = in.nextInt();
         System.out.print("Name player1: ");
         String s1 = in.next();
-        System.out.println();
         System.out.print("Name player2: ");
         String s2 = in.next();
         System.out.println();
