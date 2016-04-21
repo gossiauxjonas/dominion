@@ -6,4 +6,5 @@ function definePlayerArray() {
 
 $(document).ready(function () {
     $('#playerForm').on('submit', definePlayerArray);
+    
 });

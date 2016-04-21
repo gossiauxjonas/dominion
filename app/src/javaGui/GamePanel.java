@@ -59,13 +59,7 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> 4810fa842690efd3657b157b3eeb2a950a9ed697
 
             }
         });
