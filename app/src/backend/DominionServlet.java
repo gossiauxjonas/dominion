@@ -2,12 +2,14 @@ package backend;
 
 import logic.GameEngine;
 
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
  * Created by Asus on 14/04/16.
  */
+
 public class DominionServlet extends javax.servlet.http.HttpServlet {
 
     // dit is een bug:
@@ -18,6 +20,8 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        response.getWriter().write("Hello world");
+        /*
         PrintWriter pw = response.getWriter();
 
         GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
@@ -50,6 +54,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
             default:
-        }
+        }*/
     }
 }
