@@ -27,7 +27,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
         if(gameEngine == null)
         {
-            gameEngine = new GameEngine();
+            //gameEngine = new GameEngine();
             request.getServletContext().setAttribute("gameEngine", gameEngine);
         }
 
