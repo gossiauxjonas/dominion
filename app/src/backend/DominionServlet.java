@@ -20,7 +20,11 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        response.getWriter().write("Hello world");
+        response.getWriter().write("Hello world" + "\n");
+        String player= request.getParameter("player1");
+        String otherPlayer= request.getParameter("player2");
+
+        response.getWriter().write(player+" and "+otherPlayer);
         /*
         PrintWriter pw = response.getWriter();
 
