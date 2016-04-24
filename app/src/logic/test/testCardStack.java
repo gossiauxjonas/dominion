@@ -1,8 +1,6 @@
 package logic.test;
 
-import junit.framework.Assert;
 import logic.*;
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -15,7 +13,7 @@ public class testCardStack {
 
     @Test
     public void testAmountCopper() {
-        TreasureCard copper = new TreasureCard(0, 1);
+        TreasureCard copper = new TreasureCard("copper", 0, 1);
         CardStack copperStack2P = new CardStack(2, copper);
         assertEquals(copperStack2P.getAmountOfCards(), 46);
         CardStack copperStack3P = new CardStack(3, copper);
@@ -26,7 +24,7 @@ public class testCardStack {
 
     @Test
     public void testAmountSilver() {
-        TreasureCard silver = new TreasureCard(3, 2);
+        TreasureCard silver = new TreasureCard("silver", 3, 2);
         CardStack silverStack2P = new CardStack(2, silver);
         assertEquals(silverStack2P.getAmountOfCards(), 40);
         CardStack silverStack3P = new CardStack(3, silver);
@@ -37,7 +35,7 @@ public class testCardStack {
 
     @Test
     public void testAmountGold() {
-        TreasureCard gold = new TreasureCard(6, 3);
+        TreasureCard gold = new TreasureCard("gold", 6, 3);
         CardStack goldStack2P = new CardStack(2, gold);
         assertEquals(goldStack2P.getAmountOfCards(), 30);
         CardStack goldStack3P = new CardStack(3, gold);
@@ -48,7 +46,7 @@ public class testCardStack {
 
     @Test
     public void testAmountBaseActionCard() {
-        ActionCard actionCard = new ActionCard(15);
+        ActionCard actionCard = new ActionCard("testactioncard" ,15);
         CardStack actionStack2P = new CardStack(2, actionCard);
         assertEquals(actionStack2P.getAmountOfCards(), 10);
         CardStack actionStack3P = new CardStack(3, actionCard);
@@ -81,7 +79,7 @@ public class testCardStack {
 
     @Test
     public void testAmountCurse() {
-        VictoryCard curse = new VictoryCard(0, -1);
+        VictoryCard curse = new VictoryCard("curse", 0, -1);
         CardStack curseStack2P = new CardStack(2, curse);
         assertEquals(curseStack2P.getAmountOfCards(), 10);
         CardStack curseStack3P = new CardStack(3, curse);
@@ -92,7 +90,7 @@ public class testCardStack {
 
     @Test
     public void testAmountEstate() {
-        VictoryCard estate = new VictoryCard(2, 1);
+        VictoryCard estate = new VictoryCard("estate", 2, 1);
         CardStack estateStack2P = new CardStack(2, estate);
         assertEquals(estateStack2P.getAmountOfCards(), 8);
         CardStack estateStack3P = new CardStack(3, estate);
@@ -103,7 +101,7 @@ public class testCardStack {
 
     @Test
     public void testAmountDuchy() {
-        VictoryCard duchy = new VictoryCard(5, 3);
+        VictoryCard duchy = new VictoryCard("duchy", 5, 3);
         CardStack duchyStack2P = new CardStack(2, duchy);
         assertEquals(duchyStack2P.getAmountOfCards(), 8);
         CardStack duchyStack3P = new CardStack(3, duchy);
@@ -114,7 +112,7 @@ public class testCardStack {
 
     @Test
     public void testAmountProvince() {
-        VictoryCard province = new VictoryCard(8, 6);
+        VictoryCard province = new VictoryCard("province", 8, 6);
         CardStack provinceStack2P = new CardStack(2, province);
         assertEquals(provinceStack2P.getAmountOfCards(), 8);
         CardStack provinceStack3P = new CardStack(3, province);

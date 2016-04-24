@@ -6,7 +6,7 @@ package logic;
 
 public class Shop {
 
-    public CardStack[] shopArray;
+    private CardStack[] shopArray;
     private int emptyStacks;
     private boolean open;
 
@@ -22,7 +22,7 @@ public class Shop {
                 , Province, curse);
     }
 
-    private void CreateShopArray(CardStack... card) {
+    public void CreateShopArray(CardStack... card) {
         for (int i = 0; i < card.length; i++) {
             shopArray[i] = card[i];
         }
@@ -42,7 +42,7 @@ public class Shop {
         return shopArray[place].getCard();
     }
 
-    private void CanShop(int place) {
+    public void CanShop(int place) {
         CardStack stack = shopArray[place];
         BasicCard card = stack.getCard();
         if (stack.getAmountOfCards() == 0) {
@@ -51,6 +51,10 @@ public class Shop {
                 open = false;
             }
         }
+    }
+
+    public CardStack[] getShopArray() {
+        return shopArray;
     }
 
     public boolean isOpen() {

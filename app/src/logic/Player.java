@@ -25,7 +25,7 @@ public class Player {
         drawCardToHand(5);
     }
 
-    private List createNewDeck(TreasureCard copper, VictoryCard estate) {
+    public List createNewDeck(TreasureCard copper, VictoryCard estate) {
         List<BasicCard> newDeck = new ArrayList<BasicCard>();
         for (int i = 0; i < 7; i++) {
             newDeck.add(copper);

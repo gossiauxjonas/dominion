@@ -28,8 +28,8 @@ public class TestPlayer {
     @Before
     public void setUp() {
         String name = "name";
-        copper = new TreasureCard(0, 1);
-        estate = new VictoryCard(2, 1);
+        copper = new TreasureCard("copper", 0, 1);
+        estate = new VictoryCard("estate", 2, 1);
         player0 = new Player(name, copper, estate);
         player1 = new Player(name, copper, estate);
         player2 = new Player(name, copper, estate);

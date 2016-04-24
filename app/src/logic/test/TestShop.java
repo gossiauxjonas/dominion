@@ -13,14 +13,14 @@ import static org.junit.Assert.*;
 public class TestShop {
 
     //Cards
-    BasicCard copper = new TreasureCard(0, 1);
-    BasicCard silver = new TreasureCard(3, 2);
-    BasicCard gold = new TreasureCard(6, 3);
-    BasicCard actionCard = new ActionCard(4);
-    BasicCard estate = new VictoryCard(2, 1);
-    BasicCard duchy = new VictoryCard(5, 3);
-    BasicCard province = new VictoryCard(8, 6);
-    BasicCard curse = new VictoryCard(0, -1);
+    BasicCard copper = new TreasureCard("copper", 0, 1);
+    BasicCard silver = new TreasureCard("silver", 3, 2);
+    BasicCard gold = new TreasureCard("gold", 6, 3);
+    BasicCard actionCard = new ActionCard("testactioncard", 4);
+    BasicCard estate = new VictoryCard("estate" ,2, 1);
+    BasicCard duchy = new VictoryCard("duchy", 5, 3);
+    BasicCard province = new VictoryCard("province", 8, 6);
+    BasicCard curse = new VictoryCard("curse", 0, -1);
 
     //Stacks
     CardStack copperStack1 = new CardStack(2, copper);

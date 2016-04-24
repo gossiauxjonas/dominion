@@ -7,37 +7,39 @@ package logic;
 
 public class GameEngine {
 
-    TreasureCard copper = new TreasureCard(0, 1);
-    BasicCard silver = new TreasureCard(3, 2);
-    BasicCard gold = new TreasureCard(6, 3);
-    BasicCard actionCard = new ActionCard(4);
-    VictoryCard estate = new VictoryCard(2, 1);
-    BasicCard duchy = new VictoryCard(5, 3);
-    BasicCard province = new VictoryCard(8, 6);
-    BasicCard curse = new VictoryCard(0, -1);
+    private TreasureCard copper = new TreasureCard("copper", 0, 1);
+    private BasicCard silver = new TreasureCard("silver" ,3, 2);
+    private BasicCard gold = new TreasureCard("gold", 6, 3);
+    private BasicCard actionCard = new ActionCard("testactioncard" ,4);
+    private VictoryCard estate = new VictoryCard("estate" ,2, 1);
+    private BasicCard duchy = new VictoryCard("duchy", 5, 3);
+    private BasicCard province = new VictoryCard("province", 8, 6);
+    private BasicCard curse = new VictoryCard("curse", 0, -1);
 
-    CardStack copperStack = new CardStack(2, copper);
-    CardStack silverStack = new CardStack(2, silver);
-    CardStack goldStack = new CardStack(2, gold);
-    CardStack estateStack = new CardStack(2, estate);
-    CardStack duchyStack = new CardStack(2, duchy);
-    CardStack provinceStack = new CardStack(2, province);
-    CardStack curseStack = new CardStack(2, curse);
+    private CardStack copperStack = new CardStack(2, copper);
+    private CardStack silverStack = new CardStack(2, silver);
+    private CardStack goldStack = new CardStack(2, gold);
+    private CardStack estateStack = new CardStack(2, estate);
+    private CardStack duchyStack = new CardStack(2, duchy);
+    private CardStack provinceStack = new CardStack(2, province);
+    private CardStack curseStack = new CardStack(2, curse);
 
-    CardStack actionCardStack1 = new CardStack(2, actionCard);
-    CardStack actionCardStack2 = new CardStack(2, actionCard);
-    CardStack actionCardStack3 = new CardStack(2, actionCard);
-    CardStack actionCardStack4 = new CardStack(2, actionCard);
-    CardStack actionCardStack5 = new CardStack(2, actionCard);
-    CardStack actionCardStack6 = new CardStack(2, actionCard);
-    CardStack actionCardStack7 = new CardStack(2, actionCard);
-    CardStack actionCardStack8 = new CardStack(2, actionCard);
-    CardStack actionCardStack9 = new CardStack(2, actionCard);
-    CardStack actionCardStack10 = new CardStack(2, actionCard);
+    private CardStack actionCardStack1 = new CardStack(2, actionCard);
+    private CardStack actionCardStack2 = new CardStack(2, actionCard);
+    private CardStack actionCardStack3 = new CardStack(2, actionCard);
+    private CardStack actionCardStack4 = new CardStack(2, actionCard);
+    private CardStack actionCardStack5 = new CardStack(2, actionCard);
+    private CardStack actionCardStack6 = new CardStack(2, actionCard);
+    private CardStack actionCardStack7 = new CardStack(2, actionCard);
+    private CardStack actionCardStack8 = new CardStack(2, actionCard);
+    private CardStack actionCardStack9 = new CardStack(2, actionCard);
+    private CardStack actionCardStack10 = new CardStack(2, actionCard);
 
     private Shop shop;
 
     private Player[] players;
+
+    private int playerTurn;
 
     public GameEngine(String player1, String player2) {
         players = new Player[]{new Player(player1, copper, estate), new Player(player2, copper, estate)};
@@ -52,6 +54,16 @@ public class GameEngine {
         return players[playersTurn];
     }
 
+    public Shop getShop() {
+        return shop;
+    }
 
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void nextTurn() {
+        playerTurn = (playerTurn + 1) % 2;
+    }
 
 }
