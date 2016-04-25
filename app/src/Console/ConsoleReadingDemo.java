@@ -1,8 +1,10 @@
 package Console;
 
-import logic.*;
+import logic.CardStack;
+import logic.GameEngine;
+import logic.Player;
+import logic.Shop;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,38 +27,39 @@ public class ConsoleReadingDemo {
         }
     }
 
-    public int actionPlay(GameEngine game) {
+    public int choicePlay() {
         Scanner in = new Scanner(System.in);
-        System.out.print("Play an action card nummer or " + game.getPlayer(game.getPlayerTurn()).getHand().size() + " to play treaser");
+        System.out.print("");
         return in.nextInt();
     }
 
-    public int calculateTreasure(GameEngine game) {
-        int coinsInHand = 0;
-        List<BasicCard> hand = game.getPlayer(game.getPlayerTurn()).getHand();
-        for (int i = 0; i < hand.size(); i++) {
-            if (hand.get(i).getClass().equals(TreasureCard.class)) {
-                TreasureCard temp = (TreasureCard) hand.get(i);
-                coinsInHand += (temp.getCoinValue());
-            }
-        }
-        return coinsInHand;
-    }
-
     public void turn(GameEngine game) {
-        printShop(game.getShop());
         System.out.println();
-        printHand(game.getPlayer(game.getPlayerTurn()));
+        printHand(game.getPlayer());
         int actions = 1;
+        int buys = 1;
         while (actions > 0) {
             System.out.println("actions left: " + actions);
-            int choice = actionPlay(game);
-            if (choice == game.getPlayer(game.getPlayerTurn()).getHand().size()) {
+            int choice = choicePlay();
+            if (choice == game.getPlayer().getHand().size()) {
                 actions = 0;
+            } else {
+
             }
-            int treasure = calculateTreasure(game);
-            System.out.println("coins: " + treasure);
-            game.getPlayer(game.getPlayerTurn()).endTurn();
+            while (buys > 0) {
+                printShop(game.getShop());
+                System.out.println("coins: " + game.calculateTreasure());
+                int choice2 = choicePlay();
+                if (choice2 == 17) {
+                    buys = 0;
+                } else {
+                    game.getPlayer().toDiscard(game.getShop().buyCard(choice2));
+                    buys--;
+                }
+                System.out.println("******************************************************************");
+
+            }
+            game.getPlayer().endTurn();
             game.nextTurn();
             System.out.println();
             System.out.println("----------------------------------------------------------------------");

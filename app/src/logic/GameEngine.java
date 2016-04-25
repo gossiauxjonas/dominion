@@ -43,17 +43,20 @@ public class GameEngine {
 
     private int playerTurn;
 
-    public GameEngine(String player1, String player2) {
-        players = new Player[]{new Player(player1, copper, estate), new Player(player2, copper, estate)};
+    public GameEngine(String... players) {
+        this.players = new Player[players.length];
+        for (int i = 0; i < players.length; i++) {
+            this.players[i] = new Player(players[i], copper, estate);
+        }
         shop = new Shop(copperStack, silverStack, goldStack, actionCardStack1, actionCardStack2
                 , actionCardStack3, actionCardStack4, actionCardStack5, actionCardStack6
                 , actionCardStack7, actionCardStack8, actionCardStack9, actionCardStack10
                 , estateStack, duchyStack, provinceStack, curseStack);
-
+        playerTurn = 0;
     }
 
-    public Player getPlayer(int playersTurn) {
-        return players[playersTurn];
+    public Player getPlayer() {
+        return players[playerTurn];
     }
 
     public Shop getShop() {
@@ -65,12 +68,12 @@ public class GameEngine {
     }
 
     public void nextTurn() {
-        playerTurn = (playerTurn + 1) % 2;
+        playerTurn = (playerTurn + 1) % players.length;
     }
 
-    public int calculateTreasure(GameEngine game) {
+    public int calculateTreasure() {
         int coinsInHand = 0;
-        List<BasicCard> hand = game.getPlayer(game.getPlayerTurn()).getHand();
+        List<BasicCard> hand = getPlayer().getHand();
         for (int i = 0; i < hand.size(); i++) {
             if (hand.get(i).getClass().equals(TreasureCard.class)) {
                 TreasureCard temp = (TreasureCard) hand.get(i);
@@ -79,12 +82,5 @@ public class GameEngine {
         }
         return coinsInHand;
     }
-
-    public getPlayer(){
-        
-    }
-
-
-
 
 }
