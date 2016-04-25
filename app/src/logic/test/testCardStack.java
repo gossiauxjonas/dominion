@@ -131,4 +131,17 @@ public class testCardStack {
         smithyStack.decrementStack();
         assertEquals(smithyStack.getAmountOfCards(), 7);
     }
+
+    @Test
+    public void testSavedStack() {
+        Smithy smithy = new Smithy();
+        CardStack savedSmithyStack = new CardStack(smithy, 5);
+        assertEquals(savedSmithyStack.getAmountOfCards(), 5);
+        Garden garden = new Garden();
+        CardStack savedGardenStack = new CardStack(garden, 7);
+        assertEquals(savedGardenStack.getAmountOfCards(), 7);
+        ActionCard actionCard = new ActionCard("actionCard", 4);
+        CardStack savedActionCardStack = new CardStack(actionCard, 9);
+        assertEquals(savedActionCardStack.getAmountOfCards(), 9);
+    }
 }

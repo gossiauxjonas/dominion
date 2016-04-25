@@ -14,10 +14,25 @@ public class CardStack {
         setAmountOfCards(amountPlayers);
     }
 
+    public CardStack(BasicCard card, int cardsLeft) {
+        this.card = card;
+        amountOfCards = cardsLeft;
+    }
+
     public void setAmountOfCards(int amountPlayers) { // refactor
-        if (ActionCard.class.isAssignableFrom(card.getClass())) setAmountActionCard(amountPlayers);
+        switch (card.getClass().getName()) {
+            case "logic.TreasureCard":
+                setAmountTreasureCard(amountPlayers);
+                break;
+            case "logic.VictoryCard":
+                setAmountVictoryCard(amountPlayers);
+                break;
+            default: setAmountActionCard(amountPlayers);
+                break;
+        }
+        /*if (ActionCard.class.isAssignableFrom(card.getClass())) setAmountActionCard(amountPlayers);
         else if (card.getClass().equals(TreasureCard.class)) setAmountTreasureCard(amountPlayers);
-        else if (card.getClass().equals(VictoryCard.class)) setAmountVictoryCard(amountPlayers);
+        else if (card.getClass().equals(VictoryCard.class)) setAmountVictoryCard(amountPlayers);*/
     }
 
     public void setAmountActionCard(int amountPlayers) {
@@ -30,14 +45,14 @@ public class CardStack {
     }
 
     public void setAmountTreasureCard(int amountPlayers) {
-        switch (card.getPrice()) {
-            case 0:
+        switch (card.getName()) {
+            case "copper":
                 amountOfCards = 60 - amountPlayers * 7;
                 break;
-            case 3:
+            case "silver":
                 amountOfCards = 40;
                 break;
-            case 6:
+            case "gold":
                 amountOfCards = 30;
                 break;
         }
@@ -53,6 +68,8 @@ public class CardStack {
     public BasicCard getCard() {
         return card;
     }
+
+    public int getPriceOfCard() {return card.getPrice();}
 
     public int getAmountOfCards() {
         return amountOfCards;

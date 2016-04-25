@@ -92,6 +92,10 @@ public class ConsoleReadingDemo {
     }
 
     private void run() {
+        TreasureCard copper = new TreasureCard("copper", 0 ,1);
+        System.out.println(copper.getClass().getName());
+
+
         Scanner in = new Scanner(System.in);
 
         System.out.print("Name player1: ");

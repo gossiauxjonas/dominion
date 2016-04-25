@@ -26,10 +26,11 @@ public class Shop {
         for (int i = 0; i < card.length; i++) {
             shopArray[i] = card[i];
         }
+
     }
 
     public int priceOfCard(int place) {
-        return shopArray[place].getCard().getPrice();
+        return shopArray[place].getPriceOfCard();
     }
 
     public int cardsLeftInStack(int place) {
