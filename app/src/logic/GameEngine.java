@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.List;
+
 /**
   * Created by Indy Van Mol on 23/03/2016.
  **/
@@ -65,5 +67,24 @@ public class GameEngine {
     public void nextTurn() {
         playerTurn = (playerTurn + 1) % 2;
     }
+
+    public int calculateTreasure(GameEngine game) {
+        int coinsInHand = 0;
+        List<BasicCard> hand = game.getPlayer(game.getPlayerTurn()).getHand();
+        for (int i = 0; i < hand.size(); i++) {
+            if (hand.get(i).getClass().equals(TreasureCard.class)) {
+                TreasureCard temp = (TreasureCard) hand.get(i);
+                coinsInHand += (temp.getCoinValue());
+            }
+        }
+        return coinsInHand;
+    }
+
+    public getPlayer(){
+        
+    }
+
+
+
 
 }
