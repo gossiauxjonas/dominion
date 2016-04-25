@@ -18,9 +18,9 @@ public class TestVictoryCard {
 
     @Before
     public void setUp() {
-        victoryCard1 = new VictoryCard(2, 1);
-        victoryCard2 = new VictoryCard(5, 3);
-        victoryCard3 = new VictoryCard(8, 6);
+        victoryCard1 = new VictoryCard("estate", 2, 1);
+        victoryCard2 = new VictoryCard("duchy" , 5, 3);
+        victoryCard3 = new VictoryCard("province" , 8, 6);
     }
 
     @Test

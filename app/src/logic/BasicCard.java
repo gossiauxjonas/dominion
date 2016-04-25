@@ -6,14 +6,18 @@ package logic;
 
 public class BasicCard {
 
+    private String name;
     private int price;
 
-    public BasicCard(int price) {
+    public BasicCard(String name, int price) {
+        this.name = name;
         this.price = price;
     }
 
     public int getPrice() {
         return price;
     }
+
+    public String getName() { return name; }
 
 }

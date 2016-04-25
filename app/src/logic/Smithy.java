@@ -6,7 +6,7 @@ package logic;
 public class Smithy extends ActionCard {
 
     public Smithy() {
-        super(4);
+        super("smithy", 4);
     }
 
     public void playAction(Player player) {

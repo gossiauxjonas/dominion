@@ -7,7 +7,7 @@ package logic;
 public class Garden extends ActionCard {
 
     public Garden() {
-        super(4);
+        super("garden", 4);
     }
 
 }

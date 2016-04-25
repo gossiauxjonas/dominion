@@ -1,6 +1,5 @@
 package logic.test;
 
-import logic.BasicCard;
 import logic.TreasureCard;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,9 +18,9 @@ public class TestTreasureCard {
 
     @Before
     public void setUp() {
-        treasureCard1 = new TreasureCard(0, 1);
-        treasureCard2 = new TreasureCard(3, 2);
-        treasureCard3 = new TreasureCard(6, 3);
+        treasureCard1 = new TreasureCard("copper", 0, 1);
+        treasureCard2 = new TreasureCard("silver", 3, 2);
+        treasureCard3 = new TreasureCard("gold", 6, 3);
     }
 
     @Test
