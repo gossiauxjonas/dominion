@@ -25,12 +25,14 @@ public class Player {
         drawCardToHand(5);
     }
 
+    //public Player(){}
+
     public List createNewDeck(TreasureCard copper, VictoryCard estate) {
         List<BasicCard> newDeck = new ArrayList<BasicCard>();
         for (int i = 0; i < 7; i++) {
             newDeck.add(copper);
         }
-        for (int i = 7; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             newDeck.add(estate);
         }
         shuffle(newDeck);
@@ -81,7 +83,7 @@ public class Player {
         }
     }
 
-    public void fillDeck() {
+    public void fillDeck() { //refactor drawDeck = shuffle(Discard);
         int cardsInDiscard = amountCardsDiscard();
         for (int i = 0; i < cardsInDiscard; i++) {
             drawDeck.add(discardDeck.remove(0));

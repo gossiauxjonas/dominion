@@ -14,7 +14,7 @@ public class CardStack {
         setAmountOfCards(amountPlayers);
     }
 
-    public void setAmountOfCards(int amountPlayers) {
+    public void setAmountOfCards(int amountPlayers) { // refactor
         if (ActionCard.class.isAssignableFrom(card.getClass())) setAmountActionCard(amountPlayers);
         else if (card.getClass().equals(TreasureCard.class)) setAmountTreasureCard(amountPlayers);
         else if (card.getClass().equals(VictoryCard.class)) setAmountVictoryCard(amountPlayers);
