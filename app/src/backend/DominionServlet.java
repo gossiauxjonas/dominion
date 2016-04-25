@@ -1,5 +1,6 @@
 package backend;
 
+import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
 
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +13,8 @@ import java.io.PrintWriter;
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
 
-    // dit is een bug:
-    //private GameEngine gameEngine;
+    // dit is een bug;
+    private GameEngine gameEngine;
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
@@ -25,6 +26,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         String otherPlayer= request.getParameter("player2");
 
         response.getWriter().write(player+" and "+otherPlayer);
+        gameEngine = new GameEngine(player,otherPlayer);
+
+
+
         /*
         PrintWriter pw = response.getWriter();
 
