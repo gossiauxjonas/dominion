@@ -11,43 +11,17 @@ import java.util.Scanner;
 
 public class ConsoleReadingDemo {
 
-    public String cardName(BasicCard card) {
-        if (card.getClass().equals(TreasureCard.class)) {
-            switch (card.getPrice()) {
-                case 0:
-                    return "Copper";
-                case 3:
-                    return "Silver";
-                case 6:
-                    return "Gold";
-            }
-        }
-        else {
-            switch (card.getPrice()) {
-                case 2:
-                    return "Estate";
-                case 5:
-                    return "Duchy";
-                case 8:
-                    return "Province";
-                case 0:
-                    return "Curse";
-            }
-        }
-        return card.getClass().getName();
-    }
-
     public void printHand(Player player) {
         System.out.println(player.getName() + " his hand:");
         for (int i = 0; i < player.getHand().size(); i++)
-            System.out.println("Card "+ i + ": " + cardName((BasicCard) player.getHand().get(i)));
+            System.out.println("Card "+ i + ": " + player.getCardInHandOn(i).getName());
     }
 
     public void printShop(Shop shop) {
         System.out.println("Shop");
         for (int i = 0; i < shop.getShopArray().length; i++) {
             CardStack stack = shop.getShopArray()[i];
-            System.out.println("Stack " + i + ": " + cardName(stack.getCard()) + " price: " + stack.getCard().getPrice() +" cards left: " + stack.getAmountOfCards());
+            System.out.println("Stack " + i + ": " + stack.getCard().getName() + " price: " + stack.getCard().getPrice() +" cards left: " + stack.getAmountOfCards());
         }
     }
 
@@ -92,10 +66,6 @@ public class ConsoleReadingDemo {
     }
 
     private void run() {
-        TreasureCard copper = new TreasureCard("copper", 0 ,1);
-        System.out.println(copper.getClass().getName());
-
-
         Scanner in = new Scanner(System.in);
 
         System.out.print("Name player1: ");

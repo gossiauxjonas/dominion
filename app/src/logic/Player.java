@@ -107,6 +107,10 @@ public class Player {
         }
     }
 
+    public BasicCard getCardInHandOn(int index) {
+        return hand.get(index);
+    }
+
     public void toDiscard(BasicCard card) {
         discardDeck.add(card);
     }
