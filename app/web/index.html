@@ -11,13 +11,43 @@
 
 <body>
 <div class="login">
-    <form method = "get" action="/DominionServlet" id="playerForm">
+
+
+    <form method="get" action="/DominionServlet" id="playerForm">
+
+
+        <fieldset class="amount">
+            <label>Choose the amount of players </label>
+
+            <input type="radio" name="amount" id="two" value="two" checked>
+            <label for="two"> Two</label>
+
+            <input type="radio" name="amount" id="three" value="three">
+            <label for="three"> Three</label>
+
+
+
+        </fieldset>
+
+<fieldset class="names">
+        <label>Choose the name of your players:</label>
+        <br>
+
         <label for="player1">Player 1:</label>
-        <input type="text" name="player1" id="player1"> <br>
+        <input type="text" name="player1" id="player1">
         <label for="player2">Player 2:</label>
-        <input type="text" name="player2" id="player2"> <br>
+        <input type="text" name="player2" id="player2">
+
+        <div class="extraPlayer" hidden>
+            <label for="player3">Player 3:</label>
+            <input type="text" name="player3" id="player3">
+        </div>
+
+        <br>
 
         <input type="submit" value="start game">
+
+</fieldset>
 
     </form>
     <h1 id="demo"></h1>
