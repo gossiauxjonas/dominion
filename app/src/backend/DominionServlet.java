@@ -2,6 +2,7 @@ package backend;
 
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
+import logic.Player;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -21,36 +22,55 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        response.getWriter().write("Hello world" + "\n");
-        String player= request.getParameter("player1");
-        String otherPlayer= request.getParameter("player2");
-
-        response.getWriter().write(player+" and "+otherPlayer);
-        gameEngine = new GameEngine(player,otherPlayer);
 
 
-
-        /*
+        response.setContentType("application/json");
         PrintWriter pw = response.getWriter();
 
-        GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
+
+
+
+
+
+
+
+
+
+
+
+        //GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
         if(gameEngine == null)
         {
             //gameEngine = new GameEngine();
-            request.getServletContext().setAttribute("gameEngine", gameEngine);
+            //request.getServletContext().setAttribute("gameEngine", gameEngine);
         }
 
-        String naam = request.getParameter("naam");
 
-        pw.print(naam);
+
 
         // operation=
 
-        String operation = request.getParameter("operation");
+        String operation = "init";
+        //request.getParameter("operation");
 
         switch(operation)
         {
             case "init":
+                String firstplayer= request.getParameter("player1");
+                String otherPlayer= request.getParameter("player2");
+                String lastPlayer = request.getParameter("player3");
+
+
+                if(lastPlayer != null){
+                    gameEngine = new GameEngine(firstplayer,otherPlayer,lastPlayer);
+                    pw.write(firstplayer+otherPlayer+lastPlayer);
+
+                }
+                else {
+                    gameEngine = new GameEngine(firstplayer,otherPlayer);
+                    pw.write(firstplayer+otherPlayer);
+                }
+
                 // verwacht bv parameters: nrPlayers en name1 tot namen met n = aantal spelers
                 // roep bv method op waar je request aan meegeeft
                 // en die leest de vereiste parameters
@@ -63,6 +83,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
             default:
-        }*/
+        }
     }
 }

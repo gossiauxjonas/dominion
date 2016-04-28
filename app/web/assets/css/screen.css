@@ -1,6 +1,41 @@
+body{
+width: 100%;
+
+
+}
+
+body::after{
+    content: "";
+    background-image:url("../media/images/dominionBackground.jpg") ;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
 input{
     display: inline-block;
+    border-radius: 7px ;
+
+
 }
 .names input{
     display: block;
+}
+.login{
+    width: 35%;
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: green;
+
+
+}
+.login input{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
