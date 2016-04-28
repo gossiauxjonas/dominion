@@ -13,11 +13,11 @@
 <div class="login">
 
 
-    <form method="get" action="/DominionServlet" id="playerForm">
+   <div class="container"> <form method="get" action="/DominionServlet" id="playerForm">
 
 
         <fieldset class="amount">
-            <label>Choose the amount of players </label>
+            <h1>Choose the amount of players </h1>
 
             <input type="radio" name="amount" id="two" value="two" checked>
             <label for="two"> Two</label>
@@ -28,18 +28,18 @@
 
 
         </fieldset>
+        <h2>Choose the name of your players:</h2></div>
 
-<fieldset class="names">
-        <label>Choose the name of your players:</label>
-        <br>
+<div class="names">
 
-        <label for="player1">Player 1:</label>
+      
+        <label for="player1" class="playerlabel">Player 1:</label>
         <input type="text" name="player1" id="player1">
-        <label for="player2">Player 2:</label>
+        <label for="player2" class="playerlabel">Player 2:</label>
         <input type="text" name="player2" id="player2">
 
         <div class="extraPlayer" hidden>
-            <label for="player3">Player 3:</label>
+            <label class="playerlabel" for="player3">Player 3:</label>
             <input type="text" name="player3" id="player3">
         </div>
 
@@ -47,7 +47,7 @@
 
         <input type="submit" value="start game">
 
-</fieldset>
+</div>
 
     </form>
     <h1 id="demo"></h1>
@@ -56,6 +56,7 @@
 
 <script src="assets/scripts/jquery/jquery-2.1.4.min.js"></script>
 <script src="assets/scripts/js/javascript.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
 </body>
 
 </html>
