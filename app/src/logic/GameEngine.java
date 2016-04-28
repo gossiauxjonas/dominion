@@ -14,6 +14,7 @@ public class GameEngine {
     private BasicCard silver = new TreasureCard("silver" ,3, 2);
     private BasicCard gold = new TreasureCard("gold", 6, 3);
     private BasicCard actionCard = new ActionCard("testactioncard" ,4);
+    private Garden garden = new Garden();
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private BasicCard duchy = new VictoryCard("duchy", 5, 3);
     private BasicCard province = new VictoryCard("province", 8, 6);
@@ -29,7 +30,7 @@ public class GameEngine {
 
     private CardStack actionCardStack1 = new CardStack(2, actionCard);
     private CardStack actionCardStack2 = new CardStack(2, actionCard);
-    private CardStack actionCardStack3 = new CardStack(2, actionCard);
+    private CardStack actionCardStack3 = new CardStack(2, garden);
     private CardStack actionCardStack4 = new CardStack(2, actionCard);
     private CardStack actionCardStack5 = new CardStack(2, actionCard);
     private CardStack actionCardStack6 = new CardStack(2, actionCard);
@@ -63,6 +64,8 @@ public class GameEngine {
     public Shop getShop() {
         return shop;
     }
+
+    public Player[] getPlayers() {return players;}
 
     public int getPlayerTurn() {
         return playerTurn;
@@ -98,25 +101,31 @@ public class GameEngine {
                 victoryPoints += card.getVictoryPoints();
             }
         }
-        victoryPoints += (allCardsPlayer.size()%10) * gardens;
+        victoryPoints += (allCardsPlayer.size() / 10) * gardens;
         return victoryPoints;
     }
 
-    public int[] playerPoints() {
-        int[] playerPoints = new int[players.length];
-        for (int i = 0; i < playerPoints.length; i++) {
-            playerPoints[i] = calculatePoints(i);
+    public int[][] playersAndScore() {
+        int[][] playerAndScore = new int[players.length][2];
+        for (int i = 0; i < players.length; i++) {
+            playerAndScore[i][0] = i;
+            playerAndScore[i][1] = calculatePoints(i);
         }
-        return playerPoints;
+        return playerAndScore;
     }
 
-    public String whoWon() {
-        int[] playerPoints = playerPoints();
-        int winner = 0;
-        for (int i = 1; i < playerPoints.length; i++) {
-            if (playerPoints[winner] < playerPoints[i]) winner = i;
+    public int[][] playerScoreRank() {
+        int[][] array = playersAndScore();
+        for (int i = 0; i < (array.length - 1); i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                if (array[j][1] < array[j+1][1]) {
+                    int[] swap       = array[j];
+                    array[j]   = array[j+1];
+                    array[j+1] = swap;
+                }
+            }
         }
-        return players[winner].getName();
+        return array;
     }
 
 }

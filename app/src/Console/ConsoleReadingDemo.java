@@ -34,9 +34,8 @@ public class ConsoleReadingDemo {
     }
 
     public void turn(GameEngine game) {
-        System.out.println();
         printHand(game.getPlayer());
-        int actions = 1;
+        int actions = 0;
         int buys = 1;
         while (actions > 0) {
             System.out.println("actions left: " + actions);
@@ -45,7 +44,7 @@ public class ConsoleReadingDemo {
                 actions = 0;
             } else {
                 if (!game.getShop().isOpen()) return;
-            }
+            } }
             while (buys > 0) {
                 printShop(game.getShop());
                 System.out.println("coins: " + game.calculateTreasureInHand());
@@ -65,7 +64,6 @@ public class ConsoleReadingDemo {
             System.out.println();
         System.out.println("------------------------------------------------------------------");
 
-    }
 
     }
 
@@ -84,7 +82,9 @@ public class ConsoleReadingDemo {
         while (game.getShop().isOpen()) {
             turn(game);
         }
-        System.out.println("The winner is: " + game.whoWon());
+        int[][] playerRank = game.playerScoreRank();
+        System.out.println("The winner is: " + game.getPlayers()[playerRank[0][0]].getName() + " with " + playerRank[0][1] + " points");
+        System.out.println(game.getPlayers()[playerRank[1][0]].getName() + " has " + playerRank[1][1] + " points");
     }
 
     public static void main(String[] args) {
