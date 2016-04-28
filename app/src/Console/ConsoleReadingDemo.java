@@ -84,7 +84,7 @@ public class ConsoleReadingDemo {
         while (game.getShop().isOpen()) {
             turn(game);
         }
-        System.out.println();
+        System.out.println("The winner is: " + game.whoWon());
     }
 
     public static void main(String[] args) {
