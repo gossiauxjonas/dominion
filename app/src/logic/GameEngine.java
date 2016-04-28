@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +72,7 @@ public class GameEngine {
         playerTurn = (playerTurn + 1) % players.length;
     }
 
-    public int calculateTreasure() {
+    public int calculateTreasureInHand() {
         int coinsInHand = 0;
         List<BasicCard> hand = getPlayer().getHand();
         for (int i = 0; i < hand.size(); i++) {
@@ -81,6 +82,41 @@ public class GameEngine {
             }
         }
         return coinsInHand;
+    }
+
+    public int calculatePoints(int playerPosition) {
+        Player player = players[playerPosition];
+        List<BasicCard> allCardsPlayer = new ArrayList<BasicCard>(player.getHand());
+        allCardsPlayer.addAll(player.getDrawDeck());
+        allCardsPlayer.addAll(player.getDiscard());
+        int gardens = 0;
+        int victoryPoints = 0;
+        for (int i = 0; i < allCardsPlayer.size(); i++) {
+            if (allCardsPlayer.get(i).getName() == "garden") gardens++;
+            if (allCardsPlayer.get(i).getClass().getName() == "logic.VictoryCard") {
+                VictoryCard card = (VictoryCard) allCardsPlayer.get(i);
+                victoryPoints += card.getVictoryPoints();
+            }
+        }
+        victoryPoints += (allCardsPlayer.size()%10) * gardens;
+        return victoryPoints;
+    }
+
+    public int[] playerPoints() {
+        int[] playerPoints = new int[players.length];
+        for (int i = 0; i < playerPoints.length; i++) {
+            playerPoints[i] = calculatePoints(i);
+        }
+        return playerPoints;
+    }
+
+    public String whoWon() {
+        int[] playerPoints = playerPoints();
+        int winner = 0;
+        for (int i = 1; i < playerPoints.length; i++) {
+            if (playerPoints[winner] < playerPoints[i]) winner = i;
+        }
+        return players[winner].getName();
     }
 
 }
