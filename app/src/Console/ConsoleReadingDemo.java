@@ -44,17 +44,18 @@ public class ConsoleReadingDemo {
             if (choice == game.getPlayer().getHand().size()) {
                 actions = 0;
             } else {
-
+                if (!game.getShop().isOpen()) return;
             }
             while (buys > 0) {
                 printShop(game.getShop());
-                System.out.println("coins: " + game.calculateTreasure());
+                System.out.println("coins: " + game.calculateTreasureInHand());
                 int choice2 = choicePlay();
                 if (choice2 == 17) {
                     buys = 0;
                 } else {
                     game.getPlayer().toDiscard(game.getShop().buyCard(choice2));
                     buys--;
+                    if (!game.getShop().isOpen()) return;
                 }
                 System.out.println("******************************************************************");
 
@@ -62,9 +63,9 @@ public class ConsoleReadingDemo {
             game.getPlayer().endTurn();
             game.nextTurn();
             System.out.println();
-            System.out.println("----------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------");
 
-        }
+    }
 
     }
 
@@ -83,6 +84,7 @@ public class ConsoleReadingDemo {
         while (game.getShop().isOpen()) {
             turn(game);
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {

@@ -47,6 +47,8 @@ public class Player {
         return hand;
     }
 
+    public List getDiscard() {return discardDeck; }
+
     public int amountCardsDeck() {
         return drawDeck.size();
     }
