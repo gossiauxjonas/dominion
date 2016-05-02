@@ -80,7 +80,49 @@ input{
 }
 .actionCards {
 float: right;
-    margin-right: 150px;
-    margin-top: 150px;
+    margin-right: 100px;
+    margin-top: 70px;
 
 }
+.valuables div{
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100px;
+    height: 175px;
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+
+
+}
+.valuables{
+    margin-left: 50px;
+    padding-top: 50px;
+}
+.curses{
+    background-image: url("../media/images/Cards/curse.jpg");
+}
+
+.province{
+    background-image: url("../media/images/Cards/province.jpg");
+
+}
+.estate{
+    background-image: url("../media/images/Cards/estate.jpg");
+}
+.duchy{
+    background-image: url("../media/images/Cards/duchy.jpg");
+}
+
+.gold{
+    background-image: url("../media/images/Cards/gold.jpg");
+
+}
+.silver{
+    background-image: url("../media/images/Cards/silver.jpg");
+}
+.copper{
+    background-image: url("../media/images/Cards/copper.jpg");
+}
+
+
