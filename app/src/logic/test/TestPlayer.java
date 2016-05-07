@@ -16,131 +16,128 @@ public class TestPlayer {
 
     TreasureCard copper;
     VictoryCard estate;
-    Player player0;
-    Player player1;
-    Player player2;
-    Player player3;
-    Player player4;
-    Player player5;
-    Player player6;
-    Player player7;
+    Player player;
 
     @Before
     public void setUp() {
         String name = "name";
         copper = new TreasureCard("copper", 0, 1);
         estate = new VictoryCard("estate", 2, 1);
-        player0 = new Player(name, copper, estate);
-        player1 = new Player(name, copper, estate);
-        player2 = new Player(name, copper, estate);
-        player3 = new Player(name, copper, estate);
-        player4 = new Player(name, copper, estate);
-        player5 = new Player(name, copper, estate);
-        player6 = new Player(name, copper, estate);
-        player7 = new Player(name, copper, estate);
+        player = new Player(name, copper, estate);
     }
 
     @Test
-    public void testConstructor() {
-        assertEquals(player1.amountCardsHand(), 5);
-        assertEquals(player1.amountCardsDeck(), 5);
+    public void testConstructorWithCreateNewDeck() {
+        assertEquals(5, player.amountCardsHand());
+        assertEquals(5, player.amountCardsDeck());
+        assertEquals(0, player.amountCardsDiscard());
+    }
+
+    @Test
+    public void testGetName() {
+        assertEquals("name", player.getName());
     }
 
     @Test
     public void testDrawCardFromDeck() {
-        Object copy1 = player0.getDrawDeck().get(4);
-        Object copy2 = player0.getDrawDeck().get(3);
-        Object safe1 = player0.drawCardFromDeck();
-        assertEquals(player0.amountCardsDeck(), 4);
-        assertEquals(safe1, copy1);
-        Object safe2 = player0.drawCardFromDeck();
-        assertEquals(player0.amountCardsDeck(), 3);
-        assertEquals(safe2, copy2);
+        Object copy1 = player.getDrawDeck().get(4);
+        Object safe1 = player.drawCardFromDeck();
+        assertEquals(4, player.amountCardsDeck());
+        assertEquals(copy1, safe1);
+        Object copy2 = player.getDrawDeck().get(3);
+        Object safe2 = player.drawCardFromDeck();
+        assertEquals(3, player.amountCardsDeck());
+        assertEquals(copy2, safe2);
     }
 
     @Test
     public void testDrawnCardToHand() {
-        player1.drawCardsToHand(1);
-        assertEquals(player1.amountCardsHand(), 6);
-        assertEquals(player1.amountCardsDeck(), 4);
-        player1.drawCardsToHand(2);
-        assertEquals(player1.amountCardsHand(), 8);
-        assertEquals(player1.amountCardsDeck(), 2);
+        Object copy1 = player.getDrawDeck().get(4);
+        player.drawCardsToHand(1);
+        assertEquals(6, player.amountCardsHand());
+        assertEquals(4, player.amountCardsDeck());
+        assertEquals(copy1, player.getCardInHandOn(5));
+        Object copy2 = player.getDrawDeck().get(3);
+        Object copy3 = player.getDrawDeck().get(2);
+        player.drawCardsToHand(2);
+        assertEquals(8, player.amountCardsHand());
+        assertEquals(2, player.amountCardsDeck());
+        assertEquals(copy2, player.getCardInHandOn(6));
+        assertEquals(copy3, player.getCardInHandOn(7));
     }
 
     @Test
     public void testDiscardCardFromHand() {
-        player2.discardCardFromHand(4);
-        assertEquals(player2.amountCardsHand(), 4);
-        assertEquals(player2.amountCardsDiscard(), 1);
-        player2.discardCardFromHand(0);
-        assertEquals(player2.amountCardsHand(), 3);
-        assertEquals(player2.amountCardsDiscard(), 2);
+        player.discardCardFromHand(4);
+        assertEquals(4, player.amountCardsHand());
+        assertEquals(1, player.amountCardsDiscard());
+        player.discardCardFromHand(0);
+        assertEquals(3, player.amountCardsHand());
+        assertEquals(2, player.amountCardsDiscard());
     }
 
     @Test
     public void testEmptyHand() {
-        player3.emptyHand();
-        assertEquals(player3.amountCardsHand(), 0);
-        assertEquals(player3.amountCardsDiscard(), 5);
+        player.emptyHand();
+        assertEquals(0, player.amountCardsHand());
+        assertEquals(5, player.amountCardsDiscard());
     }
 
     @Test
     public void testEndTurn() {
-        player4.endTurn();
-        assertEquals(player4.amountCardsHand(), 5);
-        assertEquals(player4.amountCardsDiscard(), 5);
-        assertEquals(player4.amountCardsDeck(), 0);
+        player.endTurn();
+        assertEquals(5, player.amountCardsHand());
+        assertEquals(5, player.amountCardsDiscard());
+        assertEquals(0, player.amountCardsDeck());
     }
 
     @Test
     public void testFillDeck() {
-        player5.emptyHand();
-        player5.drawCardsToHand(5);
-        assertEquals(player5.amountCardsDeck(), 0);
-        assertEquals(player5.amountCardsHand(), 5);
-        assertEquals(player5.amountCardsDiscard(), 5);
-        player5.emptyHand();
-        assertEquals(player5.amountCardsHand(), 0);
-        assertEquals(player5.amountCardsDiscard(), 10);
-        player5.drawCardsToHand(1);
-        assertEquals(player5.amountCardsDeck(), 9);
-        assertEquals(player5.amountCardsHand(), 1);
-        assertEquals(player5.amountCardsDiscard(), 0);
-        player5.drawCardsToHand(5);
-        player5.endTurn();
-        assertEquals(player5.amountCardsDeck(), 5);
-        assertEquals(player5.amountCardsHand(), 5);
-        assertEquals(player5.amountCardsDiscard(), 0);
+        player.emptyHand();
+        player.drawCardsToHand(5);
+        assertEquals(0, player.amountCardsDeck());
+        assertEquals(5, player.amountCardsHand());
+        assertEquals(5, player.amountCardsDiscard());
+        player.emptyHand();
+        assertEquals(0, player.amountCardsHand());
+        assertEquals(10, player.amountCardsDiscard());
+        player.drawCardsToHand(1);
+        assertEquals(9, player.amountCardsDeck());
+        assertEquals(1, player.amountCardsHand());
+        assertEquals(0, player.amountCardsDiscard());
+        player.drawCardsToHand(5);
+        player.endTurn();
+        assertEquals(5, player.amountCardsDeck());
+        assertEquals(5, player.amountCardsHand());
+        assertEquals(0, player.amountCardsDiscard());
     }
 
     @Test
-    public void testPlayCard() {
-        Object copy1 = player6.getHand().get(0);
-        Object ref1 = player6.playCard(0);
-        assertEquals(copy1, ref1);
-        assertEquals(player6.amountCardsHand(), 5);
-        Object copy2 = player6.getHand().get(3);
-        Object ref2 = player6.playCard(3);
-        assertEquals(copy2, ref2);
-        assertEquals(player6.amountCardsHand(), 5);
+    public void testDrawnCardToHandWhenBothDecksAreEmpty() {
+        player.drawCardsToHand(5);
+        assertEquals(10, player.amountCardsHand());
+        assertEquals(0, player.amountCardsDeck());
+        assertEquals(0, player.amountCardsDiscard());
+        player.drawCardsToHand(2);
+        assertEquals(10, player.amountCardsHand());
+        assertEquals(0, player.amountCardsDeck());
+        assertEquals(0, player.amountCardsDiscard());
     }
 
     @Test
     public void testPutDeckOnDiscard() {
-        player6.discardCardFromHand(3);
-        player6.putDeckOnDiscard();
-        assertEquals(player6.amountCardsDiscard(), 6);
-        assertEquals(player6.amountCardsDeck(), 0);
+        player.putDeckOnDiscard();
+        assertEquals(5, player.amountCardsDiscard());
+        assertEquals(0, player.amountCardsDeck(), 0);
     }
 
     @Test
     public void testToDiscard() {
-        player7.toDiscard(estate);
-        assertEquals(player7.amountCardsDiscard(), 1);
-        player7.toDiscard(copper);
-        player7.toDiscard(copper);
-        assertEquals(player7.amountCardsDiscard(), 3);
+        player.toDiscard(estate);
+        assertEquals(1, player.amountCardsDiscard());
+        player.toDiscard(copper);
+        player.toDiscard(copper);
+        assertEquals(3, player.amountCardsDiscard());
     }
 
 }

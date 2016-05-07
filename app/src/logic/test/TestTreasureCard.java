@@ -12,29 +12,36 @@ import static org.junit.Assert.assertEquals;
 
 public class TestTreasureCard {
 
-    TreasureCard treasureCard1;
-    TreasureCard treasureCard2;
-    TreasureCard treasureCard3;
+    TreasureCard copper;
+    TreasureCard silver;
+    TreasureCard gold;
 
     @Before
     public void setUp() {
-        treasureCard1 = new TreasureCard("copper", 0, 1);
-        treasureCard2 = new TreasureCard("silver", 3, 2);
-        treasureCard3 = new TreasureCard("gold", 6, 3);
+        copper = new TreasureCard("copper", 0, 1);
+        silver = new TreasureCard("silver", 3, 2);
+        gold = new TreasureCard("gold", 6, 3);
+    }
+
+    @Test
+    public void testTreasureGetName() {
+        assertEquals("copper", copper.getName());
+        assertEquals("silver", silver.getName());
+        assertEquals("gold", gold.getName());
     }
 
     @Test
     public void testTreasurePriceGetter() {
-        assertEquals(treasureCard1.getPrice(), 0);
-        assertEquals(treasureCard2.getPrice(), 3);
-        assertEquals(treasureCard3.getPrice(), 6);
+        assertEquals(0, copper.getPrice());
+        assertEquals(3, silver.getPrice());
+        assertEquals(6, gold.getPrice());
     }
 
     @Test
     public void testTreasureCoinValueGetter() {
-        assertEquals(treasureCard1.getCoinValue(), 1);
-        assertEquals(treasureCard2.getCoinValue(), 2);
-        assertEquals(treasureCard3.getCoinValue(), 3);
+        assertEquals(1, copper.getCoinValue());
+        assertEquals(2, silver.getCoinValue());
+        assertEquals(3, gold.getCoinValue());
     }
 
 }

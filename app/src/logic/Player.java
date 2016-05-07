@@ -37,38 +37,53 @@ public class Player {
         return newDeck;
     }
 
-    //saved Player
+    //Load saved Player TO DO
 
+    public String getName() {
+        return name;
+    }
+
+    //Hand
     public List getHand() {
         return hand;
-    }
-
-    public List getDrawDeck() {
-        return drawDeck;
-    }
-
-    public List getDiscard() {return discardDeck; }
-
-    public int amountCardsDeck() {
-        return drawDeck.size();
     }
 
     public int amountCardsHand() {
         return hand.size();
     }
 
-    public int amountCardsDiscard() {
-        return discardDeck.size();
+    public BasicCard getCardInHandOn(int index) {
+        return hand.get(index);
+    }
+
+    //Draw Deck
+    public List getDrawDeck() {
+        return drawDeck;
+    }
+
+    public int amountCardsDeck() {
+        return drawDeck.size();
     }
 
     public BasicCard drawCardFromDeck() {
         return drawDeck.remove(amountCardsDeck() - 1);
     }
 
+    //Discard Deck
+    public List getDiscard() {return discardDeck; }
+
+    public int amountCardsDiscard() {
+        return discardDeck.size();
+    }
+
+    //Void methods
     public void drawCardsToHand(int amount) {
         for (int i = 0; i < amount; i++) {
             if (amountCardsDeck() == 0) {
                 fillDeck();
+            }
+            if (amountCardsDeck() == 0) {
+                return;
             }
             hand.add(drawCardFromDeck());
         }
@@ -79,17 +94,14 @@ public class Player {
     }
 
     public void emptyHand() {
-        int cardsInHand = amountCardsHand();
-        for (int i = 0; i < cardsInHand; i++) {
-            discardCardFromHand(0);
-        }
+        discardDeck.addAll(hand);
+        hand.clear();
     }
 
     public void fillDeck() { //refactor drawDeck = shuffle(Discard);
         int cardsInDiscard = amountCardsDiscard();
-        for (int i = 0; i < cardsInDiscard; i++) {
-            drawDeck.add(discardDeck.remove(0));
-        }
+        drawDeck.addAll(discardDeck);
+        discardDeck.clear();
         shuffle(drawDeck);
     }
 
@@ -98,19 +110,11 @@ public class Player {
         drawCardsToHand(5);
     }
 
-    public BasicCard playCard(int place) {
-        return hand.get(place);
-    }
-
     public void putDeckOnDiscard() {
         int cardsInDeck = amountCardsDeck();
         for (int i = 0; i < cardsInDeck; i++) {
             toDiscard(drawCardFromDeck());
         }
-    }
-
-    public BasicCard getCardInHandOn(int index) {
-        return hand.get(index);
     }
 
     public void toDiscard(BasicCard card) {
@@ -125,10 +129,6 @@ public class Player {
             cardArray.set(first, cardArray.get(second));
             cardArray.set(second, temp);
         }
-    }
-
-    public String getName() {
-        return name;
     }
 
 }
