@@ -6,8 +6,11 @@ package logic;
 
 public class ActionCard extends BasicCard {
 
-    public ActionCard(String name, int price) {
+    private GameEngine game;
+
+    public ActionCard(String name, int price, GameEngine game) {
         super(name, price);
+        this.game = game;
     }
 
 }

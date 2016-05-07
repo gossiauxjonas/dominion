@@ -60,10 +60,10 @@ public class TestPlayer {
 
     @Test
     public void testDrawnCardToHand() {
-        player1.drawCardToHand(1);
+        player1.drawCardsToHand(1);
         assertEquals(player1.amountCardsHand(), 6);
         assertEquals(player1.amountCardsDeck(), 4);
-        player1.drawCardToHand(2);
+        player1.drawCardsToHand(2);
         assertEquals(player1.amountCardsHand(), 8);
         assertEquals(player1.amountCardsDeck(), 2);
     }
@@ -96,18 +96,18 @@ public class TestPlayer {
     @Test
     public void testFillDeck() {
         player5.emptyHand();
-        player5.drawCardToHand(5);
+        player5.drawCardsToHand(5);
         assertEquals(player5.amountCardsDeck(), 0);
         assertEquals(player5.amountCardsHand(), 5);
         assertEquals(player5.amountCardsDiscard(), 5);
         player5.emptyHand();
         assertEquals(player5.amountCardsHand(), 0);
         assertEquals(player5.amountCardsDiscard(), 10);
-        player5.drawCardToHand(1);
+        player5.drawCardsToHand(1);
         assertEquals(player5.amountCardsDeck(), 9);
         assertEquals(player5.amountCardsHand(), 1);
         assertEquals(player5.amountCardsDiscard(), 0);
-        player5.drawCardToHand(5);
+        player5.drawCardsToHand(5);
         player5.endTurn();
         assertEquals(player5.amountCardsDeck(), 5);
         assertEquals(player5.amountCardsHand(), 5);

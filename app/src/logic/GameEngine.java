@@ -13,7 +13,7 @@ public class GameEngine {
     private TreasureCard copper = new TreasureCard("copper", 0, 1);
     private BasicCard silver = new TreasureCard("silver" ,3, 2);
     private BasicCard gold = new TreasureCard("gold", 6, 3);
-    private BasicCard actionCard = new ActionCard("testactioncard" ,4);
+    private BasicCard actionCard = new ActionCard("testactioncard" ,4, this);
     private Garden garden = new Garden();
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private BasicCard duchy = new VictoryCard("duchy", 5, 3);

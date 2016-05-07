@@ -20,5 +20,4 @@ public class BasicCard {
 
     public String getName() { return name; }
 
-
 }

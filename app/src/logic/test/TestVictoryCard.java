@@ -12,29 +12,41 @@ import static org.junit.Assert.assertEquals;
 
 public class TestVictoryCard {
 
-    VictoryCard victoryCard1;
-    VictoryCard victoryCard2;
-    VictoryCard victoryCard3;
+    VictoryCard estate;
+    VictoryCard duchy;
+    VictoryCard province;
+    VictoryCard curse;
 
     @Before
     public void setUp() {
-        victoryCard1 = new VictoryCard("estate", 2, 1);
-        victoryCard2 = new VictoryCard("duchy" , 5, 3);
-        victoryCard3 = new VictoryCard("province" , 8, 6);
+        estate = new VictoryCard("estate", 2, 1);
+        duchy = new VictoryCard("duchy", 5, 3);
+        province = new VictoryCard("province", 8, 6);
+        curse = new VictoryCard("curse", 0, -1);
+    }
+
+    @Test
+    public void testVictoryGetName() {
+        assertEquals("estate", estate.getName());
+        assertEquals("duchy", duchy.getName());
+        assertEquals("province", province.getName());
+        assertEquals("curse", curse.getName());
     }
 
     @Test
     public void testVictoryPriceGetter() {
-        assertEquals(victoryCard1.getPrice(), 2);
-        assertEquals(victoryCard2.getPrice(), 5);
-        assertEquals(victoryCard3.getPrice(), 8);
+        assertEquals(2, estate.getPrice());
+        assertEquals(5, duchy.getPrice());
+        assertEquals(8, province.getPrice());
+        assertEquals(0, curse.getPrice());
     }
 
     @Test
     public void testVictoryPointsGetter() {
-        assertEquals(victoryCard1.getVictoryPoints(), 1);
-        assertEquals(victoryCard2.getVictoryPoints(), 3);
-        assertEquals(victoryCard3.getVictoryPoints(), 6);
+        assertEquals(1, estate.getVictoryPoints());
+        assertEquals(3, duchy.getVictoryPoints());
+        assertEquals(6, province.getVictoryPoints());
+        assertEquals(-1, curse.getVictoryPoints());
     }
 
 }

@@ -46,7 +46,8 @@ public class testCardStack {
 
     @Test
     public void testAmountBaseActionCard() {
-        ActionCard actionCard = new ActionCard("testactioncard" ,15);
+        GameEngine game = new GameEngine("indy", "jonas");
+        ActionCard actionCard = new ActionCard("testactioncard" ,15, game);
         CardStack actionStack2P = new CardStack(2, actionCard);
         assertEquals(actionStack2P.getAmountOfCards(), 10);
         CardStack actionStack3P = new CardStack(3, actionCard);
@@ -57,7 +58,8 @@ public class testCardStack {
 
     @Test
     public void testAmountSmithyActionCard() {
-        Smithy smithy = new Smithy();
+        GameEngine game = new GameEngine("indy", "jonas");
+        Smithy smithy = new Smithy(game);
         CardStack smithyStack2P = new CardStack(2, smithy);
         assertEquals(smithyStack2P.getAmountOfCards(), 10);
         CardStack smithyStack3P = new CardStack(3, smithy);
@@ -123,7 +125,8 @@ public class testCardStack {
 
     @Test
     public void testDecrementStack() {
-        Smithy smithy = new Smithy();
+        GameEngine game = new GameEngine("indy", "jonas");
+        Smithy smithy = new Smithy(game);
         CardStack smithyStack = new CardStack(2, smithy);
         smithyStack.decrementStack();
         assertEquals(smithyStack.getAmountOfCards(), 9);
@@ -134,13 +137,14 @@ public class testCardStack {
 
     @Test
     public void testSavedStack() {
-        Smithy smithy = new Smithy();
+        GameEngine game = new GameEngine("indy", "jonas");
+        Smithy smithy = new Smithy(game);
         CardStack savedSmithyStack = new CardStack(smithy, 5);
         assertEquals(savedSmithyStack.getAmountOfCards(), 5);
         Garden garden = new Garden();
         CardStack savedGardenStack = new CardStack(garden, 7);
         assertEquals(savedGardenStack.getAmountOfCards(), 7);
-        ActionCard actionCard = new ActionCard("actionCard", 4);
+        ActionCard actionCard = new ActionCard("actionCard", 4, game);
         CardStack savedActionCardStack = new CardStack(actionCard, 9);
         assertEquals(savedActionCardStack.getAmountOfCards(), 9);
     }

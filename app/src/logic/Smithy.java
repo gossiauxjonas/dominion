@@ -5,12 +5,12 @@ package logic;
  */
 public class Smithy extends ActionCard {
 
-    public Smithy() {
-        super("smithy", 4);
+    public Smithy(GameEngine game) {
+        super("smithy", 4, game);
     }
 
-    public void playAction(Player player) {
-        player.drawCardToHand(3);
-    }
+    /*public void playAction(Player player) {
+        player.drawCardsToHand(3);
+    }*/
 
 }

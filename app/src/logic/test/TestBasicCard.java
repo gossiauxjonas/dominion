@@ -25,16 +25,16 @@ public class TestBasicCard {
 
     @Test
     public void testBasicCardNameGetter() {
-        assertEquals(rootCard1.getName(), "rootCard1");
-        assertEquals(rootCard2.getName(), "rootCard2");
-        assertEquals(rootCard3.getName(), "rootCard3");
+        assertEquals("rootCard1", rootCard1.getName());
+        assertEquals("rootCard2", rootCard2.getName());
+        assertEquals("rootCard3", rootCard3.getName());
     }
 
     @Test
     public void testBasicCardPriceGetter() {
-        assertEquals(rootCard1.getPrice(), 2);
-        assertEquals(rootCard2.getPrice(), 3);
-        assertEquals(rootCard3.getPrice(), 0);
+        assertEquals(2, rootCard1.getPrice());
+        assertEquals(3, rootCard2.getPrice());
+        assertEquals(0, rootCard3.getPrice());
     }
 
 }

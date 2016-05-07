@@ -12,11 +12,14 @@ import static org.junit.Assert.*;
 
 public class TestShop {
 
+    //
+    GameEngine game = new GameEngine("indy", "jonas");
+
     //Cards
     BasicCard copper = new TreasureCard("copper", 0, 1);
     BasicCard silver = new TreasureCard("silver", 3, 2);
     BasicCard gold = new TreasureCard("gold", 6, 3);
-    BasicCard actionCard = new ActionCard("testactioncard", 4);
+    BasicCard actionCard = new ActionCard("testactioncard", 4, game);
     BasicCard estate = new VictoryCard("estate" ,2, 1);
     BasicCard duchy = new VictoryCard("duchy", 5, 3);
     BasicCard province = new VictoryCard("province", 8, 6);

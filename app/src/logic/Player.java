@@ -22,10 +22,8 @@ public class Player {
         hand = new ArrayList<BasicCard>();
         discardDeck = new ArrayList<BasicCard>();
         drawDeck = createNewDeck(copper, estate);
-        drawCardToHand(5);
+        drawCardsToHand(5);
     }
-
-    //public Player(){}
 
     public List createNewDeck(TreasureCard copper, VictoryCard estate) {
         List<BasicCard> newDeck = new ArrayList<BasicCard>();
@@ -39,12 +37,14 @@ public class Player {
         return newDeck;
     }
 
-    public List getDrawDeck() {
-        return drawDeck;
-    }
+    //saved Player
 
     public List getHand() {
         return hand;
+    }
+
+    public List getDrawDeck() {
+        return drawDeck;
     }
 
     public List getDiscard() {return discardDeck; }
@@ -63,9 +63,9 @@ public class Player {
 
     public BasicCard drawCardFromDeck() {
         return drawDeck.remove(amountCardsDeck() - 1);
-    } //remove() returns BasicCard that was removed
+    }
 
-    public void drawCardToHand(int amount) {
+    public void drawCardsToHand(int amount) {
         for (int i = 0; i < amount; i++) {
             if (amountCardsDeck() == 0) {
                 fillDeck();
@@ -95,7 +95,7 @@ public class Player {
 
     public void endTurn() {
         emptyHand();
-        drawCardToHand(5);
+        drawCardsToHand(5);
     }
 
     public BasicCard playCard(int place) {
