@@ -20,6 +20,7 @@ public class GameEngine {
     private Village village = new Village(this);
     private Festival festival = new Festival(this);
     private Market market = new Market(this);
+    private Laboratory laboratory = new Laboratory(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -35,7 +36,7 @@ public class GameEngine {
     private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, market);
-    private CardStack actionCardStack2 = new CardStack(2, actionCard);
+    private CardStack actionCardStack2 = new CardStack(2, laboratory);
     private CardStack actionCardStack3 = new CardStack(2, garden);
     private CardStack actionCardStack4 = new CardStack(2, smithy);
     private CardStack actionCardStack5 = new CardStack(2, village);
