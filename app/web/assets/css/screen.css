@@ -113,6 +113,8 @@ aside a{
     background-color: dimgray;
     color: azure;
     padding: 30px;
+    text-decoration: none;
+    text-align: center;
 }
 aside div{
     background-image: url("../media/images/Cards/trash.jpg");
@@ -122,6 +124,111 @@ aside div{
     height: 222px;
 
 }
+.cardMat{
+    background-color: dimgray;
+    width: 1000px;
+    height: 400px;
+    position: absolute;
+    bottom: 50px;
+    left: 450px;
+    float: left;
+    opacity: 0.7;
+
+
+}
+.middleLine{
+    float: left;
+    background-color: black;
+    width: 1000px;
+    height: 2px;
+    position: absolute;
+    top: 200px;
+
+}
+
+
+.piles{
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+}
+
+.piles div{
+    display: block;
+    margin-bottom: 20px;
+    background-color: dimgray;
+    color: azure;
+    padding: 70px;
+}
+
+
+.discardPile:before{
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: -13%;
+    left: 10%;
+    z-index: 10;
+    background: url("../media/images/Cards/back.jpg") 0 0 repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+
+
+}
+.deck:before{
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: 36.6%;
+    left: 10%;
+    z-index: 10;
+    background: url("../media/images/Cards/back.jpg") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+
+}
+
+.hand{
+    width: 1000px;
+    position: absolute;
+    bottom:0 ;
+}
+
+.hand li {
+    display: inline-block;
+    background-image: url("../media/images/Cards/chancellor.jpg");
+    background-repeat: no-repeat ;
+    background-size: contain;
+    width: 140px;
+    height: 190px;
+
+
+}
+.hand li:first-of-type,.playmat li:first-of-type{
+    margin-left: 5%;
+}
+
+.playmat li{
+    display: inline-block;
+    background-image: url("../media/images/Cards/feast.jpg");
+    background-repeat: no-repeat ;
+    background-size: contain;
+    width: 140px;
+    height: 190px;
+}
+
 
 
 .curses{
