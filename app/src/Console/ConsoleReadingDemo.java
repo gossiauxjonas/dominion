@@ -35,25 +35,26 @@ public class ConsoleReadingDemo {
 
     public void turn(GameEngine game) {
         printHand(game.getPlayer());
-        int actions = 0;
-        int buys = 1;
-        while (actions > 0) {
-            System.out.println("actions left: " + actions);
+        game.startNewturn();
+        while (game.getTurnActions() > 0) {
+            System.out.println("actions left: " + game.getTurnActions());
             int choice = choicePlay();
             if (choice == game.getPlayer().getHand().size()) {
-                actions = 0;
+                game.endTurnActions();
             } else {
+                game.decrementTurnActions();
+                System.out.println("Play action");
                 if (!game.getShop().isOpen()) return;
             } }
-            while (buys > 0) {
+            while (game.getTurnBuys() > 0) {
                 printShop(game.getShop());
                 System.out.println("coins: " + game.calculateTreasureInHand());
                 int choice2 = choicePlay();
                 if (choice2 == 17) {
-                    buys = 0;
+                    game.endTurnBuys();
                 } else {
                     game.getPlayer().toDiscard(game.getShop().buyCard(choice2));
-                    buys--;
+                    game.decrementTurnBuys();
                     if (!game.getShop().isOpen()) return;
                 }
                 System.out.println("******************************************************************");
@@ -82,6 +83,7 @@ public class ConsoleReadingDemo {
         while (game.getShop().isOpen()) {
             turn(game);
         }
+
         int[][] playerRank = game.playerScoreRank();
         System.out.println("The winner is: " + game.getPlayers()[playerRank[0][0]].getName() + " with " + playerRank[0][1] + " points");
         System.out.println(game.getPlayers()[playerRank[1][0]].getName() + " has " + playerRank[1][1] + " points");

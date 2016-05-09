@@ -45,6 +45,11 @@ public class GameEngine {
 
     private int playerTurn;
 
+
+    private int turnActions;
+    private int turnBuys;
+    private int turnCoins;
+
     public GameEngine(String... players) {
         this.players = new Player[players.length];
         for (int i = 0; i < players.length; i++) {
@@ -56,6 +61,51 @@ public class GameEngine {
                 , estateStack, duchyStack, provinceStack, curseStack);
         playerTurn = 0;
     }
+
+    public void startNewturn() {
+        turnActions = 1;
+        turnBuys = 1;
+        turnCoins = 0;
+    }
+
+    public void addTurnActions(int amount) {
+        turnActions += amount;
+    }
+    public void decrementTurnActions() {
+        turnActions--;
+    }
+
+    public int getTurnActions() {
+        return turnActions;
+    }
+
+    public void endTurnActions() {
+        turnActions = 0;
+    }
+
+    public void addTurnBuys(int amount) {
+        turnActions += amount;
+    }
+    public void decrementTurnBuys() {
+        turnActions--;
+    }
+
+    public int getTurnBuys() {
+        return turnBuys;
+    }
+
+    public void endTurnBuys() {
+        turnBuys = 0;
+    }
+
+    public void addCoins(int amount) {
+        turnCoins += amount;
+    }
+
+    public int getTurnCoins() {
+        return turnCoins;
+    }
+
 
     public Player getPlayer() {
         return players[playerTurn];

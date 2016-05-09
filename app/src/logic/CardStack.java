@@ -19,7 +19,7 @@ public class CardStack {
         amountOfCards = cardsLeft;
     }
 
-    public void setAmountOfCards(int amountPlayers) { // refactor
+    public void setAmountOfCards(int amountPlayers) {
         switch (card.getClass().getName()) {
             case "logic.TreasureCard":
                 setAmountTreasureCard(amountPlayers);
@@ -30,13 +30,10 @@ public class CardStack {
             default: setAmountActionCard(amountPlayers);
                 break;
         }
-        /*if (ActionCard.class.isAssignableFrom(card.getClass())) setAmountActionCard(amountPlayers);
-        else if (card.getClass().equals(TreasureCard.class)) setAmountTreasureCard(amountPlayers);
-        else if (card.getClass().equals(VictoryCard.class)) setAmountVictoryCard(amountPlayers);*/
     }
 
     public void setAmountActionCard(int amountPlayers) {
-        if (card.getClass().equals(Garden.class)) {
+        if (card.getName() == "garden") {
             if (amountPlayers > 2) amountOfCards = 12;
             else amountOfCards = 8;
         } else {

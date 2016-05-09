@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 public class TestShop {
 
-    //
     GameEngine game = new GameEngine("indy", "jonas");
 
     //Cards
@@ -106,60 +105,60 @@ public class TestShop {
 
     @Test
     public void testPriceOfCard() {
-        assertEquals(shop1.priceOfCard(0), 0);
-        assertEquals(shop1.priceOfCard(1), 3);
-        assertEquals(shop1.priceOfCard(2), 6);
-        assertEquals(shop1.priceOfCard(7), 4);
-        assertEquals(shop1.priceOfCard(13), 2);
-        assertEquals(shop1.priceOfCard(14), 5);
-        assertEquals(shop1.priceOfCard(15), 8);
-        assertEquals(shop1.priceOfCard(16), 0);
+        assertEquals(0, shop1.priceOfCard(0));
+        assertEquals(3, shop1.priceOfCard(1));
+        assertEquals(6, shop1.priceOfCard(2));
+        assertEquals(4, shop1.priceOfCard(7));
+        assertEquals(2, shop1.priceOfCard(13));
+        assertEquals(5, shop1.priceOfCard(14));
+        assertEquals(8, shop1.priceOfCard(15));
+        assertEquals(0, shop1.priceOfCard(16));
     }
 
     @Test
     public void testBuyCard() {
-        assertEquals(shop1.buyCard(0), copper);
-        assertEquals(shop1.buyCard(1), silver);
-        assertEquals(shop1.buyCard(2), gold);
-        assertEquals(shop1.buyCard(4), actionCard);
-        assertEquals(shop1.buyCard(13), estate);
-        assertEquals(shop1.buyCard(14), duchy);
-        assertEquals(shop1.buyCard(15), province);
-        assertEquals(shop1.buyCard(16), curse);
+        assertEquals(copper, shop1.buyCard(0));
+        assertEquals(silver, shop1.buyCard(1));
+        assertEquals(gold, shop1.buyCard(2));
+        assertEquals(actionCard, shop1.buyCard(4));
+        assertEquals(estate, shop1.buyCard(13));
+        assertEquals(duchy, shop1.buyCard(14));
+        assertEquals(province, shop1.buyCard(15));
+        assertEquals(curse, shop1.buyCard(16));
     }
 
     @Test
     public void testIsOpen() {
         //normal shop closing
-        assertEquals(shop2.isOpen(), true);
+        assertTrue(shop2.isOpen());
         for (int i = 0; i < 10; i++) {
             shop2.buyCard(4);
         }
-        assertEquals(shop2.cardsLeftInStack(4), 0);
-        assertEquals(shop2.isOpen(), true);
+        assertEquals(0, shop2.cardsLeftInStack(4));
+        assertTrue(shop2.isOpen());
         for (int i = 0; i < 40; i++) {
             shop2.buyCard(1);
         }
-        assertEquals(shop2.cardsLeftInStack(1), 0);
-        assertEquals(shop2.isOpen(), true);
+        assertEquals(0, shop2.cardsLeftInStack(1));
+        assertTrue(shop2.isOpen());
         for (int i = 0; i < 30; i++) {
             shop2.buyCard(2);
         }
-        assertEquals(shop2.cardsLeftInStack(2), 0);
-        assertEquals(shop2.isOpen(), false);
+        assertEquals(0, shop2.cardsLeftInStack(2));
+        assertFalse(shop2.isOpen());
 
         //shop closing province
-        assertEquals(shop3.isOpen(), true);
+        assertTrue(shop3.isOpen());
         for (int i = 0; i < 10; i++) {
             shop3.buyCard(7);
         }
-        assertEquals(shop3.cardsLeftInStack(7), 0);
-        assertEquals(shop3.isOpen(), true);
+        assertEquals(0, shop3.cardsLeftInStack(7));
+        assertTrue(shop3.isOpen());
         for (int i = 0; i < 12; i++) {
             shop3.buyCard(15);
         }
-        assertEquals(shop3.cardsLeftInStack(15), 0);
-        assertEquals(shop3.isOpen(), false);
+        assertEquals(0, shop3.cardsLeftInStack(15));
+        assertFalse(shop3.isOpen());
     }
 
 }
