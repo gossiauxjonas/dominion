@@ -122,6 +122,49 @@ aside div{
     height: 222px;
 
 }
+.cardMat{
+    background-color: dimgray;
+    width: 1000px;
+    height: 400px;
+    position: absolute;
+    bottom: 50px;
+    left: 450px;
+    float: left;
+    opacity: 0.7;
+
+
+}
+.middleLine{
+    float: left;
+    background-color: black;
+    width: 1000px;
+    height: 2px;
+    position: absolute;
+    top: 200px;
+
+}
+
+.piles{
+    background-color: lightslategrey;
+    width: 222px;
+}
+ .deck{
+
+    position: absolute;
+    bottom: 50px;
+    margin-left: 100px;
+
+}
+
+ .discardPile {
+     background-color: lightslategrey;
+     width: 222px;
+     position: absolute;
+     bottom: 70px;
+     margin-left: 100px;
+
+ }
+
 
 
 .curses{
