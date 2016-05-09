@@ -33,6 +33,10 @@
 
         </div>
         <div class="actionCards">
+
+            <!--deze div zullen dynamisch worden aangemaakt via jquery bij het opstarten van het spel
+            na het kiezen van een deck
+            -->
             <div class="table">
                 <div>
                     <div id="1"></div>
@@ -56,10 +60,40 @@
         </div>
 
         <div class="cardMat">
+
+            <div class="playmat">
+
+                <li>  </li>
+                <li>  </li>
+                <li>  </li>
+                <li>  </li>
+                <li>  </li>
+                <li>  </li>
+
+            </div>
             <span class="middleLine"></span>
+            <div class="hand">
+                <ul>
+                    <li>  </li>
+                    <li>  </li>
+                    <li>  </li>
+                    <li>  </li>
+                    <li>  </li>
+                    <li>  </li>
+
+                    
+                </ul>
+                
+                
+            </div>
 
         </div>
 
+        <!--deze 2 stapels worden constant aangevuld met de kaarten van de speler
+         als er kaarten in aanwezig zijn word de achterkant van de kaarten getoond , als er geen aanwezig zijn
+         word de naam van het soort deck getoond
+
+        -->
         <div class="piles">
 
             <div class="discardPile"> <span> Discard pile</span> </div>

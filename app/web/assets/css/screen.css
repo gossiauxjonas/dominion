@@ -113,6 +113,8 @@ aside a{
     background-color: dimgray;
     color: azure;
     padding: 30px;
+    text-decoration: none;
+    text-align: center;
 }
 aside div{
     background-image: url("../media/images/Cards/trash.jpg");
@@ -144,26 +146,88 @@ aside div{
 
 }
 
-.piles{
-    background-color: lightslategrey;
-    width: 222px;
-}
- .deck{
 
+.piles{
     position: absolute;
     bottom: 50px;
-    margin-left: 100px;
+    left: 50px;
+}
+
+.piles div{
+    display: block;
+    margin-bottom: 20px;
+    background-color: dimgray;
+    color: azure;
+    padding: 70px;
+}
+
+
+.discardPile:before{
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: -13%;
+    left: 10%;
+    z-index: 10;
+    background: url("../media/images/Cards/back.jpg") 0 0 repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+
+
+}
+.deck:before{
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: 36.6%;
+    left: 10%;
+    z-index: 10;
+    background: url("../media/images/Cards/back.jpg") ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 
 }
 
- .discardPile {
-     background-color: lightslategrey;
-     width: 222px;
-     position: absolute;
-     bottom: 70px;
-     margin-left: 100px;
+.hand{
+    width: 1000px;
+    position: absolute;
+    bottom:0 ;
+}
 
- }
+.hand li {
+    display: inline-block;
+    background-image: url("../media/images/Cards/chancellor.jpg");
+    background-repeat: no-repeat ;
+    background-size: contain;
+    width: 140px;
+    height: 190px;
+
+
+}
+.hand li:first-of-type,.playmat li:first-of-type{
+    margin-left: 5%;
+}
+
+.playmat li{
+    display: inline-block;
+    background-image: url("../media/images/Cards/feast.jpg");
+    background-repeat: no-repeat ;
+    background-size: contain;
+    width: 140px;
+    height: 190px;
+}
 
 
 
