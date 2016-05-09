@@ -23,6 +23,7 @@ public class GameEngine {
     private Laboratory laboratory = new Laboratory(this);
     private Moat moat = new Moat(this);
     private Woodcutter woodcutter = new Woodcutter(this);
+    private Chancellor chancellor = new Chancellor(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -45,7 +46,7 @@ public class GameEngine {
     private CardStack actionCardStack6 = new CardStack(2, festival);
     private CardStack actionCardStack7 = new CardStack(2, moat);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
-    private CardStack actionCardStack9 = new CardStack(2, actionCard);
+    private CardStack actionCardStack9 = new CardStack(2, chancellor);
     private CardStack actionCardStack10 = new CardStack(2, actionCard);
 
     private Shop shop;
