@@ -11,14 +11,20 @@ import java.util.List;
 public class GameEngine {
 
     private TreasureCard copper = new TreasureCard("copper", 0, 1);
-    private BasicCard silver = new TreasureCard("silver" ,3, 2);
-    private BasicCard gold = new TreasureCard("gold", 6, 3);
+    private TreasureCard silver = new TreasureCard("silver" ,3, 2);
+    private TreasureCard gold = new TreasureCard("gold", 6, 3);
+
     private BasicCard actionCard = new ActionCard("testactioncard" ,4, this);
     private Garden garden = new Garden();
+    private Smithy smithy = new Smithy(this);
+    private Village village = new Village(this);
+    private Festival festival = new Festival(this);
+    private Market market = new Market(this);
+
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
-    private BasicCard duchy = new VictoryCard("duchy", 5, 3);
-    private BasicCard province = new VictoryCard("province", 8, 6);
-    private BasicCard curse = new VictoryCard("curse", 0, -1);
+    private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
+    private VictoryCard province = new VictoryCard("province", 8, 6);
+    private VictoryCard curse = new VictoryCard("curse", 0, -1);
 
     private CardStack copperStack = new CardStack(2, copper);
     private CardStack silverStack = new CardStack(2, silver);
@@ -28,12 +34,12 @@ public class GameEngine {
     private CardStack provinceStack = new CardStack(2, province);
     private CardStack curseStack = new CardStack(2, curse);
 
-    private CardStack actionCardStack1 = new CardStack(2, actionCard);
+    private CardStack actionCardStack1 = new CardStack(2, market);
     private CardStack actionCardStack2 = new CardStack(2, actionCard);
     private CardStack actionCardStack3 = new CardStack(2, garden);
-    private CardStack actionCardStack4 = new CardStack(2, actionCard);
-    private CardStack actionCardStack5 = new CardStack(2, actionCard);
-    private CardStack actionCardStack6 = new CardStack(2, actionCard);
+    private CardStack actionCardStack4 = new CardStack(2, smithy);
+    private CardStack actionCardStack5 = new CardStack(2, village);
+    private CardStack actionCardStack6 = new CardStack(2, festival);
     private CardStack actionCardStack7 = new CardStack(2, actionCard);
     private CardStack actionCardStack8 = new CardStack(2, actionCard);
     private CardStack actionCardStack9 = new CardStack(2, actionCard);
@@ -84,10 +90,10 @@ public class GameEngine {
     }
 
     public void addTurnBuys(int amount) {
-        turnActions += amount;
+        turnBuys += amount;
     }
     public void decrementTurnBuys() {
-        turnActions--;
+        turnBuys--;
     }
 
     public int getTurnBuys() {
@@ -98,7 +104,7 @@ public class GameEngine {
         turnBuys = 0;
     }
 
-    public void addCoins(int amount) {
+    public void addTurnCoins(int amount) {
         turnCoins += amount;
     }
 

@@ -1,9 +1,6 @@
 package Console;
 
-import logic.CardStack;
-import logic.GameEngine;
-import logic.Player;
-import logic.Shop;
+import logic.*;
 
 import java.util.Scanner;
 
@@ -34,21 +31,34 @@ public class ConsoleReadingDemo {
     }
 
     public void turn(GameEngine game) {
-        printHand(game.getPlayer());
         game.startNewturn();
+        System.out.println();
+        System.out.println(game.getPlayer().getName() + "s Turn");
+        System.out.println("Action Fase");
         while (game.getTurnActions() > 0) {
-            System.out.println("actions left: " + game.getTurnActions());
+            System.out.println();
+            System.out.println("Actions left: " + game.getTurnActions());
+            printHand(game.getPlayer());
             int choice = choicePlay();
             if (choice == game.getPlayer().getHand().size()) {
                 game.endTurnActions();
             } else {
                 game.decrementTurnActions();
-                System.out.println("Play action");
+                System.out.println("Play action ");
+                ActionCard card = (ActionCard) game.getPlayer().getCardInHandOn(choice);
+                card.playAction();
+                game.getPlayer().discardCardFromHand(choice);
                 if (!game.getShop().isOpen()) return;
             } }
+            System.out.println("Buy Fase");
             while (game.getTurnBuys() > 0) {
+                System.out.println();
+                printHand(game.getPlayer());
+                System.out.println();
+                System.out.println("Buys left: " + game.getTurnBuys());
                 printShop(game.getShop());
-                System.out.println("coins: " + game.calculateTreasureInHand());
+                int coins = game.calculateTreasureInHand() + game.getTurnCoins();
+                System.out.println("coins: " + coins);
                 int choice2 = choicePlay();
                 if (choice2 == 17) {
                     game.endTurnBuys();
@@ -64,8 +74,6 @@ public class ConsoleReadingDemo {
             game.nextTurn();
             System.out.println();
         System.out.println("------------------------------------------------------------------");
-
-
     }
 
     private void run() {
@@ -76,7 +84,6 @@ public class ConsoleReadingDemo {
         System.out.print("Name player2: ");
         String player2 = (String) in.next();
         System.out.println("The players are: "+ player1 + " and "+ player2);
-        System.out.println();
 
         GameEngine game = new GameEngine(player1, player2);
 
