@@ -24,6 +24,8 @@ public class GameEngine {
     private Moat moat = new Moat(this);
     private Woodcutter woodcutter = new Woodcutter(this);
     private Chancellor chancellor = new Chancellor(this);
+    private Adventurer adventurer = new Adventurer(this);
+    private CouncilRoom councilRoom = new CouncilRoom(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -47,7 +49,7 @@ public class GameEngine {
     private CardStack actionCardStack7 = new CardStack(2, moat);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
     private CardStack actionCardStack9 = new CardStack(2, chancellor);
-    private CardStack actionCardStack10 = new CardStack(2, actionCard);
+    private CardStack actionCardStack10 = new CardStack(2, councilRoom);
 
     private Shop shop;
 
@@ -163,6 +165,18 @@ public class GameEngine {
         }
         victoryPoints += (allCardsPlayer.size() / 10) * gardens;
         return victoryPoints;
+    }
+
+    public Player[] getOtherPlayers() {
+        Player[] otherPlayers = new Player[players.length - 1];
+        int i  = 0;
+        for (int j = 0; j < players.length; j++) {
+            if (j != playerTurn) {
+                otherPlayers[i] = players[j];
+                i++;
+            }
+        }
+        return otherPlayers;
     }
 
     public int[][] playersAndScore() {

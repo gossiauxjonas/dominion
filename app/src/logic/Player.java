@@ -65,15 +65,18 @@ public class Player {
         return drawDeck.size();
     }
 
-    public BasicCard drawCardFromDeck() {
-        return drawDeck.remove(amountCardsDeck() - 1);
-    }
-
     //Discard Deck
     public List getDiscard() {return discardDeck; }
 
     public int amountCardsDiscard() {
         return discardDeck.size();
+    }
+
+    public BasicCard drawCardFromDeck() {
+        if (amountCardsDeck() == 0) {
+            fillDeck();
+        }
+        return drawDeck.remove(amountCardsDeck() - 1);
     }
 
     //Void methods
@@ -87,6 +90,10 @@ public class Player {
             }
             hand.add(drawCardFromDeck());
         }
+    }
+
+    public void putCardInHand(BasicCard card) {
+        hand.add(card);
     }
 
     public void discardCardFromHand(int place) {
