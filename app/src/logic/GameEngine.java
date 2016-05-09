@@ -26,6 +26,7 @@ public class GameEngine {
     private Chancellor chancellor = new Chancellor(this);
     private Adventurer adventurer = new Adventurer(this);
     private CouncilRoom councilRoom = new CouncilRoom(this);
+    private Witch witch = new Witch(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -45,8 +46,8 @@ public class GameEngine {
     private CardStack actionCardStack3 = new CardStack(2, garden);
     private CardStack actionCardStack4 = new CardStack(2, smithy);
     private CardStack actionCardStack5 = new CardStack(2, village);
-    private CardStack actionCardStack6 = new CardStack(2, festival);
-    private CardStack actionCardStack7 = new CardStack(2, moat);
+    private CardStack actionCardStack6 = new CardStack(2, witch);
+    private CardStack actionCardStack7 = new CardStack(2, adventurer);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
     private CardStack actionCardStack9 = new CardStack(2, chancellor);
     private CardStack actionCardStack10 = new CardStack(2, councilRoom);

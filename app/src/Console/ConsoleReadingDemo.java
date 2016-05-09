@@ -51,19 +51,20 @@ public class ConsoleReadingDemo {
                 if (!game.getShop().isOpen()) return;
             } }
             System.out.println("Buy Fase");
+            int coins = game.calculateTreasureInHand() + game.getTurnCoins();
             while (game.getTurnBuys() > 0) {
                 System.out.println();
                 printHand(game.getPlayer());
                 System.out.println();
                 System.out.println("Buys left: " + game.getTurnBuys());
                 printShop(game.getShop());
-                int coins = game.calculateTreasureInHand() + game.getTurnCoins();
                 System.out.println("coins: " + coins);
                 int choice2 = choicePlay();
                 if (choice2 == 17) {
                     game.endTurnBuys();
                 } else {
                     game.getPlayer().toDiscard(game.getShop().buyCard(choice2));
+                    coins -= game.getShop().priceOfCard(choice2);
                     game.decrementTurnBuys();
                     if (!game.getShop().isOpen()) return;
                 }
@@ -83,6 +84,8 @@ public class ConsoleReadingDemo {
         String player1 = (String) in.next();
         System.out.print("Name player2: ");
         String player2 = (String) in.next();
+        //System.out.print("Name player3: ");
+        //String player3 = (String) in.next();
         System.out.println("The players are: "+ player1 + " and "+ player2);
 
         GameEngine game = new GameEngine(player1, player2);
