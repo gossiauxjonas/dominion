@@ -100,6 +100,8 @@ public class Player {
         toDiscard(hand.remove(place));
     }
 
+    public void destroyCardFromHand(int place) { hand.remove(place); }
+
     public void emptyHand() {
         discardDeck.addAll(hand);
         hand.clear();

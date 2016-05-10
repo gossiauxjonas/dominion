@@ -5,10 +5,12 @@ import logic.*;
 import java.util.Scanner;
 
 /**
- * Created by jasper on 21/04/2016.
+ * Created by Jasper and Indy on 21/04/2016.
  */
 
 public class ConsoleReadingDemo {
+
+    private GameEngine game;
 
     public void printHand(Player player) {
         System.out.println(player.getName() + " his hand:");
@@ -24,13 +26,70 @@ public class ConsoleReadingDemo {
         }
     }
 
+    public void throneRoomAction() {
+        int quit = game.getPlayer().amountCardsHand();
+        printHand(game.getPlayer());
+        System.out.println("Choose a action card to play twice or " + quit + " to leave.");
+        int actionChoice = choicePlay();
+        if (actionChoice == quit) return;
+        else {
+            if (game.getPlayer().getCardInHandOn(actionChoice).getName() == "throne room") {
+                playAction(actionChoice, true);
+            } else {
+                playAction(actionChoice, false);
+                playAction(actionChoice, true);
+            }
+        }
+    }
+
+    public void chapelAction() {
+        int i = 4;
+        while (i > 0) {
+            printHand(game.getPlayer());
+            int handSize = game.getPlayer().amountCardsHand();
+            System.out.println("Choose a card to destroy or type " + handSize + " to quit, you can still destroy " + i + " more card(s)");
+            int choice = choicePlay();
+            if (choice == handSize) i = 0;
+            else {
+                game.getPlayer().destroyCardFromHand(choice);
+                i--;
+            }
+        }
+    }
+
+    public void defaultAction(ActionCard card) {
+        card.playAction();
+    }
+
+    public void playAction(int indexCardInHand) {
+        playAction(indexCardInHand, true);
+    }
+
+    public void playAction(int indexCardInHand, Boolean removeCard) {
+        System.out.println("Play action " + game.getPlayer().getCardInHandOn(indexCardInHand).getName());
+        ActionCard card = (ActionCard) game.getPlayer().getCardInHandOn(indexCardInHand);
+            switch (card.getName()) {
+                case "throne room":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    throneRoomAction();
+                    break;
+                case "chapel":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    chapelAction();
+                    break;
+                default:
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    defaultAction(card);
+        }
+    }
+
     public int choicePlay() {
         Scanner in = new Scanner(System.in);
         System.out.print("");
         return in.nextInt();
     }
 
-    public void turn(GameEngine game) {
+    public void turn() {
         game.startNewturn();
         System.out.println();
         System.out.println(game.getPlayer().getName() + "s Turn");
@@ -39,15 +98,12 @@ public class ConsoleReadingDemo {
             System.out.println();
             System.out.println("Actions left: " + game.getTurnActions());
             printHand(game.getPlayer());
-            int choice = choicePlay();
-            if (choice == game.getPlayer().getHand().size()) {
+            int actionChoice = choicePlay();
+            if (actionChoice == game.getPlayer().getHand().size()) {
                 game.endTurnActions();
             } else {
                 game.decrementTurnActions();
-                System.out.println("Play action ");
-                ActionCard card = (ActionCard) game.getPlayer().getCardInHandOn(choice);
-                card.playAction();
-                game.getPlayer().discardCardFromHand(choice);
+                playAction(actionChoice);
                 if (!game.getShop().isOpen()) return;
             } }
             System.out.println("Buy Fase");
@@ -59,22 +115,21 @@ public class ConsoleReadingDemo {
                 System.out.println("Buys left: " + game.getTurnBuys());
                 printShop(game.getShop());
                 System.out.println("coins: " + coins);
-                int choice2 = choicePlay();
-                if (choice2 == 17) {
+                int buyChoice = choicePlay();
+                if (buyChoice == 17) {
                     game.endTurnBuys();
                 } else {
-                    game.getPlayer().toDiscard(game.getShop().buyCard(choice2));
-                    coins -= game.getShop().priceOfCard(choice2);
+                    game.getPlayer().toDiscard(game.getShop().buyCard(buyChoice));
+                    coins -= game.getShop().priceOfCard(buyChoice);
                     game.decrementTurnBuys();
                     if (!game.getShop().isOpen()) return;
                 }
                 System.out.println("******************************************************************");
-
             }
             game.getPlayer().endTurn();
             game.nextTurn();
             System.out.println();
-        System.out.println("------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------");
     }
 
     private void run() {
@@ -87,13 +142,10 @@ public class ConsoleReadingDemo {
         //System.out.print("Name player3: ");
         //String player3 = (String) in.next();
         System.out.println("The players are: "+ player1 + " and "+ player2);
-
-        GameEngine game = new GameEngine(player1, player2);
-
+        game = new GameEngine(player1, player2);
         while (game.getShop().isOpen()) {
-            turn(game);
+            turn();
         }
-
         int[][] playerRank = game.playerScoreRank();
         System.out.println("The winner is: " + game.getPlayers()[playerRank[0][0]].getName() + " with " + playerRank[0][1] + " points");
         System.out.println(game.getPlayers()[playerRank[1][0]].getName() + " has " + playerRank[1][1] + " points");
