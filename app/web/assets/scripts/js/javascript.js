@@ -44,11 +44,24 @@ function sendInit() {
     })
 
 }
+function changecolor() {
+    if(this.style.color ==  "white"){
+        this.style.color = "orange";
+
+    }
+    else{
+        this.style.color = "white"
+    }
+
+
+}
 
 
 $(document).ready(function () {
     $('#playerForm').on('submit', definePlayerArray);
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
+    $('label ').on("click" , changecolor)
+    
 
 });
