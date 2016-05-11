@@ -29,6 +29,10 @@ public class GameEngine {
     private Witch witch = new Witch(this);
     private ThroneRoom throneRoom = new ThroneRoom(this);
     private Chapel chapel = new Chapel(this);
+    private Moneylender moneylender = new Moneylender(this);
+    private Cellar cellar = new Cellar(this);
+    private Workshop workshop = new Workshop(this);
+    private Feast feast = new Feast(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -44,12 +48,12 @@ public class GameEngine {
     private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, market);
-    private CardStack actionCardStack2 = new CardStack(2, laboratory);
-    private CardStack actionCardStack3 = new CardStack(2, garden);
+    private CardStack actionCardStack2 = new CardStack(2, moneylender);
+    private CardStack actionCardStack3 = new CardStack(2, village);
     private CardStack actionCardStack4 = new CardStack(2, smithy);
-    private CardStack actionCardStack5 = new CardStack(2, village);
-    private CardStack actionCardStack6 = new CardStack(2, witch);
-    private CardStack actionCardStack7 = new CardStack(2, chapel);
+    private CardStack actionCardStack5 = new CardStack(2, workshop);
+    private CardStack actionCardStack6 = new CardStack(2, cellar);
+    private CardStack actionCardStack7 = new CardStack(2, feast);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
     private CardStack actionCardStack9 = new CardStack(2, chancellor);
     private CardStack actionCardStack10 = new CardStack(2, councilRoom);

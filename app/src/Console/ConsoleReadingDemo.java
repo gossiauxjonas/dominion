@@ -57,6 +57,46 @@ public class ConsoleReadingDemo {
         }
     }
 
+    public void moneylenderAction() {
+        int handSize = game.getPlayer().amountCardsHand();
+        printHand(game.getPlayer());
+        System.out.println("Choose a copper or type " + handSize + " to quit");
+        int actionChoice = choicePlay();
+        if (!(handSize == actionChoice)) {
+            game.getPlayer().destroyCardFromHand(actionChoice);
+            game.addTurnCoins(3);
+        }
+    }
+
+    public void cellarAction() {
+        game.addTurnActions(1);
+        int amountOfDiscardCards = 0;
+        while (game.getPlayer().amountCardsHand() > 0) {
+            int handSize = game.getPlayer().amountCardsHand();
+            printHand(game.getPlayer());
+            System.out.println("Choose a card to discard or type " + handSize + " to quit");
+            int choice = choicePlay();
+            if (choice == handSize) break;
+            game.getPlayer().discardCardFromHand(choice);
+            amountOfDiscardCards++;
+        }
+        game.getPlayer().drawCardsToHand(amountOfDiscardCards);
+    }
+
+    public void workshopAction() {
+        printShop(game.getShop());
+        System.out.println("\nPick a card that cost 4 coins or less.");
+        int choice = choicePlay();
+        game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+    }
+
+    public void feastAction() {
+        printShop(game.getShop());
+        System.out.println("\nPick a card that cost 5 coins or less.");
+        int choice = choicePlay();
+        game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+    }
+
     public void defaultAction(ActionCard card) {
         card.playAction();
     }
@@ -76,6 +116,22 @@ public class ConsoleReadingDemo {
                 case "chapel":
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
                     chapelAction();
+                    break;
+                case "moneylender":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    moneylenderAction();
+                    break;
+                case "cellar":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    cellarAction();
+                    break;
+                case "workshop":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    workshopAction();
+                    break;
+                case "feast":
+                    if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    feastAction();
                     break;
                 default:
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
