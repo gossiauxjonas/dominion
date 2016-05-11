@@ -15,12 +15,13 @@ public class Communication {
     private Statement stmt;
     private String[] result;
     private ArrayList<String> results;
-    private HashMap<String,String> results2;
+    private HashMap<String, String> results2;
+    //TODO: secure the database connection - use prepaired strings and objects
 
-    public Communication()
-    {
+    public Communication() {
         getMySQLConnection();
     }
+
     public void getMySQLConnection() //open de databaseconnectie
     {
         databaseURL = "jdbc:mysql://localhost:3306/Dominion2";
@@ -31,14 +32,13 @@ public class Communication {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(databaseURL,user,password);
-            if(conn != null)
-            {
+            conn = DriverManager.getConnection(databaseURL, user, password);
+            if (conn != null) {
                 System.out.println("Connected to database");
             }
 
 
-        }catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             System.out.println("Could not find database driver class");
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -48,6 +48,7 @@ public class Communication {
 
 
     }
+
     public void closeConnection() //sluit de databaseconnectie
     {
         if (conn != null) {
@@ -59,24 +60,21 @@ public class Communication {
         }
     }
 
-    public ArrayList<String> SelectStatement(String querry,String WhereStatement,String table,String value)
-    {//zoek in databank bij nood aan where statement
+    public ArrayList<String> SelectStatement(String querry, String WhereStatement, String table, String value) {//zoek in databank bij nood aan where statement
         stmt = null;
         results = new ArrayList<String>();
 
 
-        String updatedQuery = "SELECT "+querry+" FROM "+table+" WHERE "+WhereStatement +"= "+value;
+        String updatedQuery = "SELECT " + querry + " FROM " + table + " WHERE " + WhereStatement + "= " + value;
         //System.out.println(updatedQuery);
-        try{
+        try {
 
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(updatedQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
 
-                for (int i = 1;i<rs.getMetaData().getColumnCount();i++)
-                {
+                for (int i = 1; i < rs.getMetaData().getColumnCount(); i++) {
                     results.add(rs.getString(i));
                     System.out.print(rs.getString(i) + " ");
                 }
@@ -86,19 +84,15 @@ public class Communication {
             }
 
 
-
-        }catch (SQLException e ) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
-        try
-        {
+        try {
 
             stmt.close();
 
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
@@ -108,42 +102,37 @@ public class Communication {
 
     }
 
-    public HashMap<String,String> SelectInfoColumnName(String what,String where,String table,String value)
-    {//haal info uit de database samen met de kolomnaam waar deze info bijhoort.
+    public HashMap<String, String> SelectInfoColumnName(String what, String where, String table, String value) {//haal info uit de database samen met de kolomnaam waar deze info bijhoort.
         stmt = null;
-        results2 = new HashMap<String,String>();
+        results2 = new HashMap<String, String>();
 
 
-        String updatedQuery = "SELECT "+what+" FROM "+table+" WHERE "+where +" = '" + value + "'";
+        String updatedQuery = "SELECT " + what + " FROM " + table + " WHERE " + where + " = '" + value + "'";
         System.out.println(updatedQuery);
-        try{
+        try {
 
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(updatedQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
 
-                for (int i = 1;i<=rs.getMetaData().getColumnCount();i++)
-                {
-                    results2.put(rs.getMetaData().getColumnName(i),rs.getString(i));
-                    System.out.println(rs.getMetaData().getColumnName(i) + " " +rs.getString(i) );
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    results2.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+                    System.out.println(rs.getMetaData().getColumnName(i) + " " + rs.getString(i));
 
 
-                }}
+                }
+            }
 
-        }catch (SQLException e ) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        try
-        {
+        try {
 
             stmt.close();
 
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
@@ -154,37 +143,30 @@ public class Communication {
 
     }
 
-    public ArrayList<String> SelectWithoutWhere(String whatDoYouWant,String table)
-    {
+    public ArrayList<String> SelectWithoutWhere(String whatDoYouWant, String table) {
 
         stmt = null;
         results = new ArrayList<String>();
-        String updatedQuery = "SELECT "+whatDoYouWant+" FROM "+table;
-        try{
+        String updatedQuery = "SELECT " + whatDoYouWant + " FROM " + table;
+        try {
 
             stmt = conn.prepareStatement(updatedQuery);
 
             ResultSet rs = stmt.executeQuery(updatedQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 results.add(rs.getString(1));
             }
             System.out.println();
-        }
-
-        catch (SQLException e ) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        try
-        {
+        try {
 
             stmt.close();
 
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         }
@@ -238,16 +220,13 @@ public class Communication {
 */
 
 
-    public void ShowResult(ArrayList<String> resultaten)
-    {//toon resulaten van select statement waarbij geen kolomnamen werden opgevraagd
-        for (int i = 0;i<resultaten.size();i++)
-        {
+    public void ShowResult(ArrayList<String> resultaten) {//toon resulaten van select statement waarbij geen kolomnamen werden opgevraagd
+        for (int i = 0; i < resultaten.size(); i++) {
             System.out.print(resultaten.get(i).toString());
         }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
     }
 }
