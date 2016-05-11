@@ -96,6 +96,8 @@ public class Player {
         hand.add(card);
     }
 
+    public void putCardsInHand(List<BasicCard> cards) {hand.addAll(cards); }
+
     public void discardCardFromHand(int place) {
         toDiscard(hand.remove(place));
     }
