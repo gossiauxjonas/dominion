@@ -8,6 +8,8 @@ function definePlayerArray() {
 
 }
 
+var counter = 10;
+
 
 function addInput() {
 
@@ -44,24 +46,66 @@ function sendInit() {
     })
 
 }
-function changecolor() {
-    if(this.style.color ==  "white"){
+function changecolorAndNumber() {
+
+
+    if( $('input[type="checkbox"]:checked' && (makeCounter() > 0))){
         this.style.color = "orange";
 
     }
-    else{
-        this.style.color = "white"
+
+    else if( $("input:checkbox:not(:checked)")){
+        this.style.color("white");
+
     }
+
+
+
+    }
+
+
+
+
+
+
+
+
+function changeNumber() {
+
+    var choiceLeft = makeCounter();
+    if((choiceLeft) >=0) {
+        $('.cardsLeft span').empty().append(choiceLeft);
+    }
+
+}
+function makeCounter(){
+
+
+    var counter = $('input[type="checkbox"]:checked').length;
+    var choiceLeft = 10 - counter;
+
+
+
+    return choiceLeft;
+
+
 
 
 }
 
 
 $(document).ready(function () {
+
     $('#playerForm').on('submit', definePlayerArray);
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
-    $('label ').on("click" , changecolor)
+    $('label').on("click", changecolorAndNumber);
+    $("input[type='checkbox']").on('change', changeNumber);
+
+
+
+
+
     
 
 });
