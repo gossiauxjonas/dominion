@@ -85,16 +85,44 @@ public class ConsoleReadingDemo {
 
     public void workshopAction() {
         printShop(game.getShop());
-        System.out.println("\nPick a card that cost 4 coins or less.");
+        System.out.println("Pick a card that costs 4 coins or less.");
         int choice = choicePlay();
         game.getPlayer().toDiscard(game.getShop().buyCard(choice));
     }
 
     public void feastAction() {
         printShop(game.getShop());
-        System.out.println("\nPick a card that cost 5 coins or less.");
+        System.out.println("Pick a card that costs 5 coins or less.");
         int choice = choicePlay();
         game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+    }
+
+    public void remodelAction() {
+        int maxCost = 2;
+        printHand(game.getPlayer());
+        System.out.println("Pick a card that you want to destroy");
+        int choice = choicePlay();
+        maxCost += game.getPlayer().getCardInHandOn(choice).getPrice();
+        game.getPlayer().destroyCardFromHand(choice);
+        printShop(game.getShop());
+        System.out.println("Pick a card that costs "+ maxCost + " coins or less.");
+        int buyChoice = choicePlay();
+        game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+    }
+
+    public void libraryAction() {
+        while (game.getPlayer().amountCardsHand() != 7) {
+            BasicCard pulledCard = game.getPlayer().drawCardFromDeck();
+            System.out.println("The pulled card is " + pulledCard.getName());
+            if (ActionCard.class.isInstance(pulledCard)) {
+                System.out.println("If you want to hold this action card type 1 else type 0.");
+                int coice = choicePlay();
+                if (coice == 1) game.getPlayer().putCardInHand(pulledCard);
+                else game.getPlayer().toDiscard(pulledCard);
+            } else {
+                game.getPlayer().putCardInHand(pulledCard);
+            }
+        }
     }
 
     public void defaultAction(ActionCard card) {
@@ -132,6 +160,14 @@ public class ConsoleReadingDemo {
                 case "feast":
                     if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
                     feastAction();
+                    break;
+                case "remodel":
+                    if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    remodelAction();
+                    break;
+                case "library":
+                    if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    libraryAction();
                     break;
                 default:
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
