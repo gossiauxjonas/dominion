@@ -1,13 +1,13 @@
-body{
-width: 100%;
-font-family: 'Coming Soon', cursive;
-
+body {
+    width: 100%;
+    font-family: 'Coming Soon', cursive;
+    height: 100%;
 
 }
 
-body::after{
+body::after {
     content: "";
-    background-image:url("../media/images/dominionBackground.jpg") ;
+    background-image: url("../media/images/dominionBackground.jpg");
     opacity: 0.7;
     top: 0;
     left: 0;
@@ -17,54 +17,59 @@ body::after{
     z-index: -1;
 }
 
-input{
+input {
 
-    border-radius: 8px ;
-
-
+    border-radius: 8px;
 
 }
-.names input{
+
+.names input {
     display: block;
 }
-.login{
+
+.login {
     width: 40%;
     margin-top: 20%;
     margin-left: auto;
     margin-right: auto;
-    background-color: lightgrey;
+    background-color: darkslategrey;
     padding: 10px;
     border-radius: 10px;
 
-
 }
-.login input{
+
+.login input {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
-.playerlabel{
+
+.playerlabel {
 
     position: relative;
     top: 17px;
     left: 8px;
     font-size: 20px;
 }
-.amount{
+
+.amount {
     font-size: 23px;
     margin-bottom: 20px;
     display: inline;
 }
-.names label:first-of-type{
+
+.names label:first-of-type {
     color: black;
     position: relative;
 
 }
-.container{
+
+.container {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
+
 .table div div {
     background-image: url("../media/images/Cards/chapel.jpg");
     background-repeat: no-repeat;
@@ -73,18 +78,16 @@ input{
     height: 222px;
     display: inline-block;
 
-
-
-
-
 }
+
 .actionCards {
-float: right;
+    float: right;
     margin-right: 100px;
     margin-top: 10px;
 
 }
-.valuables div{
+
+.valuables div {
     background-repeat: no-repeat;
     background-size: contain;
     width: 100px;
@@ -93,30 +96,31 @@ float: right;
     float: left;
     margin-left: 10px;
 
-
 }
-.valuables{
+
+.valuables {
     margin-left: 50px;
     padding-top: 50px;
 }
 
-
-aside{
-position: absolute;
+aside {
+    position: absolute;
     bottom: 50px;
     right: 50px;
 
 }
-aside a{
+
+aside a {
     display: block;
     margin-bottom: 20px;
-    background-color: dimgray;
+    background-color: darkslategrey;
     color: azure;
     padding: 30px;
     text-decoration: none;
     text-align: center;
 }
-aside div{
+
+aside div {
     background-image: url("../media/images/Cards/trash.jpg");
     background-repeat: no-repeat;
     background-size: contain;
@@ -124,7 +128,8 @@ aside div{
     height: 222px;
 
 }
-.cardMat{
+
+.cardMat {
     background-color: dimgray;
     width: 1000px;
     height: 400px;
@@ -134,9 +139,9 @@ aside div{
     float: left;
     opacity: 0.7;
 
-
 }
-.middleLine{
+
+.middleLine {
     float: left;
     background-color: black;
     width: 1000px;
@@ -146,14 +151,13 @@ aside div{
 
 }
 
-
-.piles{
+.piles {
     position: absolute;
     bottom: 50px;
     left: 50px;
 }
 
-.piles div{
+.piles div {
     display: block;
     margin-bottom: 20px;
     background-color: dimgray;
@@ -161,8 +165,7 @@ aside div{
     padding: 70px;
 }
 
-
-.discardPile:before{
+.discardPile:before {
     content: "";
     position: absolute;
     width: 70%;
@@ -179,9 +182,9 @@ aside div{
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
 
-
 }
-.deck:before{
+
+.deck:before {
     content: "";
     position: absolute;
     width: 70%;
@@ -189,7 +192,7 @@ aside div{
     top: 36.6%;
     left: 10%;
     z-index: 10;
-    background: url("../media/images/Cards/back.jpg") ;
+    background: url("../media/images/Cards/back.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     -webkit-transform: rotate(90deg);
@@ -200,125 +203,155 @@ aside div{
 
 }
 
-.hand{
+.hand {
     width: 1000px;
     position: absolute;
-    bottom:0 ;
-    
+    bottom: 0;
+
 }
 
 .hand li {
     display: inline-block;
     background-image: url("../media/images/Cards/chancellor.jpg");
-    background-repeat: no-repeat ;
+    background-repeat: no-repeat;
     background-size: contain;
     width: 140px;
     height: 190px;
 
-
 }
-.hand li:first-of-type,.playmat li:first-of-type{
+
+.hand li:first-of-type, .playmat li:first-of-type {
     margin-left: 5%;
 }
 
-.playmat li{
+.playmat li {
     display: inline-block;
     background-image: url("../media/images/Cards/feast.jpg");
-    background-repeat: no-repeat ;
+    background-repeat: no-repeat;
     background-size: contain;
     width: 140px;
     height: 190px;
-    
+
 }
 
+.cardChoice {
 
-.kingdom{
+    width: 1000px;
+    height: 500px;
+    background-color: darkslategrey;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    margin-bottom: auto;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.kingdom {
     width: 1440px;
     height: 500px;
     user-select: none;
     -webkit-user-select: none;
     font-size: 16px;
     color: white;
+
 }
-.kingdom div{
+
+.kingdom div {
     display: inline-block;
     width: 150px;
     float: left;
 }
-.kingdom ul li {
-    display: inline-block;
-    margin-right: 100px;
-    margin-bottom: 20px;
-    text-decoration: double;
+
+.kingdom div:first-of-type {
+    margin-left: 50px;
 }
 
-.deckSubmit{
-   width: 10px;
+.kingdom ul li {
+    display: inline-block;
+    margin-right: 80px;
+    margin-bottom: 20px;
+    text-decoration: double;
+    border: solid;
+    padding: 5px;
+    border-radius: 15px;
 }
-label{
+
+.kingdom ul li:first-of-type {
+    margin-left: 50px;
+}
+.kingdom ul li :last-of-type{
+    width: 10px;
+}
+
+label {
     display: block;
+    width: 10px;
     padding: 5px;
 }
 
-
-input[type="checkbox"]{
+input[type="checkbox"] {
     opacity: 0;
     width: 0;
 }
 
+.deckSubmit {
+    width: 200px;
+    height: 120px;
+    position: absolute;
+    bottom: 300px;
+    right: 550px;
 
 
 
+    background-color: gray;
+    font-size: 20px;
+    color: white;
+
+}
+
+.cardsLeft{
+    position: absolute;
+    top: 120px;
+    height: 30px;
+    right: 10%;
+    border: solid;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: darkslategrey;
 
 
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.curses{
+.curses {
     background-image: url("../media/images/Cards/curse.jpg");
 }
 
-.province{
+.province {
     background-image: url("../media/images/Cards/province.jpg");
 
 }
-.estate{
+
+.estate {
     background-image: url("../media/images/Cards/estate.jpg");
 }
-.duchy{
+
+.duchy {
     background-image: url("../media/images/Cards/duchy.jpg");
 }
 
-.gold{
+.gold {
     background-image: url("../media/images/Cards/gold.jpg");
 
 }
-.silver{
+
+.silver {
     background-image: url("../media/images/Cards/silver.jpg");
 }
-.copper{
+
+.copper {
     background-image: url("../media/images/Cards/copper.jpg");
 }
 
