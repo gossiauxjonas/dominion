@@ -24,7 +24,7 @@ public class Communication {
 
     public void getMySQLConnection() //open de databaseconnectie
     {
-        databaseURL = "jdbc:mysql://localhost:3306/Dominion2";
+        databaseURL = "jdbc:mysql://localhost:3306/Dominion";
         user = "root";
         password = "";
         conn = null;
@@ -66,7 +66,7 @@ public class Communication {
 
 
         String updatedQuery = "SELECT " + querry + " FROM " + table + " WHERE " + WhereStatement + "= " + value;
-        //System.out.println(updatedQuery);
+        System.out.println(updatedQuery);
         try {
 
             stmt = conn.createStatement();

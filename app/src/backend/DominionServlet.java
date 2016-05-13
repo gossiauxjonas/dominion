@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by Asus on 14/04/16.
+ * Created by Jonas on 14/04/16.
  */
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {

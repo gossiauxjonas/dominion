@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Indy Van Mol on 21/03/16.
  */
 
-public class TestBasicCard {
+public class  TestBasicCard {
 
     BasicCard rootCard1;
     BasicCard rootCard2;
