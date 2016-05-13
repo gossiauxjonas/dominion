@@ -35,6 +35,7 @@ input {
     background-color: darkslategrey;
     padding: 10px;
     border-radius: 10px;
+    color: white; !important;
 
 }
 
@@ -59,7 +60,7 @@ input {
 }
 
 .names label:first-of-type {
-    color: black;
+
     position: relative;
 
 }
@@ -293,7 +294,7 @@ label {
 
 input[type="checkbox"] {
     opacity: 0;
-    width: 0;
+    width: 0px;
 }
 
 .deckSubmit {
@@ -302,9 +303,6 @@ input[type="checkbox"] {
     position: absolute;
     bottom: 300px;
     right: 550px;
-
-
-
     background-color: gray;
     font-size: 20px;
     color: white;
@@ -320,8 +318,6 @@ input[type="checkbox"] {
     border-radius: 20px;
     padding: 15px;
     background-color: darkslategrey;
-
-
 
 }
 
