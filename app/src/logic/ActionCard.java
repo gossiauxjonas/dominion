@@ -13,8 +13,6 @@ public class ActionCard extends BasicCard {
         this.game = game;
     }
 
-    public void playAction() {
-
-    }
+    public void playAction() {}
 
 }

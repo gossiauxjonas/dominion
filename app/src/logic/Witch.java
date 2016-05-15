@@ -10,10 +10,5 @@ public class Witch extends ActionCard {
     }
 
     public void playAction() {
-        game.getPlayer().drawCardsToHand(2);
-        Player[] otherPlayers = game.getOtherPlayers();
-        for (int i = 0; i < otherPlayers.length; i++) {
-            otherPlayers[i].toDiscard(game.getShop().buyCard(16));
-        }
     }
 }

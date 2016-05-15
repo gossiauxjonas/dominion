@@ -125,6 +125,52 @@ public class ConsoleReadingDemo {
         }
     }
 
+    public void mineAction() {
+        int maxCost = 3;
+        printHand(game.getPlayer());
+        System.out.println("Pick a treasure card that you want to destroy");
+        int choice = choicePlay();
+        maxCost += game.getPlayer().getCardInHandOn(choice).getPrice();
+        game.getPlayer().destroyCardFromHand(choice);
+        printShop(game.getShop());
+        System.out.println("Pick a treasure card that costs "+ maxCost + " coins or less.");
+        int buyChoice = choicePlay();
+        game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+    }
+
+    public Boolean doesPlayerReact(Player player) {
+        if (player.getHand().contains(game.getMoat())) {
+            System.out.println(player.getName() + " if you want to react type 0 if you don't type 1.");
+            int choice = choicePlay();
+            return choice == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public void spyAction() {
+        game.getPlayer().drawCardsToHand(1);
+        game.addTurnActions(1);
+        for (Player player : game.getOtherPlayers()) {
+            if (!doesPlayerReact(player)) {
+                BasicCard cardOnTopOfDeck = player.getCardOnTopOfDeck();
+                System.out.println(cardOnTopOfDeck.getName() + " is the card on top of " + player.getName() + "s deck.");
+                System.out.println("Type 0 to let it lay ore 1 to discard");
+                int choice = choicePlay();
+                if (choice == 1) player.discardTopCardOfDeck();
+            }
+        }
+    }
+
+    public void witchAction() {
+        game.getPlayer().drawCardsToHand(2);
+        for (Player player : game.getOtherPlayers()) {
+            if (!doesPlayerReact(player)) {
+                player.toDiscard(game.getShop().buyCard(16));
+            }
+        }
+    }
+
     public void defaultAction(ActionCard card) {
         card.playAction();
     }
@@ -162,12 +208,24 @@ public class ConsoleReadingDemo {
                     feastAction();
                     break;
                 case "remodel":
-                    if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
                     remodelAction();
                     break;
                 case "library":
-                    if (removeCard) game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
                     libraryAction();
+                    break;
+                case "mine":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    mineAction();
+                    break;
+                case "spy":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    spyAction();
+                    break;
+                case "witch":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    witchAction();
                     break;
                 default:
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);

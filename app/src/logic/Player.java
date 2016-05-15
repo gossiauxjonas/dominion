@@ -79,6 +79,14 @@ public class Player {
         return drawDeck.remove(amountCardsDeck() - 1);
     }
 
+    public BasicCard getCardOnTopOfDeck() {
+        return drawDeck.get(amountCardsDeck()-1);
+    }
+
+    public void discardTopCardOfDeck() {
+        toDiscard(drawCardFromDeck());
+    }
+
     //Void methods
     public void drawCardsToHand(int amount) {
         for (int i = 0; i < amount; i++) {
@@ -96,7 +104,7 @@ public class Player {
         hand.add(card);
     }
 
-    public void putCardsInHand(List<BasicCard> cards) {hand.addAll(cards); }
+    //public void putCardsInHand(List<BasicCard> cards) {hand.addAll(cards); }
 
     public void discardCardFromHand(int place) {
         toDiscard(hand.remove(place));

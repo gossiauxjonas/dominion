@@ -35,6 +35,8 @@ public class GameEngine {
     private Feast feast = new Feast(this);
     private Remodel remodel = new Remodel(this);
     private Library library = new Library(this);
+    private Mine mine = new Mine(this);
+    private Spy spy = new Spy(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -52,9 +54,9 @@ public class GameEngine {
     private CardStack actionCardStack1 = new CardStack(2, market);
     private CardStack actionCardStack2 = new CardStack(2, moneylender);
     private CardStack actionCardStack3 = new CardStack(2, village);
-    private CardStack actionCardStack4 = new CardStack(2, library);
-    private CardStack actionCardStack5 = new CardStack(2, workshop);
-    private CardStack actionCardStack6 = new CardStack(2, cellar);
+    private CardStack actionCardStack4 = new CardStack(2, spy);
+    private CardStack actionCardStack5 = new CardStack(2, moat);
+    private CardStack actionCardStack6 = new CardStack(2, witch);
     private CardStack actionCardStack7 = new CardStack(2, remodel);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
     private CardStack actionCardStack9 = new CardStack(2, chancellor);
@@ -65,7 +67,6 @@ public class GameEngine {
     private Player[] players;
 
     private int playerTurn;
-
 
     private int turnActions;
     private int turnBuys;
@@ -186,6 +187,10 @@ public class GameEngine {
             }
         }
         return otherPlayers;
+    }
+
+    public Moat getMoat() {
+        return moat;
     }
 
     public int[][] playersAndScore() {
