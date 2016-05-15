@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Created by Asus on 14/04/16.
- */
+
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
 
@@ -52,6 +50,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         String operation = "init";
         //request.getParameter("operation");
+        System.out.println(request.getParameter("kingdom"));
 
         switch(operation)
         {
@@ -70,6 +69,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                     gameEngine = new GameEngine(firstplayer,otherPlayer);
                     pw.write(firstplayer+otherPlayer);
                 }
+
 
                 // verwacht bv parameters: nrPlayers en name1 tot namen met n = aantal spelers
                 // roep bv method op waar je request aan meegeeft
