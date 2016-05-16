@@ -14,7 +14,6 @@ public class GameEngine {
     private TreasureCard silver = new TreasureCard("silver" ,3, 2);
     private TreasureCard gold = new TreasureCard("gold", 6, 3);
 
-    private BasicCard actionCard = new ActionCard("testactioncard" ,4, this);
     private Garden garden = new Garden();
     private Smithy smithy = new Smithy(this);
     private Village village = new Village(this);
@@ -51,7 +50,7 @@ public class GameEngine {
     private CardStack goldStack = new CardStack(2, gold);
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(province, 1); // nog veranderen
+    private CardStack provinceStack = new CardStack(2, province);
     private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, market);
