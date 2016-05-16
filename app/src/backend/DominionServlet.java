@@ -1,5 +1,6 @@
 package backend;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
 import logic.Player;
@@ -17,9 +18,14 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
+
+
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
+
+
 
 
         response.setContentType("application/json");
@@ -28,7 +34,8 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
 
-
+        String cardArray = request.getParameter("data");
+        System.out.println(cardArray + "ok");
 
 
 
@@ -50,7 +57,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         String operation = "init";
         //request.getParameter("operation");
-        System.out.println(request.getParameter("kingdom"));
+
+        String json = request.getParameter("json");
+        System.out.println(json);
+//        JSONParser parser = new JSONParser(json);
 
         switch(operation)
         {

@@ -45,6 +45,21 @@ function sendInit() {
     })
 
 }
+
+function makeArrayFromForm() {
+    var cardArray = [];
+    console.log(cardArray);
+    for (var i = 0; i < 24; i++) {
+        if ($("label").eq(i).next().is(":checked")) {
+            cardArray[i] = $("label").eq(i).next().val();
+            console.log(i);
+
+        }
+    }
+    return cardArray;
+
+
+}
 function changecolorAndNumber() {
 
 
@@ -58,6 +73,27 @@ function changecolorAndNumber() {
         console.log("white");
     }
 
+
+}
+
+function sendArray() {
+    var cardArray = makeArrayFromForm();
+
+
+    var response = $.ajax({
+        dataType: "json",
+        url: "/DominionServlet",
+        type: 'GET',
+        data: {"json": JSON.stringify(cardArray)},
+        contentType: 'application/json',
+        mimeType: 'application/json'
+
+
+    });
+    response.done(function () {
+
+
+    })
 
 }
 
@@ -98,7 +134,7 @@ $(document).ready(function () {
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
     $("input[type='checkbox']").on('change', changeNumber);
-    $('.deckSubmit').on('submit', submitTest)
+    $('.deckSubmit').on('click', sendArray)
 
 
 });
