@@ -9,6 +9,5 @@ public class Witch extends ActionCard {
         super("witch", 5, game);
     }
 
-    public void playAction() {
-    }
+
 }

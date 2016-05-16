@@ -112,6 +112,8 @@ public class Player {
 
     public void destroyCardFromHand(int place) { hand.remove(place); }
 
+    public BasicCard removeCardFromHand(int place) { return hand.remove(place); }
+
     public void emptyHand() {
         discardDeck.addAll(hand);
         hand.clear();
@@ -134,6 +136,20 @@ public class Player {
         for (int i = 0; i < cardsInDeck; i++) {
             toDiscard(drawCardFromDeck());
         }
+    }
+
+    public Boolean handContainsVictory() {
+        Boolean result = false;
+        for (BasicCard card : hand) {
+            if (card.getClass().equals(VictoryCard.class)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public void putCardOnDrawDeck(BasicCard card) {
+        drawDeck.add(card);
     }
 
     public void toDiscard(BasicCard card) {

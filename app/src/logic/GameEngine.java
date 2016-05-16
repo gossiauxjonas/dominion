@@ -37,6 +37,9 @@ public class GameEngine {
     private Library library = new Library(this);
     private Mine mine = new Mine(this);
     private Spy spy = new Spy(this);
+    private Thief thief = new Thief(this);
+    private Militia militia = new Militia(this);
+    private Bureaucrat bureaucrat = new Bureaucrat(this);
 
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
@@ -48,15 +51,15 @@ public class GameEngine {
     private CardStack goldStack = new CardStack(2, gold);
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(2, province);
+    private CardStack provinceStack = new CardStack(province, 1); // nog veranderen
     private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, market);
-    private CardStack actionCardStack2 = new CardStack(2, moneylender);
+    private CardStack actionCardStack2 = new CardStack(2, laboratory);
     private CardStack actionCardStack3 = new CardStack(2, village);
-    private CardStack actionCardStack4 = new CardStack(2, spy);
+    private CardStack actionCardStack4 = new CardStack(2, throneRoom);
     private CardStack actionCardStack5 = new CardStack(2, moat);
-    private CardStack actionCardStack6 = new CardStack(2, witch);
+    private CardStack actionCardStack6 = new CardStack(2, chapel);
     private CardStack actionCardStack7 = new CardStack(2, remodel);
     private CardStack actionCardStack8 = new CardStack(2, woodcutter);
     private CardStack actionCardStack9 = new CardStack(2, chancellor);
@@ -127,7 +130,6 @@ public class GameEngine {
     public int getTurnCoins() {
         return turnCoins;
     }
-
 
     public Player getPlayer() {
         return players[playerTurn];
