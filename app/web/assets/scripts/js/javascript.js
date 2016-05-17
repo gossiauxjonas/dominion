@@ -13,7 +13,7 @@ function definePlayerArray() {
 
 function createStandardShop(){
 
-    for(var i = 0; i<9 ;i++){
+    for(var i = 0; i<10 ;i++){
 
         $(".shopCards").eq(i).css("background-image",'url("assets/media/images/Cards/' + AllCards[i]+'.jpg")');
 
@@ -132,6 +132,30 @@ function makeCounter() {
 
 }
 
+function cardToField() {
+    var image =  $(this).css("background-image");
+
+   $(".playmat ul").append("<li></li>");
+    $(".playmat li:last-of-type").css("background-image", image);
+
+    console.log( $(this).css("background-image"))
+
+
+}
+
+function shopToHand() {
+
+    var image =  $(this).css("background-image");
+
+    $(".hand ul ").append("<li></li>");
+    $(".hand ul li:last-of-type").css("background-image", image);
+
+    console.log( $(this).css("background-image"))
+
+
+    
+}
+
 
 
 
@@ -152,6 +176,8 @@ function startLoop() {
 
 
     });
+
+    console.log('loop started in javascript')
 
 }
     
@@ -180,5 +206,8 @@ $(document).ready(function () {
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
     $('.playfield').on('load', startLoop);
+    
+    $('.hand').on("click", cardToField);
+    $('.shopCards').on('click', shopToHand);
 
 });

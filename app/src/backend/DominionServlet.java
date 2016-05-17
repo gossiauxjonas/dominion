@@ -67,8 +67,8 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         //  JSONParser parser = new JSONParser(json);
 
-        String operation = "init";
-       // operation = request.getParameter("operation");
+        String operation ;
+        operation = request.getParameter("operation");
         System.out.println(operation);
 
         switch (operation) {
