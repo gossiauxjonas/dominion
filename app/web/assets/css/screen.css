@@ -84,7 +84,7 @@ input {
 .actionCards {
     float: right;
     margin-right: 100px;
-    margin-top: 10px;
+
 
 }
 
@@ -232,7 +232,13 @@ aside div {
     background-size: contain;
     width: 140px;
     height: 190px;
+    margin-bottom: 10px;
 
+}
+
+.playmat{
+   position: relative;
+    top: -35px;
 }
 
 .cardChoice {
@@ -325,6 +331,70 @@ input[type="checkbox"] {
     padding: 15px;
     background-color: darkslategrey;
 
+}
+
+.playmat span{
+    color: white;
+    background-color: black;
+    position: absolute;
+    top: 5px;
+    left: -50px;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+
+.hand span{
+    color: white;
+    background-color: black;
+    opacity: 0.8;
+    position: relative;
+    top: 25px;
+    left: -35px;
+    padding: 5px;
+    border-radius: 5px;
+
+
+
+
+}
+
+.table span{
+    color: white;
+    background-color: black;
+    opacity: 0.8;
+    position: absolute;
+    padding: 5px;
+    border-radius: 5px;
+    top: 0px;
+
+}
+
+.activePlayer{
+    color: white;
+    background-color: black;
+    opacity: 0.8;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 50px;
+
+
+}
+
+.phase{
+    color: white;
+    background-color: black;
+    opacity: 0.8;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+   position: relative;
+    bottom: 50px;
+    left: 300px;
+    font-size: 30px;
 }
 
 .curses {

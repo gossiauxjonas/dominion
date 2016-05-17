@@ -50,8 +50,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         PrintWriter pw = response.getWriter();
 
 
-        String cardArray = request.getParameter("data");
-        System.out.println(cardArray + "ok");
+        // String cardArray = request.getParameter("data");
 
 
         //GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
@@ -61,35 +60,36 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         }
 
 
-        // operation=
+
+
+
+       // String json = request.getParameter("json");
+
+        //  JSONParser parser = new JSONParser(json);
 
         String operation = "init";
-        //request.getParameter("operation");
-
-        String json = request.getParameter("json");
-        System.out.println(json);
-//        JSONParser parser = new JSONParser(json);
-
+       // operation = request.getParameter("operation");
+        System.out.println(operation);
 
         switch (operation) {
             case "init":
                 String firstplayer = request.getParameter("player1");
                 String otherPlayer = request.getParameter("player2");
                 String lastPlayer = request.getParameter("player3");
-                startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
 
-                System.out.println(gameEngine.getPlayer().getName());
-                System.out.println(gameEngine.getPlayers()[1].getName());
-                System.out.println(gameEngine.getPlayers()[2].getName());
+                startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
 
 
                 String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
-                for (String card : sendChosenCards)
-                {
-                    System.out.println("test"+card.toString());
+                for (String card : sendChosenCards) {
+                    System.out.println( card.toString());
 
                 }
 
+
+                response.sendRedirect("/playfield.html");
+
+                operation = request.getParameter("operation");
 
 
                 break;
@@ -107,8 +107,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
             case "loop":
 
+                System.out.println("in loop");
+
+                break;
 
             default:
+
+                break;
         }
     }
 }

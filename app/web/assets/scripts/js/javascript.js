@@ -1,3 +1,6 @@
+
+var AllCards = ["cellar","chapel","moat","chancellor","village","woodcutter","workshop","bureaucrat","feast","gardens","militia","moneylender","remodel","smithy","spy","thief","throneRoom","councilRoom","festival","laboratory","library","market","mine","witch","adventurer"];
+
 function definePlayerArray() {
     var playerArray = [$("#player1").val(), $("#player2").val()];
 
@@ -8,9 +11,17 @@ function definePlayerArray() {
 
 }
 
-var counter = 10;
+function createStandardShop(){
+
+    for(var i = 0; i<9 ;i++){
+
+        $(".shopCards").eq(i).css("background-image",'url("assets/media/images/Cards/' + AllCards[i]+'.jpg")');
+
+        console.log(AllCards[i]);
+    }
 
 
+}
 function addInput() {
 
     if ($(this).val() == "three") {
@@ -27,7 +38,7 @@ function addInput() {
 
 
 function sendInit() {
-    var operation = "init";
+
 
     var response = $.ajax({
         dataType: "text",
@@ -45,7 +56,7 @@ function sendInit() {
         
     });
    
-
+console.log('sendinit')
 }
 
 function makeArrayFromForm() {
@@ -92,6 +103,7 @@ function sendArray() {
 
 
     });
+    
     response.done(function () {
 
 
@@ -121,6 +133,32 @@ function makeCounter() {
 }
 
 
+
+
+function startLoop() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "loop"
+
+
+        }
+
+
+    }).done(function (data) {
+
+
+
+    });
+
+}
+    
+
+
+
+
 $(document).ready(function () {
     var limit = 10;
 
@@ -131,12 +169,16 @@ $(document).ready(function () {
     });
 
 
+    createStandardShop();
+
+
+
     $('#playerForm').on('submit', definePlayerArray);
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
     $("input[type='checkbox']").on('change', changeNumber);
-    $('.deckSubmit').on('click', sendArray)
-
+    $('.deckSubmit').on('click', sendArray);
+    $('.playfield').on('load', startLoop);
 
 });
