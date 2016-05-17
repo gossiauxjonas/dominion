@@ -39,10 +39,12 @@ function sendInit() {
         }
 
 
+    }).done(function (data) {
+        
+        
+        
     });
-    response.done(function () {
-
-    })
+   
 
 }
 
