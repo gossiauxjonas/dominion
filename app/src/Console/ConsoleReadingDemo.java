@@ -135,9 +135,14 @@ public class ConsoleReadingDemo {
             printHand(game.getPlayer());
             System.out.println("Pick a treasure card that you want to destroy");
             int choice = choicePlay();
-            switch (game.getPlayer().getCardInHandOn())
+            switch (game.getPlayer().getCardInHandOn(choice).getName()) {
+                case "Copper":
+
+                    break;
+
+            }
             game.getPlayer().destroyCardFromHand(choice);
-            game.getPlayer().toDiscard(game.getShop().buyCard());
+            //game.getPlayer().toDiscard(game.getShop().buyCard());
         } else {
             System.out.println("You have no Treasure cards in your hand!");
         }
