@@ -218,6 +218,7 @@ aside div {
     background-size: contain;
     width: 140px;
     height: 190px;
+    z-index: 10;
 
 }
 

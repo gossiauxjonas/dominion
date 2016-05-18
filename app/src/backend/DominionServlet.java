@@ -5,16 +5,18 @@ import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
 import logic.Player;
 import logic.Shop;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+
 
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
@@ -125,10 +127,15 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
         String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
-        for (String card : sendChosenCards) {
-            System.out.println(card.toString());
+
+        JSONObject obj = new JSONObject();
+
+        for (int i = 0; i < sendChosenCards.length ; i++) {
 
         }
+
+
+        System.out.println(Arrays.toString(sendChosenCards));
 
 
 

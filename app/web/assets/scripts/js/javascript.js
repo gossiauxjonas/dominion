@@ -101,6 +101,7 @@ function sendArray() {
     response.done(function () {
 
 
+        
     })
 
 }
@@ -181,13 +182,6 @@ function shopToHand() {
 
     
 }
-
-
-
-
-
-    
-
 
 
 
