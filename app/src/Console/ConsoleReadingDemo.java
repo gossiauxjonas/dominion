@@ -287,7 +287,11 @@ public class ConsoleReadingDemo {
             }
         }
     public void bureaucratAction() {
-        game.getPlayer().putCardOnDrawDeck(game.getShop().buyCard(1));
+        if (game.getShop().cardsLeftInStack(1) > 0) {
+            game.getPlayer().putCardOnDrawDeck(game.getShop().buyCard(1));
+        } else {
+            System.out.println("there are no more silver cards!");
+        }
         for (Player player : game.getOtherPlayers()) {
             if (!doesPlayerReact(player)) {
                 printHand(player);
@@ -321,20 +325,37 @@ public class ConsoleReadingDemo {
     }
 
     public void adventurerAction() {
-        for (int i = 0; i < 2; i++) {
-            if (game.playerHasTreasure(game.getPlayer())) {
-                BasicCard pulledCard = game.getPlayer().drawCardFromDeck();
-                System.out.println("You have drawn a " + pulledCard.getName() + ".");
-                while (!(pulledCard.getClass().equals(TreasureCard.class))) {
-                    game.getPlayer().toDiscard(pulledCard);
-                    pulledCard = game.getPlayer().drawCardFromDeck();
-                    System.out.println("You have drawn a " + pulledCard.getName() + ".");
-                }
-                game.getPlayer().putCardInHand(pulledCard);
-            } else {
-                System.out.println("There aren't any treasure cards left in your decks!");
+        List<BasicCard> pulledCards = new ArrayList<BasicCard>();
+        switch (game.getPlayer().amountOfTreasureCardsInDraw()) {
+            case 0:
+                System.out.println("There are no more treasure cards in your deck!");
                 break;
-            }
+            case 1:
+                int oldSize = game.getPlayer().amountCardsHand();
+                while (game.getPlayer().amountCardsHand() != oldSize+1) {
+                    BasicCard card = game.getPlayer().drawCardFromDeck();
+                    System.out.println("You pulled a " + card.getName() + ".");
+                    if (card.getClass().equals(TreasureCard.class)) {
+                        game.getPlayer().putCardInHand(card);
+                    } else {
+                        pulledCards.add(card);
+                    }
+                }
+                game.getPlayer().getDiscard().addAll(pulledCards);
+                System.out.println("There are no more treasure cards in your deck!");
+                break;
+            default:
+                int Size = game.getPlayer().amountCardsHand();
+                while (game.getPlayer().amountCardsHand() != Size+2) {
+                    BasicCard card = game.getPlayer().drawCardFromDeck();
+                    System.out.println("You pulled a " + card.getName() + ".");
+                    if (card.getClass().equals(TreasureCard.class)) {
+                        game.getPlayer().putCardInHand(card);
+                    } else {
+                        pulledCards.add(card);
+                    }
+                }
+                game.getPlayer().getDiscard().addAll(pulledCards);
         }
     }
 

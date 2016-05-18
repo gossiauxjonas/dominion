@@ -104,8 +104,6 @@ public class Player {
         hand.add(card);
     }
 
-    //public void putCardsInHand(List<BasicCard> cards) {hand.addAll(cards); }
-
     public void discardCardFromHand(int place) {
         toDiscard(hand.remove(place));
     }
@@ -156,6 +154,17 @@ public class Player {
             }
         }
         return result;
+    }
+
+    public int amountOfTreasureCardsInDraw() {
+        int i = 0;
+        List<BasicCard> allCardsInDraw = new ArrayList<BasicCard>();
+        allCardsInDraw.addAll(drawDeck);
+        allCardsInDraw.addAll(discardDeck);
+        for (BasicCard card : allCardsInDraw) {
+            if (card.getClass().equals(TreasureCard.class)) ++i;
+        }
+        return i;
     }
 
     public void putCardOnDrawDeck(BasicCard card) {
