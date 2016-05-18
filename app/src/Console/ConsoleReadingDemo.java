@@ -14,19 +14,6 @@ public class ConsoleReadingDemo {
 
     private GameEngine game;
 
-    public void printAll() {
-        for (Player player : game.getPlayers()) {
-            System.out.println("\n" + player.getName());
-            List<BasicCard> allCards = new ArrayList<BasicCard>();
-            allCards.addAll(player.getHand());
-            allCards.addAll(player.getDiscard());
-            allCards.addAll(player.getDrawDeck());
-            for (BasicCard card : allCards) {
-                System.out.println(card.getName());
-            }
-        }
-    }
-
     public void printHand(Player player) {
         System.out.println(player.getName() + " his hand:");
         for (int i = 0; i < player.getHand().size(); i++)
@@ -117,16 +104,22 @@ public class ConsoleReadingDemo {
 
     public void libraryAction() {
         while (game.getPlayer().amountCardsHand() != 7) {
-            BasicCard pulledCard = game.getPlayer().drawCardFromDeck();
-            System.out.println("The pulled card is " + pulledCard.getName());
-            if (ActionCard.class.isInstance(pulledCard)) {
-                System.out.println("If you want to hold this action card type 1 else type 0.");
-                int coice = choicePlay();
-                if (coice == 1) game.getPlayer().putCardInHand(pulledCard);
-                else game.getPlayer().toDiscard(pulledCard);
-            } else {
+            if (game.getPlayer().amountCardsDeck() == 0 && game.getPlayer().amountCardsDiscard() == 0) {
+                System.out.println("You can't draw anymore cards!");
+                break;
+            }
+            else {
+                BasicCard pulledCard = game.getPlayer().drawCardFromDeck();
+                System.out.println("The pulled card is " + pulledCard.getName());
+                if (ActionCard.class.isInstance(pulledCard)) {
+                    System.out.println("If you want to hold this action card type 1 else type 0.");
+                    int coice = choicePlay();
+                    if (coice == 1) game.getPlayer().putCardInHand(pulledCard);
+                    else game.getPlayer().toDiscard(pulledCard);
+            }   else {
                 game.getPlayer().putCardInHand(pulledCard);
             }
+        }
         }
     }
 
@@ -309,18 +302,18 @@ public class ConsoleReadingDemo {
         card.playAction();
     }
 
-    public void throneRoomAction() {
+    public void throneRoomAction(List playedCards) {
         printHand(game.getPlayer());
         System.out.println("Choose a action card to play twice");
         int actionChoice = choicePlay();
             if (game.getPlayer().getCardInHandOn(actionChoice).getName() == "throne room") {
-                playAction(actionChoice);
+                playAction(actionChoice, playedCards);
             } else {
                 BasicCard cardToPlayTwice = game.getPlayer().removeCardFromHand(actionChoice);
                 game.getPlayer().putCardInHand(cardToPlayTwice);
-                playAction(game.getPlayer().amountCardsHand()-1, false);
+                playAction(game.getPlayer().amountCardsHand()-1, playedCards, false);
                 game.getPlayer().putCardInHand(cardToPlayTwice);
-                playAction(game.getPlayer().amountCardsHand()-1, true);
+                playAction(game.getPlayer().amountCardsHand()-1, playedCards, true);
             }
     }
 
@@ -359,35 +352,35 @@ public class ConsoleReadingDemo {
         }
     }
 
-    public void playAction(int indexCardInHand) {
-        playAction(indexCardInHand, true);
+    public void playAction(int indexCardInHand, List playedCards) {
+        playAction(indexCardInHand, playedCards, true);
     }
 
-    public void playAction(int indexCardInHand, Boolean removeCard) {
+    public void playAction(int indexCardInHand,List playedCards, Boolean removeCard) {
         System.out.println("Play action " + game.getPlayer().getCardInHandOn(indexCardInHand).getName());
         ActionCard card = (ActionCard) game.getPlayer().getCardInHandOn(indexCardInHand);
             switch (card.getName()) {
                 case "throne room":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
-                    throneRoomAction();
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
+                    throneRoomAction(playedCards);
                     break;
                 case "chapel":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     chapelAction();
                     break;
                 case "moneylender":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     moneylenderAction();
                     break;
                 case "cellar":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     cellarAction();
                     break;
                 case "workshop":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     workshopAction();
                     break;
@@ -396,61 +389,82 @@ public class ConsoleReadingDemo {
                     feastAction();
                     break;
                 case "remodel":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     remodelAction();
                     break;
                 case "library":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     libraryAction();
                     break;
                 case "mine":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     mineAction();
                     break;
                 case "spy":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     spyAction();
                     break;
                 case "witch":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     witchAction();
                     break;
                 case "thief":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     thiefAction();
                     break;
                 case "militia":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     militiaAction();
                     break;
                 case "bureaucrat":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     bureaucratAction();
                     break;
                 case "adventurer":
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     adventurerAction();
                     break;
                 default:
-                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    if (removeCard) playedCards.add(game.getPlayer().removeCardFromHand(indexCardInHand));
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     defaultAction(card);
         }
     }
 
     public int choicePlay() {
-        Scanner in = new Scanner(System.in);
-        System.out.print("");
-        return in.nextInt();
+        return numberInput();
+    }
+
+    public int inputBoundaries(int bottom, int upper) {
+        int integer = numberInput();
+        while (integer < bottom || integer > upper) {
+            System.out.println("The number must be between " + bottom + " and " + upper + "!");
+            integer = numberInput();
+        }
+        return integer;
+    }
+
+    public int numberInput() {
+        Scanner scan = new Scanner(System.in);
+        Integer integer = null;
+        while (integer == null) {
+            String input = scan.nextLine();
+            try {
+                integer = Integer.parseInt(input);
+            } catch (Exception e) {
+                System.out.println("The input must be a number.");
+            }
+        }
+        return integer;
     }
 
     public void turn() {
@@ -458,6 +472,7 @@ public class ConsoleReadingDemo {
         System.out.println();
         System.out.println(game.getPlayer().getName() + "s Turn");
         System.out.println("Action Fase");
+        List<BasicCard> playedCards = new ArrayList<BasicCard>();
         while (game.getTurnActions() > 0) {
             System.out.println();
             System.out.println("Actions left: " + game.getTurnActions());
@@ -467,9 +482,10 @@ public class ConsoleReadingDemo {
                 game.endTurnActions();
             } else {
                 game.decrementTurnActions();
-                playAction(actionChoice);
+                playAction(actionChoice, playedCards);
                 if (!game.getShop().isOpen()) return;
             } }
+            game.getPlayer().getDiscard().addAll(playedCards);
             System.out.println("Buy Fase");
             int coins = game.calculateTreasureInHand() + game.getTurnCoins();
             while (game.getTurnBuys() > 0) {
@@ -492,25 +508,31 @@ public class ConsoleReadingDemo {
             }
             game.getPlayer().endTurn();
             game.nextTurn();
-            System.out.println();
             System.out.println("------------------------------------------------------------------");
     }
 
     private void run() {
         Scanner in = new Scanner(System.in);
-
+        System.out.println("Welcome to Dominion!");
+        System.out.println("Type 2 to play with two players or Type 3 to play with three players.");
+        int amountOfPlayers = inputBoundaries(2, 3);
         System.out.print("Name player1: ");
         String player1 = (String) in.next();
         System.out.print("Name player2: ");
         String player2 = (String) in.next();
-        //System.out.print("Name player3: ");
-        //String player3 = (String) in.next();
-        System.out.println("The players are: "+ player1 + " and "+ player2);
-        game = new GameEngine(player1, player2);
+        if (amountOfPlayers == 3) {
+            System.out.print("Name player3: ");
+            String player3 = (String) in.next();
+            game = new GameEngine(player1, player2, player3);
+            System.out.println("The players are: "+ player1 + ", "+ player2 + " and " + player3 + ".");
+        } else {
+            game = new GameEngine(player1, player2);
+            System.out.println("The players are: "+ player1 + " and "+ player2);
+        }
+
         while (game.getShop().isOpen()) {
             turn();
         }
-        printAll();
         int[][] playerRank = game.playerScoreRank();
         System.out.println("The winner is: " + game.getPlayers()[playerRank[0][0]].getName() + " with " + playerRank[0][1] + " points");
         System.out.println(game.getPlayers()[playerRank[1][0]].getName() + " has " + playerRank[1][1] + " points");
