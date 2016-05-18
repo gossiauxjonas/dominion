@@ -137,12 +137,30 @@ public class ConsoleReadingDemo {
             int choice = choicePlay();
             switch (game.getPlayer().getCardInHandOn(choice).getName()) {
                 case "Copper":
-
+                    if (game.getShop().cardsLeftInStack(1) > 0) {
+                        game.getPlayer().destroyCardFromHand(choice);
+                        game.getPlayer().putCardInHand(game.getShop().buyCard(1));
+                    } else {
+                        System.out.println("There are no silver cards left");
+                    }
                     break;
-
+                case "silver":
+                    if (game.getShop().cardsLeftInStack(2) > 0) {
+                        game.getPlayer().destroyCardFromHand(choice);
+                        game.getPlayer().putCardInHand(game.getShop().buyCard(2));
+                    } else {
+                        System.out.println("There are no Gold cards left");
+                    }
+                    break;
+                case "gold":
+                    if (game.getShop().cardsLeftInStack(2) > 0) {
+                        game.getPlayer().destroyCardFromHand(choice);
+                        game.getPlayer().putCardInHand(game.getShop().buyCard(2));
+                    } else {
+                        System.out.println("There are no Gold cards left");
+                    }
+                    break;
             }
-            game.getPlayer().destroyCardFromHand(choice);
-            //game.getPlayer().toDiscard(game.getShop().buyCard());
         } else {
             System.out.println("You have no Treasure cards in your hand!");
         }

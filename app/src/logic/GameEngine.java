@@ -62,7 +62,7 @@ public class GameEngine {
     private CardStack actionCardStack6 = new CardStack(2, witch);
     private CardStack actionCardStack7 = new CardStack(2, throneRoom);
     private CardStack actionCardStack8 = new CardStack(2, library);
-    private CardStack actionCardStack9 = new CardStack(2, feast;
+    private CardStack actionCardStack9 = new CardStack(2, feast);
     private CardStack actionCardStack10 = new CardStack(2, chapel);
 
     private Shop shop;
