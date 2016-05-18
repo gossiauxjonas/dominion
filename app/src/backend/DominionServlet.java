@@ -1,22 +1,14 @@
 package backend;
 
-import jdk.nashorn.internal.parser.JSONParser;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
-import logic.Player;
 import logic.Shop;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 
