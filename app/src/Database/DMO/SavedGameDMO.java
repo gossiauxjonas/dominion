@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- * Created by Nick Casier on 12/05/2016.
- */
+
 public class SavedGameDMO {
     public static void setSavedGame(Connection connection) throws SQLException {
         PreparedStatement pstmt;

@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by Nick Casier on 13/05/2016.
- */
+
 public class PlayerCardsDAO {
     public static void getPlayerCards(Connection connection) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM dominion.PlayerCards")) {

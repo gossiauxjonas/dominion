@@ -5,8 +5,10 @@ import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
 import logic.Player;
 import logic.Shop;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -24,7 +26,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     // dit is een bug;
     private GameEngine gameEngine;
 
-    public void startNewGame(PrintWriter pw, String firstplayer, String otherPlayer, String lastPlayer) {
+    private void startNewGame(PrintWriter pw, String firstplayer, String otherPlayer, String lastPlayer) {
 
         if (lastPlayer != null) {
             gameEngine = new GameEngine(firstplayer, otherPlayer, lastPlayer);
@@ -39,7 +41,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
 
-    public String[] sendChosenCards(Shop shop) {
+    private String[] sendChosenCards(Shop shop) {
         String[] actionCards = new String[10];
         for (int i = 0; i < 10; i++) {
             actionCards[i] = shop.getShopArray()[i + 3].getCard().getName();
@@ -47,13 +49,22 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         return actionCards;
     }
 
-    public String renderAsJson() {
-
-        JSONObject obj = new JSONObject();
 
 
-        return obj.toString();
-    }
+        public String parseJSONarray(String[] array)
+      {
+
+               JSONArray jsonArray = new JSONArray();
+
+          for (String anArray : array) {
+
+              jsonArray.put(anArray);
+
+          }
+
+
+               return jsonArray.toString();
+           }
 
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -68,12 +79,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         response.setContentType("application/json");
         PrintWriter pw = response.getWriter();
 
-
-        // String json = request.getParameter("json");
-
-        //  JSONParser parser = new JSONParser(json);
-
-        String operation ;
+        String operation;
         operation = request.getParameter("operation");
         System.out.println(operation + "operationTest");
 
@@ -82,8 +88,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
             case "init":
+                System.out.println("in init");
 
                 Initialize(request, response);
+
 
                 break;
 
@@ -111,6 +119,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
 
+
+
+
     private void Initialize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         PrintWriter pw = response.getWriter();
@@ -128,14 +139,22 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
 
-        JSONObject obj = new JSONObject();
+        System.out.println(firstplayer+otherPlayer+lastPlayer);
+        System.out.println(sendChosenCards.length);
 
-        for (int i = 0; i < sendChosenCards.length ; i++) {
+        String geparsteArray = parseJSONarray(sendChosenCards);
+
+
+        for (int i = 0; i < sendChosenCards.length; i++) {
+
+            System.out.println("lol");
 
         }
 
+      System.out.println(geparsteArray+"jsonobjectTest");
+       pw.write(geparsteArray);
 
-        System.out.println(Arrays.toString(sendChosenCards));
+
 
 
 

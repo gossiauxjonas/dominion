@@ -49,7 +49,7 @@ function sendInit() {
 
     }).done(function (data) {
 
-        
+        console.log(data.toString)
         
     });
 

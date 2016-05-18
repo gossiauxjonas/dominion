@@ -9,9 +9,7 @@ import static Database.DAO.UsersDAO.getUsers;
 import static Database.DMO.SavedGameDMO.setSavedGame;
 import static Database.DMO.UserDMO.setUsers;
 
-/**
- * Created by Nick Casier on 12/05/2016.
- */
+
 
 public class Provider {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/?autoReconnect=true&useSSL=false";
