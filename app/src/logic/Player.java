@@ -148,6 +148,16 @@ public class Player {
         return result;
     }
 
+    public Boolean handContainsTreasure() {
+        Boolean result = false;
+        for (BasicCard card : hand) {
+            if (card.getClass().equals(TreasureCard.class)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     public void putCardOnDrawDeck(BasicCard card) {
         drawDeck.add(card);
     }

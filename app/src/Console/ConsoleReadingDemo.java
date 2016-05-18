@@ -59,13 +59,17 @@ public class ConsoleReadingDemo {
     }
 
     public void moneylenderAction() {
-        int handSize = game.getPlayer().amountCardsHand();
-        printHand(game.getPlayer());
-        System.out.println("Choose a copper or type " + handSize + " to quit");
-        int actionChoice = choicePlay();
-        if (!(handSize == actionChoice)) {
-            game.getPlayer().destroyCardFromHand(actionChoice);
-            game.addTurnCoins(3);
+        if (game.getPlayer().getHand().contains(game.getCopper())) {
+            int handSize = game.getPlayer().amountCardsHand();
+            printHand(game.getPlayer());
+            System.out.println("Choose a copper or type " + handSize + " to quit");
+            int actionChoice = choicePlay();
+            if (!(handSize == actionChoice)) {
+                game.getPlayer().destroyCardFromHand(actionChoice);
+                game.addTurnCoins(3);
+            }
+        } else {
+            System.out.println("There is no copper in your hand!");
         }
     }
 
@@ -127,16 +131,17 @@ public class ConsoleReadingDemo {
     }
 
     public void mineAction() {
-        int maxCost = 3;
-        printHand(game.getPlayer());
-        System.out.println("Pick a treasure card that you want to destroy");
-        int choice = choicePlay();
-        maxCost += game.getPlayer().getCardInHandOn(choice).getPrice();
-        game.getPlayer().destroyCardFromHand(choice);
-        printShop(game.getShop());
-        System.out.println("Pick a treasure card that costs "+ maxCost + " coins or less.");
-        int buyChoice = choicePlay();
-        game.getPlayer().toDiscard(game.getShop().buyCard(choice));
+        if (game.getPlayer().handContainsVictory()) {
+            printHand(game.getPlayer());
+            System.out.println("Pick a treasure card that you want to destroy");
+            int choice = choicePlay();
+            switch (game.getPlayer().getCardInHandOn())
+            game.getPlayer().destroyCardFromHand(choice);
+            game.getPlayer().toDiscard(game.getShop().buyCard());
+        } else {
+            System.out.println("You have no Treasure cards in your hand!");
+        }
+
     }
 
     public Boolean doesPlayerReact(Player player) {
@@ -154,12 +159,26 @@ public class ConsoleReadingDemo {
         game.addTurnActions(1);
         for (Player player : game.getOtherPlayers()) {
             if (!doesPlayerReact(player)) {
-                BasicCard cardOnTopOfDeck = player.getCardOnTopOfDeck();
-                System.out.println(cardOnTopOfDeck.getName() + " is the card on top of " + player.getName() + "s deck.");
-                System.out.println("Type 0 to let it lay or 1 to discard");
-                int choice = choicePlay();
-                if (choice == 1) player.discardTopCardOfDeck();
+                if (player.getDiscard().size() > 0 || player.getDrawDeck().size() > 0) {
+                    BasicCard cardOnTopOfDeck = player.getCardOnTopOfDeck();
+                    System.out.println(cardOnTopOfDeck.getName() + " is the card on top of " + player.getName() + "s deck.");
+                    System.out.println("Type 0 to let it lay or 1 to discard");
+                    int choice = choicePlay();
+                    if (choice == 1) player.discardTopCardOfDeck();
+                } else  {
+                    System.out.println(player.getName() + " has no cards to draw.");
+                }
             }
+        }
+
+        if (game.getPlayer().getDiscard().size() > 0 || game.getPlayer().getDrawDeck().size() > 0) {
+            BasicCard cardOnTopOfDeck = game.getPlayer().getCardOnTopOfDeck();
+            System.out.println(cardOnTopOfDeck.getName() + " is the card on top of your deck.");
+            System.out.println("Type 0 to let it lay or 1 to discard");
+            int choice = choicePlay();
+            if (choice == 1) game.getPlayer().discardTopCardOfDeck();
+        } else {
+            System.out.println("there are no cards you can draw.");
         }
     }
 
@@ -167,7 +186,11 @@ public class ConsoleReadingDemo {
         game.getPlayer().drawCardsToHand(2);
         for (Player player : game.getOtherPlayers()) {
             if (!doesPlayerReact(player)) {
-                player.toDiscard(game.getShop().buyCard(16));
+                if (game.getShop().cardsLeftInStack(16) > 0) {
+                    player.toDiscard(game.getShop().buyCard(16));
+                } else {
+                    System.out.println("there are no curse cards left to give to " + player.getName() + "!");
+                }
             }
         }
     }
@@ -178,15 +201,24 @@ public class ConsoleReadingDemo {
             if (!doesPlayerReact(player)) {
                 System.out.println(player.getName() + "s cards are");
                 List<BasicCard> pulledCards = new ArrayList<BasicCard>();
+                List<BasicCard> useless = new ArrayList<BasicCard>();
+                System.out.println("discard" + player.getDiscard().size());
+                System.out.println("draw" + player.getDrawDeck().size());
                 for (int i = 0; i < 2; i++) {
-                    BasicCard card = player.drawCardFromDeck();
-                    System.out.println(card.getName());
-                    if (card.getClass().equals(TreasureCard.class)) {
-                        pulledCards.add(card);
+                    if (player.getDiscard().size() > 0 || player.getDrawDeck().size() > 0) {
+                        BasicCard card = player.drawCardFromDeck();
+                        System.out.println(card.getName());
+                        if (card.getClass().equals(TreasureCard.class)) {
+                            pulledCards.add(card);
+                        } else {
+                            useless.add(card);
+                        }
                     } else {
-                        player.toDiscard(card);
+                        System.out.println("There are no more cards to pull from " + player.getName() + "!");
+                        break;
                     }
                 }
+                player.getDiscard().addAll(useless);
                 switch (pulledCards.size()) {
                     case 1:
                         allDestoryedCards.add(pulledCards.remove(0));
@@ -265,6 +297,24 @@ public class ConsoleReadingDemo {
             }
     }
 
+    public void adventurerAction() {
+        for (int i = 0; i < 2; i++) {
+            if (game.playerHasTreasure(game.getPlayer())) {
+                BasicCard pulledCard = game.getPlayer().drawCardFromDeck();
+                System.out.println("You have drawn a " + pulledCard.getName() + ".");
+                while (!(pulledCard.getClass().equals(TreasureCard.class))) {
+                    game.getPlayer().toDiscard(pulledCard);
+                    pulledCard = game.getPlayer().drawCardFromDeck();
+                    System.out.println("You have drawn a " + pulledCard.getName() + ".");
+                }
+                game.getPlayer().putCardInHand(pulledCard);
+            } else {
+                System.out.println("There aren't any treasure cards left in your decks!");
+                break;
+            }
+        }
+    }
+
     public void playAction(int indexCardInHand) {
         playAction(indexCardInHand, true);
     }
@@ -340,6 +390,11 @@ public class ConsoleReadingDemo {
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
                     else game.getPlayer().destroyCardFromHand(indexCardInHand);
                     bureaucratAction();
+                    break;
+                case "adventurer":
+                    if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);
+                    else game.getPlayer().destroyCardFromHand(indexCardInHand);
+                    adventurerAction();
                     break;
                 default:
                     if (removeCard) game.getPlayer().discardCardFromHand(indexCardInHand);

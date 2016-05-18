@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
   * Created by Indy Van Mol on 23/03/2016.
@@ -51,16 +52,16 @@ public class GameEngine {
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
     private CardStack provinceStack = new CardStack(province, 1);
-    private CardStack curseStack = new CardStack(2, curse);
+    private CardStack curseStack = new CardStack(curse, 0);
 
-    private CardStack actionCardStack1 = new CardStack(2, throneRoom);
-    private CardStack actionCardStack2 = new CardStack(2, cellar);
-    private CardStack actionCardStack3 = new CardStack(2, workshop);
-    private CardStack actionCardStack4 = new CardStack(2, feast);
-    private CardStack actionCardStack5 = new CardStack(2, remodel);
-    private CardStack actionCardStack6 = new CardStack(2, library);
-    private CardStack actionCardStack7 = new CardStack(2, mine);
-    private CardStack actionCardStack8 = new CardStack(2, mine);
+    private CardStack actionCardStack1 = new CardStack(2, adventurer);
+    private CardStack actionCardStack2 = new CardStack(2, moneylender);
+    private CardStack actionCardStack3 = new CardStack(2, thief);
+    private CardStack actionCardStack4 = new CardStack(2, spy);
+    private CardStack actionCardStack5 = new CardStack(2, moat);
+    private CardStack actionCardStack6 = new CardStack(2, witch);
+    private CardStack actionCardStack7 = new CardStack(2, workshop);
+    private CardStack actionCardStack8 = new CardStack(2, library);
     private CardStack actionCardStack9 = new CardStack(2, mine);
     private CardStack actionCardStack10 = new CardStack(2, chapel);
 
@@ -86,10 +87,34 @@ public class GameEngine {
         playerTurn = 0;
     }
 
+    public BasicCard getCopper() {
+        return copper;
+    }
+
     public void startNewturn() {
         turnActions = 1;
         turnBuys = 1;
         turnCoins = 0;
+    }
+
+    public int getAmountDrawCards(Player player) {
+        List<BasicCard> allCardsPlayers = new ArrayList<BasicCard>();
+        allCardsPlayers.addAll(player.getHand());
+        allCardsPlayers.addAll(player.getDiscard());
+        return allCardsPlayers.size();
+    }
+
+    public Boolean playerHasTreasure(Player player) {
+        List<BasicCard> allCardsPlayers = new ArrayList<BasicCard>();
+        allCardsPlayers.addAll(player.getHand());
+        allCardsPlayers.addAll(player.getDiscard());
+        ListIterator it = allCardsPlayers.listIterator();
+        int i = 0;
+        while(it.hasNext()) {
+            BasicCard card = (BasicCard) it.next();
+            if (card.getClass().equals(TreasureCard.class)) i++;
+        }
+        return i > 0;
     }
 
     public void addTurnActions(int amount) {
