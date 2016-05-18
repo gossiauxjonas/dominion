@@ -6,10 +6,15 @@ import logic.GameEngine;
 import logic.Player;
 import logic.Shop;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
@@ -21,13 +26,16 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         if (lastPlayer != null) {
             gameEngine = new GameEngine(firstplayer, otherPlayer, lastPlayer);
+            this.getServletContext().setAttribute("gameEngine", gameEngine);
             pw.write(firstplayer + otherPlayer + lastPlayer);
 
         } else {
             gameEngine = new GameEngine(firstplayer, otherPlayer);
+            this.getServletContext().setAttribute("gameEngine", gameEngine);
             pw.write(firstplayer + otherPlayer);
         }
     }
+
 
     public String[] sendChosenCards(Shop shop) {
         String[] actionCards = new String[10];
@@ -37,11 +45,20 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         return actionCards;
     }
 
+    public String renderAsJson() {
+
+        JSONObject obj = new JSONObject();
+
+
+        return obj.toString();
+    }
+
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
 
     }
+
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
@@ -50,47 +67,21 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         PrintWriter pw = response.getWriter();
 
 
-        // String cardArray = request.getParameter("data");
-
-
-        //GameEngine gameEngine = (GameEngine) request.getServletContext().getAttribute("gameEngine");
-        if (gameEngine == null) {
-            //gameEngine = new GameEngine();
-            //request.getServletContext().setAttribute("gameEngine", gameEngine);
-        }
-
-
-
-
-
-       // String json = request.getParameter("json");
+        // String json = request.getParameter("json");
 
         //  JSONParser parser = new JSONParser(json);
 
         String operation ;
         operation = request.getParameter("operation");
-        System.out.println(operation);
+        System.out.println(operation + "operationTest");
+
 
         switch (operation) {
+
+
             case "init":
-                String firstplayer = request.getParameter("player1");
-                String otherPlayer = request.getParameter("player2");
-                String lastPlayer = request.getParameter("player3");
 
-                startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
-
-
-                String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
-                for (String card : sendChosenCards) {
-                    System.out.println( card.toString());
-
-                }
-
-
-                response.sendRedirect("/playfield.html");
-
-                operation = request.getParameter("operation");
-
+                Initialize(request, response);
 
                 break;
 
@@ -108,12 +99,43 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
             case "loop":
 
                 System.out.println("in loop");
-
                 break;
 
             default:
-
+                pw.append(" { 'status':'nok', 'errormessage':'Invalid Operation' } ");
                 break;
         }
+
     }
+
+
+    private void Initialize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        PrintWriter pw = response.getWriter();
+
+
+        this.getServletContext().setAttribute("gameEngine", gameEngine);
+
+        String firstplayer = request.getParameter("player1");
+        String otherPlayer = request.getParameter("player2");
+        String lastPlayer = request.getParameter("player3");
+
+
+        startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
+
+
+        String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
+        for (String card : sendChosenCards) {
+            System.out.println(card.toString());
+
+        }
+
+
+
+
+
+
+
+    }
+
 }

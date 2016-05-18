@@ -1,15 +1,7 @@
 
 var AllCards = ["cellar","chapel","moat","chancellor","village","woodcutter","workshop","bureaucrat","feast","gardens","militia","moneylender","remodel","smithy","spy","thief","throneRoom","councilRoom","festival","laboratory","library","market","mine","witch","adventurer"];
 
-function definePlayerArray() {
-    var playerArray = [$("#player1").val(), $("#player2").val()];
 
-    if ($("#player3").val() != null) {
-        playerArray.push($("#player3").val())
-    }
-    $('#playerForm').hide();
-
-}
 
 function createStandardShop(){
 
@@ -38,26 +30,82 @@ function addInput() {
 
 
 function sendInit() {
-
-
+    var player1 = $("#player1").val();
+    var player2 = $("#player2").val();
+    var player3 = $("#player3").val();
+    
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
         data: {
-            operation: "init"
+            operation:"init",
+            player1:player1,
+            player2:player2,
+            player3:player3
 
 
         }
 
 
     }).done(function (data) {
-        
+
         
         
     });
+
+   
    
 console.log('sendinit')
 }
+
+
+
+function startTurn() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation:"loop"
+
+
+        }
+
+
+    }).done(function (data) {
+
+
+
+    });
+
+    console.log('loop started in javascript')
+
+}
+
+
+function sendArray() {
+    var cardArray = makeArrayFromForm();
+
+
+    var response = $.ajax({
+        dataType: "json",
+        url: "/DominionServlet",
+        type: 'GET',
+        data: {"json": JSON.stringify(cardArray)},
+        contentType: 'application/json',
+        mimeType: 'application/json'
+
+
+    });
+
+    response.done(function () {
+
+
+    })
+
+}
+
+
 
 function makeArrayFromForm() {
     var cardArray = [];
@@ -89,28 +137,6 @@ function changecolorAndNumber() {
 
 }
 
-function sendArray() {
-    var cardArray = makeArrayFromForm();
-
-
-    var response = $.ajax({
-        dataType: "json",
-        url: "/DominionServlet",
-        type: 'GET',
-        data: {"json": JSON.stringify(cardArray)},
-        contentType: 'application/json',
-        mimeType: 'application/json'
-
-
-    });
-    
-    response.done(function () {
-
-
-    })
-
-}
-
 
 function changeNumber() {
 
@@ -138,7 +164,7 @@ function cardToField() {
    $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
 
-    console.log( $(this).css("background-image"))
+    console.log( this);
 
 
 }
@@ -150,7 +176,7 @@ function shopToHand() {
     $(".hand ul ").append("<li></li>");
     $(".hand ul li:last-of-type").css("background-image", image);
 
-    console.log( $(this).css("background-image"))
+    console.log( $(this).css("background-image") )
 
 
     
@@ -159,27 +185,7 @@ function shopToHand() {
 
 
 
-function startLoop() {
 
-    var response = $.ajax({
-        dataType: "text",
-        url: "/DominionServlet",
-        data: {
-            operation: "loop"
-
-
-        }
-
-
-    }).done(function (data) {
-
-
-
-    });
-
-    console.log('loop started in javascript')
-
-}
     
 
 
@@ -199,13 +205,12 @@ $(document).ready(function () {
 
 
 
-    $('#playerForm').on('submit', definePlayerArray);
+
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
-    $('.playfield').on('load', startLoop);
     
     $('.hand').on("click", cardToField);
     $('.shopCards').on('click', shopToHand);
