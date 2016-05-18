@@ -131,7 +131,7 @@ public class ConsoleReadingDemo {
     }
 
     public void mineAction() {
-        if (game.getPlayer().handContainsVictory()) {
+        if (game.getPlayer().handContainsTreasure()) {
             printHand(game.getPlayer());
             System.out.println("Pick a treasure card that you want to destroy");
             int choice = choicePlay();
@@ -139,7 +139,6 @@ public class ConsoleReadingDemo {
                 case "copper":
                     if (game.getShop().cardsLeftInStack(1) > 0) {
                         game.getPlayer().destroyCardFromHand(choice);
-                        System.out.println("|||");
                         game.getPlayer().putCardInHand(game.getShop().buyCard(1));
                     } else {
                         System.out.println("There are no silver cards left");

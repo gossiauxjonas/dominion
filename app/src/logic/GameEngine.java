@@ -47,12 +47,12 @@ public class GameEngine {
     private VictoryCard curse = new VictoryCard("curse", 0, -1);
 
     private CardStack copperStack = new CardStack(2, copper);
-    private CardStack silverStack = new CardStack(2, silver);
-    private CardStack goldStack = new CardStack(2, gold);
+    private CardStack silverStack = new CardStack(silver, 2);
+    private CardStack goldStack = new CardStack(gold, 2);
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(province, 1);
-    private CardStack curseStack = new CardStack(curse, 0);
+    private CardStack provinceStack = new CardStack(2, province);
+    private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, adventurer);
     private CardStack actionCardStack2 = new CardStack(2, moneylender);
