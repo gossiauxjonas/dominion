@@ -47,15 +47,17 @@ function sendInit() {
         }
 
 
-    }).done(function (data) {
+    });response.done(function (data) {
 
-        console.log(data.toString)
+        console.log(data.toString);
+        console.log("data dinges uitgevoerd van loop")
         
     });
 
    
    
 console.log('sendinit')
+
 }
 
 
@@ -72,7 +74,9 @@ function startTurn() {
         }
 
 
-    }).done(function (data) {
+    });response.done(function (data) {
+        console.log(data);
+        console.log("data dinges uitgevoerd van loop");
 
 
 
@@ -163,9 +167,8 @@ function cardToField() {
     var image =  $(this).css("background-image");
 
    $(".playmat ul").append("<li></li>");
-    $(".playmat li:last-of-type").css("background-image", image);
-
-    console.log( this);
+    $(".playmat ul li:last-of-type").css("background-image", image);
+    console.log( $(this).css("background-image") )
 
 
 }
@@ -206,7 +209,7 @@ $(document).ready(function () {
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
     
-    $('.hand').on("click", cardToField);
+    $('.hand li').on("click", cardToField);
     $('.shopCards').on('click', shopToHand);
 
 });

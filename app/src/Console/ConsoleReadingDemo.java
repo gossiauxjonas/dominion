@@ -1,6 +1,7 @@
 package Console;
 
 import logic.*;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -517,8 +518,11 @@ public class ConsoleReadingDemo {
     }
 
     public static void main(String[] args) {
-        ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
-        consoleReadingDemo.run();
+//        ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
+//        consoleReadingDemo.run();
+        JSONObject j = new JSONObject();
+        j.put("key","value");
+        System.out.println(j.toString());
     }
 
 }

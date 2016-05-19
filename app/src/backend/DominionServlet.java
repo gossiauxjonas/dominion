@@ -5,8 +5,7 @@ import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
 import logic.Player;
 import logic.Shop;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,8 +16,6 @@ import java.io.Writer;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
@@ -50,21 +47,25 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
 
-
-        public String parseJSONarray(String[] array)
-      {
-
-               JSONArray jsonArray = new JSONArray();
-
-          for (String anArray : array) {
-
-              jsonArray.put(anArray);
-
-          }
+    public String parseJSONarray(String[] jarray) {
+        System.out.println("in parse");
+//        JSONArray jasonArray = new JSONArray();
+       JSONObject jasonArray= new JSONObject();
+//        System.out.println("Voor lus: " +jasonArray.toString());
+//        for (int i = 0; i < jarray.length ; i++) {
+//
+//            jasonArray.put("test",jarray[i]);
+//        }
 
 
-               return jsonArray.toString();
-           }
+
+        //System.out.println(jasonArray + "de niet to string");
+//        System.out.println(jasonArray.toString() + "de to string");
+//
+//        return jasonArray.toString();
+        System.out.println("bijna klaar");
+            return "niks";
+    }
 
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -91,6 +92,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 System.out.println("in init");
 
                 Initialize(request, response);
+                pw.write("init came trough from servlet");
 
 
                 break;
@@ -107,8 +109,25 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
             // welke op tafel, idem voor speler 2, welke global pile...)
 
             case "loop":
+                System.out.println("in loop from switch");
 
-                System.out.println("in loop");
+
+
+                String[] shopCardArray = sendChosenCards(gameEngine.getShop());
+//                for(int i =0;i < shopCardArray.length;i++) {
+//                    System.out.println(shopCardArray[i]);
+//                }
+
+                String JsonArray = parseJSONarray(shopCardArray);
+                System.out.println(JsonArray);
+
+
+
+
+
+                //  setGameCards(request, response);
+
+
                 break;
 
             default:
@@ -117,9 +136,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         }
 
     }
-
-
-
 
 
     private void Initialize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -137,26 +153,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
 
 
-        String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
-
-        System.out.println(firstplayer+otherPlayer+lastPlayer);
-        System.out.println(sendChosenCards.length);
-
-        String geparsteArray = parseJSONarray(sendChosenCards);
+    }
 
 
-        for (int i = 0; i < sendChosenCards.length; i++) {
-
-            System.out.println("lol");
-
-        }
-
-      System.out.println(geparsteArray+"jsonobjectTest");
-       pw.write(geparsteArray);
-
-
-
-
+    private void setGameCards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
 
