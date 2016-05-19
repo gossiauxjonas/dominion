@@ -137,23 +137,31 @@ public class Player {
     }
 
     public Boolean handContainsVictory() {
-        Boolean result = false;
         for (BasicCard card : hand) {
             if (card.getClass().equals(VictoryCard.class)) {
-                result = true;
+                return true;
             }
         }
-        return result;
+        return false;
+    }
+
+    public Boolean handContainsActionCards() {
+        Boolean result = false;
+        for (BasicCard card : hand) {
+            if (ActionCard.class.isInstance(card)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Boolean handContainsTreasure() {
-        Boolean result = false;
         for (BasicCard card : hand) {
             if (card.getClass().equals(TreasureCard.class)) {
-                result = true;
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
     public int amountOfTreasureCardsInDraw() {
