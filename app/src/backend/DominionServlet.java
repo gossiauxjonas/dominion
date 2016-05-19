@@ -2,12 +2,12 @@ package backend;
 
 import logic.GameEngine;
 import logic.Shop;
-import org.json.*;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import org.json.*;
+import org.json.simple.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
