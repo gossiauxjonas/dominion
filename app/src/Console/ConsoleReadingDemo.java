@@ -631,8 +631,12 @@ public class ConsoleReadingDemo {
     }
 
     public static void main(String[] args) {
+
         ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
         consoleReadingDemo.run();
+
+
+
     }
 
 }
