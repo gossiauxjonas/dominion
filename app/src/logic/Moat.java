@@ -12,4 +12,5 @@ public class Moat extends ActionCard {
     public void playAction() {
         game.getPlayer().drawCardsToHand(2);
     }
+
 }

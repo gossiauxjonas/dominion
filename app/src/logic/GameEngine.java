@@ -51,15 +51,15 @@ public class GameEngine {
     private CardStack goldStack = new CardStack(2, gold);
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(2, province);
+    private CardStack provinceStack = new CardStack(province, 1);
     private CardStack curseStack = new CardStack(2, curse);
 
     private CardStack actionCardStack1 = new CardStack(2, adventurer);
-    private CardStack actionCardStack2 = new CardStack(2, moneylender);
-    private CardStack actionCardStack3 = new CardStack(2, thief);
+    private CardStack actionCardStack2 = new CardStack(2, remodel);
+    private CardStack actionCardStack3 = new CardStack(2, library);
     private CardStack actionCardStack4 = new CardStack(2, spy);
-    private CardStack actionCardStack5 = new CardStack(2, moat);
-    private CardStack actionCardStack6 = new CardStack(2, bureaucrat);
+    private CardStack actionCardStack5 = new CardStack(2, militia);
+    private CardStack actionCardStack6 = new CardStack(2, festival);
     private CardStack actionCardStack7 = new CardStack(2, throneRoom);
     private CardStack actionCardStack8 = new CardStack(2, library);
     private CardStack actionCardStack9 = new CardStack(2, mine);

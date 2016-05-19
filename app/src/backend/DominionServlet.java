@@ -1,21 +1,18 @@
 package backend;
 
-import jdk.nashorn.internal.parser.JSONParser;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 import logic.GameEngine;
-import logic.Player;
 import logic.Shop;
+<<<<<<< HEAD
 import org.json.simple.*;
+=======
+import org.json.JSONArray;
+>>>>>>> 82fa8aba640903058e7f12adfcb976119379fd0c
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class DominionServlet extends javax.servlet.http.HttpServlet {
