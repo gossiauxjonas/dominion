@@ -11,6 +11,8 @@ import static junit.framework.TestCase.assertEquals;
 
 public class testCardStack {
 
+    private int[] cards = new int[10];
+
     @Test
     public void testAmountCopper() {
         TreasureCard copper = new TreasureCard("copper", 0, 1);
@@ -46,7 +48,7 @@ public class testCardStack {
 
     @Test
     public void testAmountBaseActionCard() {
-        GameEngine game = new GameEngine("indy", "jonas");
+        GameEngine game = new GameEngine(cards, "indy", "jonas");
         ActionCard actionCard = new ActionCard("testactioncard" ,15, game);
         CardStack actionStack2P = new CardStack(2, actionCard);
         assertEquals(actionStack2P.getAmountOfCards(), 10);
@@ -58,7 +60,7 @@ public class testCardStack {
 
     @Test
     public void testAmountSmithyActionCard() {
-        GameEngine game = new GameEngine("indy", "jonas");
+        GameEngine game = new GameEngine(cards, "indy", "jonas");
         Smithy smithy = new Smithy(game);
         CardStack smithyStack2P = new CardStack(2, smithy);
         assertEquals(smithyStack2P.getAmountOfCards(), 10);
@@ -125,7 +127,7 @@ public class testCardStack {
 
     @Test
     public void testDecrementStack() {
-        GameEngine game = new GameEngine("indy", "jonas");
+        GameEngine game = new GameEngine(cards, "indy", "jonas");
         Smithy smithy = new Smithy(game);
         CardStack smithyStack = new CardStack(2, smithy);
         smithyStack.decrementStack();
@@ -137,7 +139,7 @@ public class testCardStack {
 
     @Test
     public void testSavedStack() {
-        GameEngine game = new GameEngine("indy", "jonas");
+        GameEngine game = new GameEngine(cards, "indy", "jonas");
         Smithy smithy = new Smithy(game);
         CardStack savedSmithyStack = new CardStack(smithy, 5);
         assertEquals(savedSmithyStack.getAmountOfCards(), 5);

@@ -90,14 +90,14 @@ public class ConsoleReadingDemo {
     public void workshopAction() { // aanpassen shop methode
         printShop(game.getShop());
         System.out.println("Pick a card that costs 4 coins or less.");
-        int choice = choicePlay();
+        int choice = buyChoice(4, false);
         game.getPlayer().toDiscard(game.getShop().buyCard(choice));
     }
 
     public void feastAction() { // aanpassen shop methode
         printShop(game.getShop());
         System.out.println("Pick a card that costs 5 coins or less.");
-        int choice = choicePlay();
+        int choice = buyChoice(5, false);
         game.getPlayer().toDiscard(game.getShop().buyCard(choice));
     }
 
@@ -111,7 +111,7 @@ public class ConsoleReadingDemo {
             game.getPlayer().destroyCardFromHand(choice);
             printShop(game.getShop());
             System.out.println("Pick a card that costs " + maxCost + " coins or less.");
-            int buyChoice = choicePlay();
+            int buyChoice = buyChoice(maxCost, false);
             game.getPlayer().toDiscard(game.getShop().buyCard(buyChoice));
         } else {
             System.out.println("There are no more cards in your hand!");
@@ -230,7 +230,7 @@ public class ConsoleReadingDemo {
         List<BasicCard> allDestoryedCards = new ArrayList<BasicCard>();
         for (Player player : game.getOtherPlayers()) {
             if (!doesPlayerReact(player)) {
-                System.out.println(player.getName() + "s cards are");
+                System.out.println(player.getName() + "s cards are.");
                 List<BasicCard> pulledCards = new ArrayList<BasicCard>();
                 List<BasicCard> useless = new ArrayList<BasicCard>();
                 for (int i = 0; i < 2; i++) {
@@ -256,7 +256,7 @@ public class ConsoleReadingDemo {
                         for (int i = 0; i < 2; i++) {
                             System.out.println(i + ": " + pulledCards.get(i).getName());
                         }
-                        System.out.println("Type the number of the card you want to destroy");
+                        System.out.println("Type the number of the card you want to destroy.");
                         int choice = inputBoundaries(0, 1);
                         allDestoryedCards.add(pulledCards.remove(choice));
                         player.toDiscard(pulledCards.remove(0));
@@ -318,8 +318,8 @@ public class ConsoleReadingDemo {
 
     public void throneRoomAction(List playedCards) {
         printHand(game.getPlayer());
-        System.out.println("Choose a action card to play twice");
-        int actionChoice = choicePlay();
+        System.out.println("Choose a action card to play twice.");
+        int actionChoice = chooseActionCard(game.getPlayer());
         if (game.getPlayer().getCardInHandOn(actionChoice).getName() == "throne room") {
             playAction(actionChoice, playedCards);
         } else {
@@ -454,6 +454,8 @@ public class ConsoleReadingDemo {
         }
     }
 
+    //public void shop
+
     public int choicePlay() {
         return numberInput();
     }
@@ -471,6 +473,30 @@ public class ConsoleReadingDemo {
             } else {
                 System.out.println(player.getCardInHandOn(choice).getName() + " is not an copper card!");
                 choice = numberInput();
+            }
+        }
+        return choice;
+    }
+
+    public int buyChoice(int coins, Boolean quit) {
+        int noBuy = 16;
+        if (quit) noBuy = 17;
+        Boolean validInput = false;
+        int choice = numberInput();
+        while (!validInput) {
+            while ((choice < 0 || choice > noBuy) || choice == 16) {
+                System.out.println("Invalid input!");
+                choice = numberInput();
+            }
+            if (choice != 17) {
+                if (game.getShop().priceOfCard(choice) <= coins) {
+                    validInput = true;
+                } else {
+                    System.out.println(game.getShop().getShopArray()[choice].getCard().getName() + " is too expensive you only have " + coins + " coins!");
+                    choice = numberInput();
+                }
+            } else {
+                validInput = true;
             }
         }
         return choice;
@@ -506,6 +532,24 @@ public class ConsoleReadingDemo {
                 validInput = true;
             } else {
                 System.out.println(player.getCardInHandOn(choice).getName() + " is not an victoryCard card!");
+                choice = numberInput();
+            }
+        }
+        return choice;
+    }
+
+    public int chooseActionCard(Player player) {
+        Boolean validInput = false;
+        int choice = numberInput();
+        while (!validInput) {
+            while (choice < 0 || choice >= player.amountCardsHand()) {
+                System.out.println("Invalid input!");
+                choice = numberInput();
+            }
+            if (choice == player.amountCardsHand() || ActionCard.class.isInstance(player.getCardInHandOn(choice))) {
+                validInput = true;
+            } else {
+                System.out.println(player.getCardInHandOn(choice).getName() + " is not an action card!");
                 choice = numberInput();
             }
         }
@@ -601,9 +645,23 @@ public class ConsoleReadingDemo {
         System.out.println("------------------------------------------------------------------");
     }
 
+    public int[] chooseCards() {
+        System.out.println("0: Garden\n1: Smithy\n2: Village\n3: Festival\n4: Market\n5: Laboratory\n6: Moat\n7: Woodcutter\n" +
+                "8: Chancellor\n9: Adventurer\n10: CouncilRoom\n 11: Witch\n12: Throne Room\n13: Chapel\n14: Moneylender\n" +
+                "15: Cellar\n16: Workshop\n17: Feast\n 18: Remodel\n19: Library\n20: Mine\n21: Spy\n22: Thief\n23: Militia\n" +
+                "24: Bureaucrat");
+        System.out.println("Choise the cards you want to play with.");
+        int[] chosenCards = new int[10];
+        for (int i = 0; i < 10; i++) {
+            chosenCards[i] = inputBoundaries(0, 24);
+        }
+        return chosenCards;
+    }
+
     private void run() {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to Dominion!");
+        int[] chosenCards = chooseCards();
         System.out.println("Type 2 to play with two players or Type 3 to play with three players.");
         int amountOfPlayers = inputBoundaries(2, 3);
         System.out.print("Name player1: ");
@@ -613,10 +671,10 @@ public class ConsoleReadingDemo {
         if (amountOfPlayers == 3) {
             System.out.print("Name player3: ");
             String player3 = (String) in.next();
-            game = new GameEngine(player1, player2, player3);
+            game = new GameEngine(chosenCards, player1, player2, player3);
             System.out.println("\nThe players are: " + player1 + ", " + player2 + " and " + player3 + ".");
         } else {
-            game = new GameEngine(player1, player2);
+            game = new GameEngine(chosenCards, player1, player2);
             System.out.println("\nThe players are: " + player1 + " and " + player2);
         }
         while (game.getShop().isOpen()) {

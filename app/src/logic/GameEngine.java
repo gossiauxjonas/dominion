@@ -41,6 +41,10 @@ public class GameEngine {
     private Militia militia = new Militia(this);
     private Bureaucrat bureaucrat = new Bureaucrat(this);
 
+    private BasicCard[] actionCardsArray = {garden, smithy, village, festival, market, laboratory, moat, woodcutter,
+                                            chancellor, adventurer, councilRoom, witch, throneRoom, chapel, moneylender,
+                                            cellar, workshop, feast, remodel, library, mine, spy, thief, militia, bureaucrat};
+
     private VictoryCard estate = new VictoryCard("estate" ,2, 1);
     private VictoryCard duchy = new VictoryCard("duchy", 5, 3);
     private VictoryCard province = new VictoryCard("province", 8, 6);
@@ -51,19 +55,19 @@ public class GameEngine {
     private CardStack goldStack = new CardStack(2, gold);
     private CardStack estateStack = new CardStack(2, estate);
     private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(province, 1);
+    private CardStack provinceStack = new CardStack(2, province);
     private CardStack curseStack = new CardStack(2, curse);
 
-    private CardStack actionCardStack1 = new CardStack(2, adventurer);
-    private CardStack actionCardStack2 = new CardStack(2, remodel);
-    private CardStack actionCardStack3 = new CardStack(2, library);
-    private CardStack actionCardStack4 = new CardStack(2, spy);
-    private CardStack actionCardStack5 = new CardStack(2, militia);
-    private CardStack actionCardStack6 = new CardStack(2, festival);
-    private CardStack actionCardStack7 = new CardStack(2, throneRoom);
-    private CardStack actionCardStack8 = new CardStack(2, library);
-    private CardStack actionCardStack9 = new CardStack(2, mine);
-    private CardStack actionCardStack10 = new CardStack(2, chapel);
+    private CardStack actionCardStack1;
+    private CardStack actionCardStack2;
+    private CardStack actionCardStack3;
+    private CardStack actionCardStack4;
+    private CardStack actionCardStack5;
+    private CardStack actionCardStack6;
+    private CardStack actionCardStack7;
+    private CardStack actionCardStack8;
+    private CardStack actionCardStack9;
+    private CardStack actionCardStack10;
 
     private Shop shop;
 
@@ -75,11 +79,23 @@ public class GameEngine {
     private int turnBuys;
     private int turnCoins;
 
-    public GameEngine(String... players) {
+    public GameEngine(int[] chosenCards, String... players) {
         this.players = new Player[players.length];
         for (int i = 0; i < players.length; i++) {
             this.players[i] = new Player(players[i], copper, estate);
         }
+
+        actionCardStack1 = new CardStack(players.length, actionCardsArray[chosenCards[0]]);
+        actionCardStack2 = new CardStack(players.length, actionCardsArray[chosenCards[1]]);
+        actionCardStack3 = new CardStack(players.length, actionCardsArray[chosenCards[2]]);
+        actionCardStack4 = new CardStack(players.length, actionCardsArray[chosenCards[3]]);
+        actionCardStack5 = new CardStack(players.length, actionCardsArray[chosenCards[4]]);
+        actionCardStack6 = new CardStack(players.length, actionCardsArray[chosenCards[5]]);
+        actionCardStack7 = new CardStack(players.length, actionCardsArray[chosenCards[6]]);
+        actionCardStack8 = new CardStack(players.length, actionCardsArray[chosenCards[7]]);
+        actionCardStack9 = new CardStack(players.length, actionCardsArray[chosenCards[8]]);
+        actionCardStack10 = new CardStack(players.length, actionCardsArray[chosenCards[9]]);
+
         shop = new Shop(copperStack, silverStack, goldStack, actionCardStack1, actionCardStack2
                 , actionCardStack3, actionCardStack4, actionCardStack5, actionCardStack6
                 , actionCardStack7, actionCardStack8, actionCardStack9, actionCardStack10
@@ -164,10 +180,6 @@ public class GameEngine {
     }
 
     public Player[] getPlayers() {return players;}
-
-    public int getPlayerTurn() {
-        return playerTurn;
-    }
 
     public void nextTurn() {
         playerTurn = (playerTurn + 1) % players.length;

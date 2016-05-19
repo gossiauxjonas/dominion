@@ -12,7 +12,9 @@ import static org.junit.Assert.*;
 
 public class TestShop {
 
-    GameEngine game = new GameEngine("indy", "jonas");
+
+    private int[] cards = new int[10];
+    GameEngine game = new GameEngine(cards, "indy", "jonas");
 
     //Cards
     BasicCard copper = new TreasureCard("copper", 0, 1);
