@@ -47,15 +47,15 @@ function sendInit() {
         }
 
 
-    }).done(function (data) {
+    });response.done(function (data)
+    {
 
-        console.log(data.toString)
         
     });
 
    
    
-console.log('sendinit')
+
 }
 
 
@@ -72,13 +72,15 @@ function startTurn() {
         }
 
 
-    }).done(function (data) {
-
+    });response.done(function (data) {
+        console.log("de loop ajax call");
+       var startObject = JSON.parse(data);
+        var shopCards = JSON.parse(startObject.shopCards);
 
 
     });
 
-    console.log('loop started in javascript')
+
 
 }
 
@@ -165,7 +167,7 @@ function cardToField() {
    $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
 
-    console.log( this);
+    
 
 
 }
@@ -177,7 +179,7 @@ function shopToHand() {
     $(".hand ul ").append("<li></li>");
     $(".hand ul li:last-of-type").css("background-image", image);
 
-    console.log( $(this).css("background-image") )
+    
 
 
     
@@ -206,7 +208,7 @@ $(document).ready(function () {
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
     
-    $('.hand').on("click", cardToField);
+    $('.hand ul').on("click","li", cardToField);
     $('.shopCards').on('click', shopToHand);
 
 });

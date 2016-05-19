@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.json.simple.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,22 +16,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-
-
 public class DominionServlet extends javax.servlet.http.HttpServlet {
 
     // dit is een bug;
     private GameEngine gameEngine;
+    private int[] hardCodedArray = new int[10];
+
 
     private void startNewGame(PrintWriter pw, String firstplayer, String otherPlayer, String lastPlayer) {
 
         if (lastPlayer != null) {
-            gameEngine = new GameEngine(firstplayer, otherPlayer, lastPlayer);
+            gameEngine = new GameEngine(hardCodedArray,firstplayer, otherPlayer, lastPlayer);
             this.getServletContext().setAttribute("gameEngine", gameEngine);
             pw.write(firstplayer + otherPlayer + lastPlayer);
 
         } else {
-            gameEngine = new GameEngine(firstplayer, otherPlayer);
+            gameEngine = new GameEngine(hardCodedArray,firstplayer, otherPlayer);
             this.getServletContext().setAttribute("gameEngine", gameEngine);
             pw.write(firstplayer + otherPlayer);
         }
@@ -46,21 +47,19 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
 
+    private String parseJSONarray(String[] array) {
 
-        public String parseJSONarray(String[] array)
-      {
+        JSONArray jsonArray = new JSONArray();
 
-               JSONArray jsonArray = new JSONArray();
+        for (String anArray : array) {
 
-          for (String anArray : array) {
+            jsonArray.put(anArray);
 
-              jsonArray.put(anArray);
-
-          }
+        }
 
 
-               return jsonArray.toString();
-           }
+        return jsonArray.toString();
+    }
 
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -77,7 +76,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         String operation;
         operation = request.getParameter("operation");
-        System.out.println(operation + "operationTest");
+
 
 
         switch (operation) {
@@ -104,7 +103,16 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
             case "loop":
 
-                System.out.println("in loop");
+                JSONObject startObject = new JSONObject();
+
+                String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
+
+                startObject.put("shopCards", parseJSONarray(sendChosenCards));
+
+
+
+                pw.write(startObject.toString());
+
                 break;
 
             default:
@@ -113,9 +121,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         }
 
     }
-
-
-
 
 
     private void Initialize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -131,31 +136,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
         startNewGame(pw, firstplayer, otherPlayer, lastPlayer);
-
-
-        String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
-
-        System.out.println(firstplayer+otherPlayer+lastPlayer);
-        System.out.println(sendChosenCards.length);
-
-        String geparsteArray = parseJSONarray(sendChosenCards);
-
-
-        for (int i = 0; i < sendChosenCards.length; i++) {
-
-            System.out.println("lol");
-
-        }
-
-      System.out.println(geparsteArray+"jsonobjectTest");
-       pw.write(geparsteArray);
-
-
-
-
-
-
-
 
 
     }
