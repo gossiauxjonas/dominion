@@ -9,6 +9,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>
@@ -34,7 +35,6 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.38-bin" level="project" />
-<<<<<<< HEAD
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -44,8 +44,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-=======
-    <orderEntry type="library" name="json-20160212" level="project" />
->>>>>>> 82fa8aba640903058e7f12adfcb976119379fd0c
   </component>
 </module>

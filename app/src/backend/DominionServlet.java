@@ -2,12 +2,10 @@ package backend;
 
 import logic.GameEngine;
 import logic.Shop;
-<<<<<<< HEAD
-import org.json.simple.*;
-=======
-import org.json.JSONArray;
->>>>>>> 82fa8aba640903058e7f12adfcb976119379fd0c
 
+import org.json.simple.*;
+
+import org.json.simple.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

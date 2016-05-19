@@ -632,11 +632,9 @@ public class ConsoleReadingDemo {
     }
 
     public static void main(String[] args) {
-//        ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
-//        consoleReadingDemo.run();
-        JSONObject j = new JSONObject();
-        j.put("key","value");
-        System.out.println(j.toString());
+       ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
+       consoleReadingDemo.run();
+
     }
 
 }
