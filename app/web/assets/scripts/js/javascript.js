@@ -1,4 +1,4 @@
-var AllCards = ["gardens", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "councilroom", "witch", "throneroom", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
+var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "council Room", "witch", "throne room", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
 
 function createStandardShop(shopCards) {
