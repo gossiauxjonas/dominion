@@ -16,10 +16,14 @@ function addInput() {
     if ($(this).val() == "three") {
 
         $(".extraPlayer").show();
+        $('#player3').prop('required', true);
+
 
     }
     else {
         $(".extraPlayer").hide();
+        $('#player3').empty().prop('required', false);
+
 
     }
 
@@ -198,12 +202,25 @@ function makeCounter() {
 
 }
 
+function removeFromHand(image) {
+
+    for (var i = 0; i<$(".hand li").length && !badPractice;i++)
+    {
+     if($(".hand li").eq(i).css("background-image") == image){
+         $(".hand li").eq(i).remove();
+         var badPractice = true;
+     }
+    }
+
+}
 function cardToField() {
     var image = $(this).css("background-image");
-    
+
 
     $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
+    removeFromHand(image);
+
 
 
 }
