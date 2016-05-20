@@ -54,13 +54,13 @@ function sendInit() {
 }
 
 
-function startTurn() {
+function beginSetup() {
 
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
         data: {
-            operation: "loop"
+            operation: "beginSetup"
 
 
         }
@@ -72,7 +72,7 @@ function startTurn() {
         var globalObject = JSON.parse(data);
         var shopCards = globalObject.shopCards;
         createStandardShop(shopCards);
-
+        startTurn();
 
 
     });
@@ -107,6 +107,34 @@ function sendArray() {
 
 }
 
+function startTurn() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "startTurn"
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+        var playerObject = JSON.parse(data);
+
+        for (var i = 0; i < playerObject.hand.length; i++) {
+            addToHand(playerObject.hand[i])
+        }
+
+
+        changeCurrentName(playerObject.playerName)
+
+
+    });
+
+
+}
 
 function makeArrayFromForm() {
     var cardArray = [];
@@ -172,6 +200,7 @@ function makeCounter() {
 
 function cardToField() {
     var image = $(this).css("background-image");
+    
 
     $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
@@ -189,6 +218,19 @@ function shopToHand() {
 
 }
 
+function addToHand(card) {
+    var image = 'url("assets/media/images/Cards/' + card + '.jpg")';
+
+    $(".hand ul ").append("<li></li>");
+    $(".hand ul li:last-of-type").css("background-image", image);
+
+
+}
+
+function changeCurrentName(currentName) {
+    $(".activePlayer span").empty().append(currentName);
+    console.log(currentName);
+}
 
 $(document).ready(function () {
     var limit = 11;
@@ -198,9 +240,6 @@ $(document).ready(function () {
             this.checked = false;
         }
     });
-
-
-
 
 
     $("input[name='amount']").on("change", addInput);

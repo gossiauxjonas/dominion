@@ -1,6 +1,8 @@
 package backend;
 
+import logic.BasicCard;
 import logic.GameEngine;
+import logic.Player;
 import logic.Shop;
 
 
@@ -14,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-
+/*
+ * Created by Jonas Gossiaux.
+ */
 public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
-    private GameEngine gameEngine;
+    private GameEngine game;
     private int[] startCardArray = new int[10];
     String firstplayer;
     String otherPlayer;
@@ -29,13 +35,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     private void startNewGame(int[] startCardArray, PrintWriter pw, String firstplayer, String otherPlayer, String lastPlayer) {
 
         if (lastPlayer != null) {
-            gameEngine = new GameEngine(startCardArray, firstplayer, otherPlayer, lastPlayer);
-            this.getServletContext().setAttribute("gameEngine", gameEngine);
+            game = new GameEngine(startCardArray, firstplayer, otherPlayer, lastPlayer);
+            this.getServletContext().setAttribute("gameEngine", game);
             pw.write(firstplayer + otherPlayer + lastPlayer);
 
         } else {
-            gameEngine = new GameEngine(startCardArray, firstplayer, otherPlayer);
-            this.getServletContext().setAttribute("gameEngine", gameEngine);
+            game = new GameEngine(startCardArray, firstplayer, otherPlayer);
+            this.getServletContext().setAttribute("gameEngine", game);
             pw.write(firstplayer + otherPlayer);
         }
     }
@@ -62,6 +68,31 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
         return jsonArray;
+    }
+
+
+    public List makeHandArray(Player player) {
+        List<String> hand = new ArrayList<String>();
+        for (int i = 0; i < player.getHand().size(); i++)
+            hand.add(player.getCardInHandOn(i).getName());
+        return hand;
+    }
+
+
+    public JSONObject turn() {
+        JSONObject playerTurn = new JSONObject();
+        game.startNewturn();
+        playerTurn.put("playerName", game.getPlayer().getName());
+        playerTurn.put("actions", game.getTurnActions());
+        playerTurn.put("buys", game.getTurnActions());
+
+        playerTurn.put("hand", makeHandArray(game.getPlayer()));
+
+        playerTurn.put("treasure", game.getTurnCoins());
+
+        return playerTurn;
+
+
     }
 
 
@@ -92,24 +123,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 break;
 
 
-            // verwacht bv parameters: nrPlayers en name1 tot namen met n = aantal spelers
-            // roep bv method op waar je request aan meegeeft
-            // en die leest de vereiste parameters
-            // en roept uiteindelijk een method op GameEngine op om de gevraagde
-            // acties uit te voeren
-
-            // en uiteindelijk ook een method om bv de hele toestand van het spel nu
-            // (= bv wie is aan de beurt, welke kaarten in hand van speler 1,
-            // welke op tafel, idem voor speler 2, welke global pile...)
-
-            case "loop":
+            case "beginSetup":
 
                 JSONObject startObject = new JSONObject();
 
-                String[] sendChosenCards = sendChosenCards(gameEngine.getShop());
+                String[] sendChosenCards = sendChosenCards(game.getShop());
 
                 startObject.put("shopCards", parseJSONarray(sendChosenCards));
-
 
                 pw.write(startObject.toString());
 
@@ -129,13 +149,16 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 Initialize(request, response, startCardArray);
 
 
-
                 break;
 
 
+            case "startTurn":
+                System.out.println("startTurn operation is ok ");
 
-            case "turn":
-
+                // while (game.getShop().isOpen()) {
+                System.out.println(turn().toString());
+                pw.write(turn().toString());
+                // }
 
 
                 break;
@@ -151,7 +174,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     private void Initialize(HttpServletRequest request, HttpServletResponse response, int[] startCardArray) throws ServletException, IOException {
 
         PrintWriter pw = response.getWriter();
-        this.getServletContext().setAttribute("gameEngine", gameEngine);
+        this.getServletContext().setAttribute("gameEngine", game);
         startNewGame(startCardArray, pw, firstplayer, otherPlayer, lastPlayer);
 
 
