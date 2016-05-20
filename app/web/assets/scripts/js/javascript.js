@@ -1,11 +1,11 @@
 var AllCards = ["gardens", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "councilroom", "witch", "throneroom", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
 
-function createStandardShop() {
+function createStandardShop(shopCards) {
 
     for (var i = 0; i < 10; i++) {
 
-        $(".shopCards").eq(i).css("background-image", 'url("assets/media/images/Cards/' + AllCards[i] + '.jpg")');
+        $(".shopCards").eq(i).css("background-image", 'url("assets/media/images/Cards/' + shopCards[i] + '.jpg")');
 
     }
 
@@ -68,8 +68,11 @@ function startTurn() {
 
     });
     response.done(function (data) {
-        console.log("de loop ajax call");
-        console.log(JSON.parse(data));
+        console.log(data);
+        var globalObject = JSON.parse(data);
+        var shopCards = globalObject.shopCards;
+        createStandardShop(shopCards);
+
 
 
     });
@@ -88,7 +91,8 @@ function sendArray() {
         type: 'GET',
         data: {
             operation: "startingCards",
-            json: JSON.stringify(cardArray)},
+            json: JSON.stringify(cardArray)
+        },
         contentType: 'application/json',
         mimeType: 'application/json'
 
@@ -99,7 +103,7 @@ function sendArray() {
 
 
     });
-    console.log("sendArray worked");
+
 
 }
 
@@ -108,16 +112,12 @@ function makeArrayFromForm() {
     var cardArray = [];
 
     var k = 0;
-    
-    for (var i = 0; i < 24; i++)
-    {
-        if ($("label").eq(i).next().is(":checked")) 
-        {
 
-            for (var j = 0; j < 24; j++)
-            {
-                if ($("label").eq(i).next().val() == AllCards[j])
-                {
+    for (var i = 0; i <= 24; i++) {
+        if ($("label").eq(i).next().is(":checked")) {
+
+            for (var j = 0; j <= 24; j++) {
+                if ($("label").eq(i).next().val() == AllCards[j]) {
                     cardArray[k] = j;
                     k++;
 
@@ -126,12 +126,10 @@ function makeArrayFromForm() {
             }
 
 
-
-
         }
     }
     console.log(cardArray);
-    return(cardArray);
+    return (cardArray);
 
 
 }
@@ -202,7 +200,7 @@ $(document).ready(function () {
     });
 
 
-    createStandardShop();
+
 
 
     $("input[name='amount']").on("change", addInput);
