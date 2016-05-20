@@ -9,7 +9,7 @@ public class UserDMO {
     public static void setUsers(Connection connection) throws SQLException {
         PreparedStatement pstmt;
         try {
-            String query = "insert into dominion.Users (userName) values('testUser12')";
+            String query = "insert into dominion.Users (userName) values('testUser')";
             pstmt = connection.prepareStatement(query);
             pstmt.executeUpdate();
         } catch (Exception e) {
