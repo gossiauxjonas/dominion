@@ -454,12 +454,6 @@ public class ConsoleReadingDemo {
         }
     }
 
-    //public void shop
-
-    public int choicePlay() {
-        return numberInput();
-    }
-
     public int chooseCopper(Player player) {
         Boolean validInput = false;
         int choice = numberInput();
@@ -629,7 +623,8 @@ public class ConsoleReadingDemo {
             System.out.println("Buys left: " + game.getTurnBuys());
             printShop(game.getShop());
             System.out.println("coins: " + coins);
-            int buyChoice = choicePlay();
+            System.out.println("Type the number of the card you want to buy or type 17 to quit the buy phase.");
+            int buyChoice = buyChoice(coins, true);
             if (buyChoice == 17) {
                 game.endTurnBuys();
             } else {
@@ -646,14 +641,25 @@ public class ConsoleReadingDemo {
     }
 
     public int[] chooseCards() {
-        System.out.println("0: Garden\n1: Smithy\n2: Village\n3: Festival\n4: Market\n5: Laboratory\n6: Moat\n7: Woodcutter\n" +
-                "8: Chancellor\n9: Adventurer\n10: CouncilRoom\n 11: Witch\n12: Throne Room\n13: Chapel\n14: Moneylender\n" +
-                "15: Cellar\n16: Workshop\n17: Feast\n 18: Remodel\n19: Library\n20: Mine\n21: Spy\n22: Thief\n23: Militia\n" +
-                "24: Bureaucrat");
-        System.out.println("Choise the cards you want to play with.");
+        String[] allCardNames = {"garden", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter",
+                "chancellor", "adventurer", "councilRoom", "witch", "throneRoom", "chapel", "moneylender",
+                "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"};
+        for (int i = 0; i < allCardNames.length; i++) {
+            System.out.println(i + ": " + allCardNames[i]);
+        }
+        List<String> pickedCards = new ArrayList<String>();
+        System.out.println("Choose ten cards you want to play with.");
+        System.out.println("Type the number of the card you want and pres enter.");
         int[] chosenCards = new int[10];
         for (int i = 0; i < 10; i++) {
-            chosenCards[i] = inputBoundaries(0, 24);
+            int choice = inputBoundaries(0, 24);
+            while(pickedCards.contains(allCardNames[choice])) {
+                System.out.println("You have already chosen the " + allCardNames[choice] + " card!");
+                choice = inputBoundaries(0, 24);
+            }
+            pickedCards.add(allCardNames[i]);
+            System.out.println("You chose the " + allCardNames[i] + " card.");
+            chosenCards[i] = choice;
         }
         return chosenCards;
     }
