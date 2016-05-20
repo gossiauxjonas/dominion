@@ -177,6 +177,7 @@ public class ConsoleReadingDemo {
 
     public Boolean doesPlayerReact(Player player) {
         if (player.getHand().contains(game.getMoat())) {
+            printHand(player);
             System.out.println(player.getName() + " if you want to react type 0 if you don't type 1.");
             int choice = inputBoundaries(0, 1);
             return choice != 1;
