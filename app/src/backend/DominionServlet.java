@@ -115,6 +115,15 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
 
+            case "startingCards":
+
+                JSONArray startingCards = new JSONArray(request.getParameter("json"));
+                System.out.println(startingCards);
+
+
+
+                break;
+
             default:
                 pw.append(" { 'status':'nok', 'errormessage':'Invalid Operation' } ");
                 break;

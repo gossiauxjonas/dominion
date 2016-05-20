@@ -1,15 +1,12 @@
-
-var AllCards = ["cellar","chapel","moat","chancellor","village","woodcutter","workshop","bureaucrat","feast","gardens","militia","moneylender","remodel","smithy","spy","thief","throneRoom","councilRoom","festival","laboratory","library","market","mine","witch","adventurer"];
-
+var AllCards = ["gardens", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "councilroom", "witch", "throneroom", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
 
-function createStandardShop(){
+function createStandardShop() {
 
-    for(var i = 0; i<10 ;i++){
+    for (var i = 0; i < 10; i++) {
 
-        $(".shopCards").eq(i).css("background-image",'url("assets/media/images/Cards/' + AllCards[i]+'.jpg")');
+        $(".shopCards").eq(i).css("background-image", 'url("assets/media/images/Cards/' + AllCards[i] + '.jpg")');
 
-        console.log(AllCards[i]);
     }
 
 
@@ -33,31 +30,28 @@ function sendInit() {
     var player1 = $("#player1").val();
     var player2 = $("#player2").val();
     var player3 = $("#player3").val();
-    
+
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
         data: {
-            operation:"init",
-            player1:player1,
-            player2:player2,
-            player3:player3
+            operation: "init",
+            player1: player1,
+            player2: player2,
+            player3: player3
 
 
         }
 
 
-    });response.done(function (data)
-    {
+    });
+    response.done(function (data) {
 
-        
+
     });
 
-   
-   
 
 }
-
 
 
 function startTurn() {
@@ -66,20 +60,19 @@ function startTurn() {
         dataType: "text",
         url: "/DominionServlet",
         data: {
-            operation:"loop"
+            operation: "loop"
 
 
         }
 
 
-    });response.done(function (data) {
+    });
+    response.done(function (data) {
         console.log("de loop ajax call");
-       var startObject = JSON.parse(data);
-        var shopCards = JSON.parse(startObject.shopCards);
+        console.log(JSON.parse(data));
 
 
     });
-
 
 
 }
@@ -93,34 +86,52 @@ function sendArray() {
         dataType: "json",
         url: "/DominionServlet",
         type: 'GET',
-        data: {"json": JSON.stringify(cardArray)},
+        data: {
+            operation: "startingCards",
+            json: JSON.stringify(cardArray)},
         contentType: 'application/json',
         mimeType: 'application/json'
 
 
     });
 
-    response.done(function () {
+    response.done(function (data) {
 
 
-        
-    })
+    });
+    console.log("sendArray worked");
 
 }
 
 
-
 function makeArrayFromForm() {
     var cardArray = [];
-    console.log(cardArray);
-    for (var i = 0; i < 24; i++) {
-        if ($("label").eq(i).next().is(":checked")) {
-            cardArray[i] = $("label").eq(i).next().val();
-            console.log(i);
+
+    var k = 0;
+    
+    for (var i = 0; i < 24; i++)
+    {
+        if ($("label").eq(i).next().is(":checked")) 
+        {
+
+            for (var j = 0; j < 24; j++)
+            {
+                if ($("label").eq(i).next().val() == AllCards[j])
+                {
+                    cardArray[k] = j;
+                    k++;
+
+                }
+
+            }
+
+
+
 
         }
     }
-    return cardArray;
+    console.log(cardArray);
+    return(cardArray);
 
 
 }
@@ -162,33 +173,27 @@ function makeCounter() {
 }
 
 function cardToField() {
-    var image =  $(this).css("background-image");
+    var image = $(this).css("background-image");
 
-   $(".playmat ul").append("<li></li>");
+    $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
-
-    
 
 
 }
 
 function shopToHand() {
 
-    var image =  $(this).css("background-image");
+    var image = $(this).css("background-image");
 
     $(".hand ul ").append("<li></li>");
     $(".hand ul li:last-of-type").css("background-image", image);
 
-    
 
-
-    
 }
 
 
-
 $(document).ready(function () {
-    var limit = 10;
+    var limit = 11;
 
     $('input.single-checkbox').on('change', function (evt) {
         if ($(this).siblings(':checked').length >= limit) {
@@ -200,15 +205,12 @@ $(document).ready(function () {
     createStandardShop();
 
 
-
-
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
-    
-    $('.hand ul').on("click","li", cardToField);
+    $('.hand ul').on("click", "li", cardToField);
     $('.shopCards').on('click', shopToHand);
 
 });
