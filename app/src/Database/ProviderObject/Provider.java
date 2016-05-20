@@ -6,6 +6,7 @@ import static Database.DAO.CardsDAO.getCards;
 import static Database.DAO.PlayerCardsDAO.getPlayerCards;
 import static Database.DAO.SavedGameDAO.getSavedGame;
 import static Database.DAO.UsersDAO.getUsers;
+import static Database.DMO.PlayerCardsDMO.setPlayerCards;
 import static Database.DMO.SavedGameDMO.setSavedGame;
 import static Database.DMO.UserDMO.setUsers;
 
@@ -27,7 +28,7 @@ public class Provider {
                 getUsers(connection);
                 setUsers(connection);
                 setSavedGame(connection);
-                setSavedGame(connection);
+                setPlayerCards(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.err.println("Driver not found: " + e);

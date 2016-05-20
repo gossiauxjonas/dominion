@@ -11,7 +11,7 @@ public class SavedGameDAO {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM dominion.SavedGame")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getString("gameNr") + "|" + resultSet.getString("date") + "|" + resultSet.getString("userNr"));
+                    System.out.println(resultSet.getString("gameNr") + "|" + resultSet.getString("gameDate") + "|" + resultSet.getString("userNr"));
                 }
             }
         }
