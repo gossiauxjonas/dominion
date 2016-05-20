@@ -9,7 +9,7 @@ public class SavedGameDMO {
     public static void setSavedGame(Connection connection) throws SQLException {
         PreparedStatement pstmt;
         try {
-            String query = "insert into dominion.SavedGame (userNr) values(0)";
+            String query = "insert into dominion.SavedGame (gameNr, userNr) values(9, 5)";
             pstmt = connection.prepareStatement(query);
             pstmt.executeUpdate();
         } catch (Exception e) {
