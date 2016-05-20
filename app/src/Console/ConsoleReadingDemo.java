@@ -484,7 +484,12 @@ public class ConsoleReadingDemo {
             }
             if (choice != 17) {
                 if (game.getShop().priceOfCard(choice) <= coins) {
-                    validInput = true;
+                    if (game.getShop().cardsLeftInStack(choice) > 0) {
+                        validInput = true;
+                    } else {
+                        System.out.println("The " + game.getShop().getShopArray()[choice].getCard().getName() + " stack is empty!");
+                        choice = numberInput();
+                    }
                 } else {
                     System.out.println(game.getShop().getShopArray()[choice].getCard().getName() + " is too expensive you only have " + coins + " coins!");
                     choice = numberInput();
@@ -649,7 +654,7 @@ public class ConsoleReadingDemo {
         }
         List<String> pickedCards = new ArrayList<String>();
         System.out.println("Choose ten cards you want to play with.");
-        System.out.println("Type the number of the card you want and pres enter.");
+        System.out.println("Type the number of the card you want and press enter.");
         int[] chosenCards = new int[10];
         for (int i = 0; i < 10; i++) {
             int choice = inputBoundaries(0, 24);
@@ -657,8 +662,8 @@ public class ConsoleReadingDemo {
                 System.out.println("You have already chosen the " + allCardNames[choice] + " card!");
                 choice = inputBoundaries(0, 24);
             }
-            pickedCards.add(allCardNames[i]);
-            System.out.println("You chose the " + allCardNames[i] + " card.");
+            pickedCards.add(allCardNames[choice]);
+            System.out.println("You chose the " + allCardNames[choice] + " card.");
             chosenCards[i] = choice;
         }
         return chosenCards;
