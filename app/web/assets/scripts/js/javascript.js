@@ -132,10 +132,20 @@ function startTurn() {
         }
 
 
-        changeCurrentName(playerObject.playerName)
+        changeCurrentName(playerObject.playerName);
+        setValues(playerObject.actions,playerObject.buys,0)
 
 
     });
+
+
+}
+
+function setValues(actions,buys,coins) {
+    $(".actions span").empty().append(actions);
+    $(".buys span").empty().append(buys);
+    $(".coins span").empty().append(coins);
+
 
 
 }
@@ -266,5 +276,7 @@ $(document).ready(function () {
     $('.deckSubmit').on('click', sendArray);
     $('.hand ul').on("click", "li", cardToField);
     $('.shopCards').on('click', shopToHand);
+    $('.playTreasure').on("click", playTreasure);
+
 
 });

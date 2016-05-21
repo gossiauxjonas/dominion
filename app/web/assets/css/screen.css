@@ -114,11 +114,13 @@ aside {
 aside a {
     display: block;
     margin-bottom: 20px;
-    background-color: darkslategrey;
+    background-color: black;
     color: azure;
     padding: 30px;
     text-decoration: none;
     text-align: center;
+    border-radius: 5px;
+
 }
 
 aside div {
@@ -130,6 +132,25 @@ aside div {
 
 }
 
+
+.movesLeft{
+    display: block;
+    position: absolute;
+    size: 20px;
+    bottom: 500px;
+    left: 450px;
+    font-size: 30px;
+
+
+}
+.movesLeft li{
+    background-color: black;
+    color: white;
+    padding: 3px;
+    opacity: 0.8;
+    margin-top: 2px;
+    border-radius: 5px;
+}
 .cardMat {
     background-color: dimgray;
     width: 1000px;
