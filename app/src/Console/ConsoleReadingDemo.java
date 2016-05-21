@@ -14,17 +14,6 @@ public class ConsoleReadingDemo {
 
     private GameEngine game;
 
-    public void printAll(Player player) {
-        List<BasicCard> allCards = new ArrayList<BasicCard>();
-        allCards.addAll(player.getHand());
-        allCards.addAll(player.getDrawDeck());
-        allCards.addAll(player.getDiscard());
-        System.out.println(player.getName());
-        for (BasicCard card : allCards) {
-            System.out.println(card.getName());
-        }
-    }
-
     public void printHand(Player player) {
         System.out.println(player.getName() + " his hand:");
         for (int i = 0; i < player.getHand().size(); i++)
@@ -699,9 +688,6 @@ public class ConsoleReadingDemo {
         int[][] playerRank = game.playerScoreRank();
         System.out.println("The winner is: " + game.getPlayers()[playerRank[0][0]].getName() + " with " + playerRank[0][1] + " points");
         System.out.println(game.getPlayers()[playerRank[1][0]].getName() + " has " + playerRank[1][1] + " points");
-        for (Player player : game.getPlayers()) {
-            printAll(player);
-        }
     }
 
     public static void main(String[] args) {
