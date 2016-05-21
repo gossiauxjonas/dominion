@@ -319,16 +319,20 @@ public class ConsoleReadingDemo {
 
     public void throneRoomAction(List playedCards) {
         printHand(game.getPlayer());
-        System.out.println("Choose a action card to play twice.");
-        int actionChoice = chooseActionCard(game.getPlayer());
-        if (game.getPlayer().getCardInHandOn(actionChoice).getName() == "throne room") {
-            playAction(actionChoice, playedCards);
+        if(game.getPlayer().handContainsActionCards()) {
+            System.out.println("Choose a action card to play twice.");
+            int actionChoice = chooseActionCard(game.getPlayer());
+            if (game.getPlayer().getCardInHandOn(actionChoice).getName() == "throne room") {
+                playAction(actionChoice, playedCards);
+            } else {
+                BasicCard cardToPlayTwice = game.getPlayer().removeCardFromHand(actionChoice);
+                game.getPlayer().putCardInHand(cardToPlayTwice);
+                playAction(game.getPlayer().amountCardsHand() - 1, playedCards, false);
+                game.getPlayer().putCardInHand(cardToPlayTwice);
+                playAction(game.getPlayer().amountCardsHand() - 1, playedCards, true);
+            }
         } else {
-            BasicCard cardToPlayTwice = game.getPlayer().removeCardFromHand(actionChoice);
-            game.getPlayer().putCardInHand(cardToPlayTwice);
-            playAction(game.getPlayer().amountCardsHand() - 1, playedCards, false);
-            game.getPlayer().putCardInHand(cardToPlayTwice);
-            playAction(game.getPlayer().amountCardsHand() - 1, playedCards, true);
+            System.out.println("You have no more action cards to play.");
         }
     }
 

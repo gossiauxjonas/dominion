@@ -50,13 +50,13 @@ public class GameEngine {
     private VictoryCard province = new VictoryCard("province", 8, 6);
     private VictoryCard curse = new VictoryCard("curse", 0, -1);
 
-    private CardStack copperStack = new CardStack(2, copper);
-    private CardStack silverStack = new CardStack(2, silver);
-    private CardStack goldStack = new CardStack(2, gold);
-    private CardStack estateStack = new CardStack(2, estate);
-    private CardStack duchyStack = new CardStack(2, duchy);
-    private CardStack provinceStack = new CardStack(2, province);
-    private CardStack curseStack = new CardStack(2, curse);
+    private CardStack copperStack;
+    private CardStack silverStack;
+    private CardStack goldStack;
+    private CardStack estateStack;
+    private CardStack duchyStack;
+    private CardStack provinceStack;
+    private CardStack curseStack;
 
     private CardStack actionCardStack1;
     private CardStack actionCardStack2;
@@ -84,6 +84,14 @@ public class GameEngine {
         for (int i = 0; i < players.length; i++) {
             this.players[i] = new Player(players[i], copper, estate);
         }
+
+        copperStack = new CardStack(players.length, copper);
+        silverStack = new CardStack(players.length, silver);
+        goldStack = new CardStack(players.length, gold);
+        estateStack = new CardStack(players.length, estate);
+        duchyStack = new CardStack(players.length, duchy);
+        provinceStack = new CardStack(players.length, province);
+        curseStack = new CardStack(players.length, curse);
 
         actionCardStack1 = new CardStack(players.length, actionCardsArray[chosenCards[0]]);
         actionCardStack2 = new CardStack(players.length, actionCardsArray[chosenCards[1]]);
