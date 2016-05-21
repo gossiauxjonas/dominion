@@ -133,7 +133,7 @@ function startTurn() {
 
 
         changeCurrentName(playerObject.playerName);
-        setValues(playerObject.actions,playerObject.buys,0)
+        setValues(playerObject.actions, playerObject.buys, 0)
 
 
     });
@@ -141,11 +141,10 @@ function startTurn() {
 
 }
 
-function setValues(actions,buys,coins) {
+function setValues(actions, buys, coins) {
     $(".actions span").empty().append(actions);
     $(".buys span").empty().append(buys);
     $(".coins span").empty().append(coins);
-
 
 
 }
@@ -214,15 +213,67 @@ function makeCounter() {
 
 function removeFromHand(image) {
 
-    for (var i = 0; i<$(".hand li").length && !badPractice;i++)
-    {
-     if($(".hand li").eq(i).css("background-image") == image){
-         $(".hand li").eq(i).remove();
-         var badPractice = true;
-     }
+    for (var i = 0; i < $(".hand li").length && !badPractice; i++) {
+        if ($(".hand li").eq(i).css("background-image") == image) {
+            $(".hand li").eq(i).remove();
+            var badPractice = true;
+        }
     }
 
 }
+
+function checkForActionCards() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "actions"
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+        var actionsInHand = JSON.stringify(data.actions);
+        if (actionsInHand == "none") {
+            buyPhase();
+        }
+        else {
+
+        }
+
+
+    });
+
+    buyPhase();
+}
+
+function buyPhase() {
+
+    if (!$(".endTurn").hasClass("selected")) {
+        
+        while($(".playTreasure").hasClass("selected")){
+            console.log("treasure played");
+            $(".playTreasure").removeClass("selected");
+
+        }
+
+        console.log("turn ended ");
+    }
+
+
+
+}
+
+function playTreasure() {
+    $(".playTreasure").addClass("selected");
+}
+function endTurn() {
+    $(".endTurn").addClass("selected");
+}
+
 function cardToField() {
     var image = $(this).css("background-image");
 
@@ -230,7 +281,6 @@ function cardToField() {
     $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
     removeFromHand(image);
-
 
 
 }
@@ -261,6 +311,7 @@ function changeCurrentName(currentName) {
 
 $(document).ready(function () {
     var limit = 11;
+    buyPhase();
 
     $('input.single-checkbox').on('change', function (evt) {
         if ($(this).siblings(':checked').length >= limit) {
@@ -274,9 +325,11 @@ $(document).ready(function () {
     $('.cardChoice label').on("click", changecolorAndNumber);
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
-    $('.hand ul').on("click", "li", cardToField);
+    $('.hand ul').on("click", 'li', cardToField);
     $('.shopCards').on('click', shopToHand);
-    $('.playTreasure').on("click", playTreasure);
+
+    $(".endTurn").on("click", endTurn);
+    $(".playTreasure").on("click", playTreasure);
 
 
 });

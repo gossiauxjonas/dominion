@@ -163,6 +163,17 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
 
+            case "action":
+                JSONObject actionsInHand = new JSONObject();
+
+                if (!game.getPlayer().handContainsActionCards()) {
+                    actionsInHand.put("actions","none");
+                        pw.write(actionsInHand.toString());
+                }
+
+
+                break;
+
             default:
                 pw.append(" { 'status':'nok', 'errormessage':'Invalid Operation' } ");
                 break;
