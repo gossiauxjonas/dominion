@@ -244,39 +244,43 @@ function checkForActionCards() {
 
         }
 
-
+        buyPhase();
     });
 
-    buyPhase();
+
 }
 
 function buyPhase() {
-
-    if (!$(".endTurn").hasClass("selected")) {
-        
-        while($(".playTreasure").hasClass("selected")){
-            console.log("treasure played");
-            $(".playTreasure").removeClass("selected");
-
-        }
-
-        console.log("turn ended ");
-    }
-
 
 
 }
 
 function playTreasure() {
-    $(".playTreasure").addClass("selected");
+    var handLength = $(".hand li").length;
+
+    for (var i = 0; i <= handLength; i++) {
+
+        if ($(".hand li").eq(i).hasClass("treasure")) {
+
+            cardToField($(".hand li").eq(i).css("background-image"));
+            console.log("treasure founbd")
+        }
+        else{
+            console.log("treasure not founbd")
+        }
+    }
+
+
 }
 function endTurn() {
     $(".endTurn").addClass("selected");
 }
 
-function cardToField() {
-    var image = $(this).css("background-image");
-
+function cardToField(image) {
+    console.log(image);
+    if (typeof (image) != "string") {
+        var image = $(this).css("background-image");
+    }
 
     $(".playmat ul").append("<li></li>");
     $(".playmat li:last-of-type").css("background-image", image);
@@ -296,9 +300,15 @@ function shopToHand() {
 }
 
 function addToHand(card) {
-    var image = 'url("assets/media/images/Cards/' + card + '.jpg")';
 
-    $(".hand ul ").append("<li></li>");
+    var image = 'url("assets/media/images/Cards/' + card + '.jpg")';
+    if (card == "copper" | card == "silver" | card == "gold") {
+        $(".hand ul ").append("<li class='treasure'></li>");
+    }
+    else {
+        $(".hand ul ").append("<li></li>");
+    }
+
     $(".hand ul li:last-of-type").css("background-image", image);
 
 
