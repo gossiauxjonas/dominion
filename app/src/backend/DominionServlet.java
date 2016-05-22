@@ -34,7 +34,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
     private void startNewGame(int[] startCardArray, PrintWriter pw, String firstplayer, String otherPlayer, String lastPlayer) {
 
-        if (lastPlayer != null) {
+        if (lastPlayer != "") {
             game = new GameEngine(startCardArray, firstplayer, otherPlayer, lastPlayer);
             this.getServletContext().setAttribute("gameEngine", game);
             pw.write(firstplayer + otherPlayer + lastPlayer);
@@ -120,6 +120,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 this.otherPlayer = request.getParameter("player2");
                 this.lastPlayer = request.getParameter("player3");
 
+
                 break;
 
 
@@ -158,7 +159,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 // while (game.getShop().isOpen()) {
                 System.out.println(turn().toString());
                 pw.write(turn().toString());
-                // }
+
 
 
                 break;
@@ -170,6 +171,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                     actionsInHand.put("actions","none");
                         pw.write(actionsInHand.toString());
                 }
+
+
+                break;
+
+            case "endTurn":
+                game.nextTurn();
+
 
 
                 break;

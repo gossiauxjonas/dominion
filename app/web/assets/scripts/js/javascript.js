@@ -126,14 +126,15 @@ function startTurn() {
     });
     response.done(function (data) {
         var playerObject = JSON.parse(data);
-
+        $('.hand ul').empty();
         for (var i = 0; i < playerObject.hand.length; i++) {
             addToHand(playerObject.hand[i])
         }
 
 
         changeCurrentName(playerObject.playerName);
-        setValues(playerObject.actions, playerObject.buys, 0)
+        setValues(playerObject.actions, playerObject.buys, 0);
+
 
 
     });
@@ -273,7 +274,26 @@ function playTreasure() {
 
 }
 function endTurn() {
-    $(".endTurn").addClass("selected");
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "endTurn"
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+        startTurn()
+
+        
+    });
+
+
+
 }
 
 function cardToField(image) {
