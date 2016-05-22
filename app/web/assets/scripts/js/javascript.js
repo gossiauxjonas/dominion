@@ -257,16 +257,16 @@ function buyPhase() {
 
 function playTreasure() {
     var handLength = $(".hand li").length;
-
-    for (var i = 0; i <= handLength; i++) {
+    var i = 0;
+    while (i < handLength) {// geen for loop want cardToField neemt altijd de eerste kaart van het type dat je op klikte en niet de kaart zelf
 
         if ($(".hand li").eq(i).hasClass("treasure")) {
 
             cardToField($(".hand li").eq(i).css("background-image"));
-            console.log("treasure founbd")
+
         }
         else{
-            console.log("treasure not founbd")
+            i++;
         }
     }
 
