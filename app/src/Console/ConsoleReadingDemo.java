@@ -666,7 +666,14 @@ public class ConsoleReadingDemo {
     private void run() {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to Dominion!");
-        int[] chosenCards = chooseCards();
+        System.out.println("Type 0 to use a default deck or 1 to select your own deck.");
+        int defaultOrNot = inputBoundaries(0, 1);
+        int[] chosenCards;
+        if (defaultOrNot == 1) {
+            chosenCards = chooseCards();
+        } else {
+            chosenCards = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        }
         System.out.println("Type 2 to play with two players or Type 3 to play with three players.");
         int amountOfPlayers = inputBoundaries(2, 3);
         System.out.print("Name player1: ");
