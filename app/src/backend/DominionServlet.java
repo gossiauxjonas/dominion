@@ -55,6 +55,16 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         return actionCards;
     }
 
+    private int getPlaceInShop(String card,Shop shop){
+        for (int i = 0; i < shop.getShopArray().length ; i++) {
+            if(shop.getShopArray()[i].getCard().getName().equals(card)){
+                return i;
+            }
+
+        }
+        return 0;
+    }
+
 
     private JSONArray parseJSONarray(String[] array) {
 
@@ -182,21 +192,28 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 break;
 
             case "buyCard":
-
+                JSONObject endOfBuy = new JSONObject();
                 if ((game.getTurnBuys() > 0)) {
-                    String stringCard = request.getParameter("cardPlace");
-                    int IntCard = Integer.parseInt(stringCard);
-                    int treasureLeft = game.calculateTreasureInHand() + game.getTurnCoins();
-                    game.getPlayer().toDiscard(game.getShop().buyCard(IntCard));
-
-                    treasureLeft -= game.getShop().priceOfCard(IntCard);
-                    game.decrementTurnBuys();
-                    if (!game.getShop().isOpen()) return;
-
-
+                    String Card = request.getParameter("cardPlace");
+                    int treasureLeft = Integer.parseInt(request.getParameter("coins"));
+                    System.out.println(Card + " = card " + treasureLeft + " = treasureleft");
+                      int CardPlaceInShop = getPlaceInShop(Card,game.getShop());
+                    if (treasureLeft >= game.getShop().priceOfCard(CardPlaceInShop)) {
+                        game.getPlayer().toDiscard(game.getShop().buyCard(CardPlaceInShop));
+                        treasureLeft -= game.getShop().priceOfCard(CardPlaceInShop);
+                        endOfBuy.put("treasureLeft", treasureLeft);
+                        endOfBuy.put("buysLeft", game.getTurnBuys());
+                        endOfBuy.put("bought", "true");
+                        endOfBuy.put("cardBought",game.getPlayer().getDiscard().toString());
+                        game.decrementTurnBuys();
+                    }
                 } else {
-                    pw.write("no buy for you  mister");
+                    endOfBuy.put("bought", "false");
                 }
+
+                pw.write(endOfBuy.toString());
+
+
                 break;
 
 

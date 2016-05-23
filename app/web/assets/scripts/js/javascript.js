@@ -184,7 +184,7 @@ function makeArrayFromForm() {
 
         }
     }
-   
+
     return (cardArray);
 
 
@@ -192,13 +192,12 @@ function makeArrayFromForm() {
 
 
 function selectDeck() {
-    for (var i = 0; i<10 ; i++){
+    for (var i = 0; i < 10; i++) {
 
-        $("input[type='checkbox']").eq(i).prop('checked', true).prev().css("color","orange");
+        $("input[type='checkbox']").eq(i).prop('checked', true).prev().css("color", "orange");
         $(".cardsLeft span").empty().append(0);
 
     }
-
 
 
 }
@@ -314,13 +313,15 @@ function endTurn() {
 }
 
 function buyCard(cardName) {
-    
+
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
         data: {
             operation: "buyCard",
-            cardPlace:cardPlace(cardName)
+            cardPlace: cardName,
+            coins:$(".coins span").html()
+            
 
 
         }
@@ -328,22 +329,43 @@ function buyCard(cardName) {
 
     });
     response.done(function (data) {
-        startTurn()
-
+        var buyInfo = JSON.parse(data);
+        
+        if(buyInfo.bought == "true"){
+            console.log("you bought a "+buyInfo.cardBought);
+            if(!buyInfo.buysLeft > 0 ){
+                endTurn();
+            }
+            else{
+                setValues(0,buyInfo.buysLeft,buyInfo.treasureLeft);
+            }
+        }
+        else{
+            console.log("you don't have enough money to buy that card!")
+        }
+        
+        
+       
+        
     });
-    
+
 }
 
 function selectCardToBuy() {
-    var cardUrl = $(this).css("background-image"); // op link
-    var cardName = cardUrl.split("/"); // maakt array van elk mapje
-    cardName = cardName[cardName.length - 1].split("."); // neemt de foobar.jpg en splitst die ook op
-    cardName = cardName[0]; // eerste van array is de naam
-    buyCard(cardName);
+
+    if ($(".phase span").html() == "buy") {
+
+        var cardUrl = $(this).css("background-image");
+        var cardName = cardUrl.split("/");
+        cardName = cardName[cardName.length - 1].split(".");
+        cardName = cardName[0];
+        buyCard(cardName);
+    }
+
+
+
+
 }
-
-
-
 
 
 function cardToField(image) {
@@ -368,9 +390,11 @@ function shopToHand() {
 
 
 }
+
+
 function cardPlace(cardName) {
-    for(var i = 0; i<AllCards.length;i++){
-        if(AllCards[i] == cardName){
+    for (var i = 0; i < AllCards.length; i++) {
+        if (AllCards[i] == cardName) {
             return i;
         }
     }
@@ -392,8 +416,8 @@ function addToHand(card) {
 
 function showCardPreview() {
     $(".cardPreview").show();
-    $(".cardPreview").css("background-image",'url("assets/media/images/Cards/' + $(this).next().val() + '.jpg")');
-    console.log($(this).val());
+    $(".cardPreview").css("background-image", 'url("assets/media/images/Cards/' + $(this).next().val() + '.jpg")');
+
 
 
 }
@@ -420,15 +444,13 @@ $(document).ready(function () {
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
-    $('.cardChoice label').hover(showCardPreview,emptyCardPreview);
+    $('.cardChoice label').hover(showCardPreview, emptyCardPreview);
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
-    $(".standardDeckSelect").on("click",selectDeck);
+    $(".standardDeckSelect").on("click", selectDeck);
     $('.hand ul').on("click", 'li', cardToField);
-    $('.shopCards').on('click', shopToHand);
-    $("div").on("click" , selectCardToBuy);
-
-    $(".endTurn").on("click", endTurn);
+    $(".table div div, .valuables div div").on("click",selectCardToBuy);
+     $(".endTurn").on("click", endTurn);
     $(".playTreasure").on("click", playTreasure);
 
 
