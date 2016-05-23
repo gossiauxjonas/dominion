@@ -90,6 +90,16 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
         playerTurn.put("treasure", game.getTurnCoins());
 
+
+        if (!game.getPlayer().handContainsActionCards()) {
+            playerTurn.put("actionsInHand",0);
+            game.endTurnActions();
+        }
+
+
+
+
+
         return playerTurn;
 
 
@@ -164,16 +174,17 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
 
-            case "action":
-                JSONObject actionsInHand = new JSONObject();
-
-                if (!game.getPlayer().handContainsActionCards()) {
-                    actionsInHand.put("actions","none");
-                        pw.write(actionsInHand.toString());
-                }
-
+            case "playTreasure":
+                JSONObject treasureObject = new JSONObject();
+                int coins = game.getTurnCoins() + game.calculateTreasureInHand();
+                treasureObject.put("coins",coins);
+                pw.write(treasureObject.toString());
 
                 break;
+
+            case "buy":
+                break;
+
 
             case "endTurn":
                 game.nextTurn();

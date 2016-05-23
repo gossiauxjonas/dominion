@@ -1,3 +1,7 @@
+/*
+ * Created by Jonas Gossiaux.
+ * */
+
 var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "council Room", "witch", "throne room", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
 
@@ -127,20 +131,30 @@ function startTurn() {
     response.done(function (data) {
         var playerObject = JSON.parse(data);
         $('.hand ul').empty();
+        $('.playmat ul').empty();
         for (var i = 0; i < playerObject.hand.length; i++) {
-            addToHand(playerObject.hand[i])
+            addToHand(playerObject.hand[i]);
+
         }
 
 
         changeCurrentName(playerObject.playerName);
         setValues(playerObject.actions, playerObject.buys, 0);
-
+        if (playerObject.actionsInHand == 0) {
+            setPhase("buy");
+        }
 
 
     });
 
 
 }
+
+
+function setPhase(phase) {
+    $(".phase span").empty().append(phase);
+}
+
 
 function setValues(actions, buys, coins) {
     $(".actions span").empty().append(actions);
@@ -223,40 +237,10 @@ function removeFromHand(image) {
 
 }
 
-function checkForActionCards() {
 
-    var response = $.ajax({
-        dataType: "text",
-        url: "/DominionServlet",
-        data: {
-            operation: "actions"
+function playTreasure(treasure) {
 
-
-        }
-
-
-    });
-    response.done(function (data) {
-        var actionsInHand = JSON.stringify(data.actions);
-        if (actionsInHand == "none") {
-            buyPhase();
-        }
-        else {
-
-        }
-
-        buyPhase();
-    });
-
-
-}
-
-function buyPhase() {
-
-
-}
-
-function playTreasure() {
+    getTreasure();
     var handLength = $(".hand li").length;
     var i = 0;
     while (i < handLength) {// geen for loop want cardToField neemt altijd de eerste kaart van het type dat je op klikte en niet de kaart zelf
@@ -266,11 +250,33 @@ function playTreasure() {
             cardToField($(".hand li").eq(i).css("background-image"));
 
         }
-        else{
+        else {
             i++;
         }
+
     }
 
+
+}
+function getTreasure() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "playTreasure"
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+        var treasureObject = JSON.parse(data);
+        $(".coins span").empty().append(treasureObject.coins);
+
+
+    });
 
 }
 function endTurn() {
@@ -289,12 +295,10 @@ function endTurn() {
     response.done(function (data) {
         startTurn()
 
-        
     });
 
-
-
 }
+
 
 function cardToField(image) {
     console.log(image);
@@ -341,7 +345,7 @@ function changeCurrentName(currentName) {
 
 $(document).ready(function () {
     var limit = 11;
-    buyPhase();
+
 
     $('input.single-checkbox').on('change', function (evt) {
         if ($(this).siblings(':checked').length >= limit) {
