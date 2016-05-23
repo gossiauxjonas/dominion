@@ -184,11 +184,25 @@ function makeArrayFromForm() {
 
         }
     }
-    console.log(cardArray);
+   
     return (cardArray);
 
 
 }
+
+
+function selectDeck() {
+    for (var i = 0; i<10 ; i++){
+
+        $("input[type='checkbox']").eq(i).prop('checked', true).prev().css("color","orange");
+        $(".cardsLeft span").empty().append(0);
+
+    }
+
+
+
+}
+
 function changecolorAndNumber() {
 
 
@@ -199,7 +213,7 @@ function changecolorAndNumber() {
     }
     else {
         this.style.color = "white";
-        console.log("white");
+
     }
 
 
@@ -338,6 +352,17 @@ function addToHand(card) {
 
 }
 
+function showCardPreview() {
+    $(".cardPreview").show();
+    $(".cardPreview").css("background-image",'url("assets/media/images/Cards/' + $(this).next().val() + '.jpg")');
+    console.log($(this).val());
+
+
+}
+function emptyCardPreview() {
+    $(".cardPreview").hide();
+}
+
 function changeCurrentName(currentName) {
     $(".activePlayer span").empty().append(currentName);
     console.log(currentName);
@@ -357,8 +382,10 @@ $(document).ready(function () {
     $("input[name='amount']").on("change", addInput);
     $('#playerForm').on('submit', sendInit);
     $('.cardChoice label').on("click", changecolorAndNumber);
+    $('.cardChoice label').hover(showCardPreview,emptyCardPreview);
     $("input[type='checkbox']").on('change', changeNumber);
     $('.deckSubmit').on('click', sendArray);
+    $(".standardDeckSelect").on("click",selectDeck);
     $('.hand ul').on("click", 'li', cardToField);
     $('.shopCards').on('click', shopToHand);
 

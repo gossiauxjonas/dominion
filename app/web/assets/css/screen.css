@@ -329,23 +329,55 @@ input[type="checkbox"] {
     opacity: 0;
     width: 0px;
 }
+.cardPreview{
 
+    width: 296px;
+    height: 473px;
+    float: left;
+    margin-left: 60px;
+}
 .deckSubmit {
     padding: 40px;
     position: absolute;
-    bottom: 300px;
-    right: 550px;
-    background-color: gray;
+    bottom: 450px;
+    right: 500px;
+    background-color: black;
     font-size: 20px;
     color: white;
     border-radius: 15px;
     text-align: center;
     text-decoration: none;
     display: block;
+    border: solid;
+    border-color: white;
 
 
 
 
+}
+
+.standardDeckSelect{
+    padding: 40px;
+    position: absolute;
+    bottom: 300px;
+    right: 500px;
+    background-color: black;
+    font-size: 18px;
+    color: white;
+    border-radius: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border: solid;
+    border-color: white;
+
+}
+.deckSubmit input{
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 5px;
+    font-size: 22px;
 }
 
 .cardsLeft{
@@ -397,6 +429,7 @@ input[type="checkbox"] {
     top: 0px;
 
 }
+
 
 .activePlayer{
     color: white;
