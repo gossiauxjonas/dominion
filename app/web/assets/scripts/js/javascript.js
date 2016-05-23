@@ -313,6 +313,38 @@ function endTurn() {
 
 }
 
+function buyCard(cardName) {
+    
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "buyCard",
+            cardPlace:cardPlace(cardName)
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+        startTurn()
+
+    });
+    
+}
+
+function selectCardToBuy() {
+    var cardUrl = $(this).css("background-image"); // op link
+    var cardName = cardUrl.split("/"); // maakt array van elk mapje
+    cardName = cardName[cardName.length - 1].split("."); // neemt de foobar.jpg en splitst die ook op
+    cardName = cardName[0]; // eerste van array is de naam
+    buyCard(cardName);
+}
+
+
+
+
 
 function cardToField(image) {
     console.log(image);
@@ -336,7 +368,13 @@ function shopToHand() {
 
 
 }
-
+function cardPlace(cardName) {
+    for(var i = 0; i<AllCards.length;i++){
+        if(AllCards[i] == cardName){
+            return i;
+        }
+    }
+}
 function addToHand(card) {
 
     var image = 'url("assets/media/images/Cards/' + card + '.jpg")';
@@ -388,6 +426,7 @@ $(document).ready(function () {
     $(".standardDeckSelect").on("click",selectDeck);
     $('.hand ul').on("click", 'li', cardToField);
     $('.shopCards').on('click', shopToHand);
+    $("div").on("click" , selectCardToBuy);
 
     $(".endTurn").on("click", endTurn);
     $(".playTreasure").on("click", playTreasure);

@@ -92,12 +92,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
         if (!game.getPlayer().handContainsActionCards()) {
-            playerTurn.put("actionsInHand",0);
+            playerTurn.put("actionsInHand", 0);
             game.endTurnActions();
         }
-
-
-
 
 
         return playerTurn;
@@ -167,9 +164,11 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 System.out.println("startTurn operation is ok ");
 
                 // while (game.getShop().isOpen()) {
+                if (game.getPlayer().amountCardsHand() < 5) {
+                    game.getPlayer().drawCardsToHand(5);
+                }
                 System.out.println(turn().toString());
                 pw.write(turn().toString());
-
 
 
                 break;
@@ -177,18 +176,37 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
             case "playTreasure":
                 JSONObject treasureObject = new JSONObject();
                 int coins = game.getTurnCoins() + game.calculateTreasureInHand();
-                treasureObject.put("coins",coins);
+                treasureObject.put("coins", coins);
                 pw.write(treasureObject.toString());
 
                 break;
 
-            case "buy":
+            case "buyCard":
+
+                if ((game.getTurnBuys() > 0)) {
+                    String stringCard = request.getParameter("cardPlace");
+                    int IntCard = Integer.parseInt(stringCard);
+                    int treasureLeft = game.calculateTreasureInHand() + game.getTurnCoins();
+                    game.getPlayer().toDiscard(game.getShop().buyCard(IntCard));
+
+                    treasureLeft -= game.getShop().priceOfCard(IntCard);
+                    game.decrementTurnBuys();
+                    if (!game.getShop().isOpen()) return;
+
+
+                } else {
+                    pw.write("no buy for you  mister");
+                }
                 break;
 
 
             case "endTurn":
-                game.nextTurn();
 
+                for (int i = 0; i < game.getPlayer().getHand().size(); i++) {
+                    game.getPlayer().emptyHand();
+                }
+
+                game.nextTurn();
 
 
                 break;
