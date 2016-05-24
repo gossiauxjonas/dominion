@@ -4,6 +4,7 @@
 
 var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "council Room", "witch", "throne room", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
+var standardCards = [1,8,18,19,21,13,4,6,9,5];
 
 function createStandardShop(shopCards) {
 
@@ -197,7 +198,7 @@ function makeArrayFromForm() {
 function selectDeck() {
     for (var i = 0; i < 10; i++) {
 
-        $("input[type='checkbox']").eq(i).prop('checked', true).prev().css("color", "orange");
+        $("input[type='checkbox']").eq(standardCards[i]).prop('checked', true).prev().css("color", "orange");
         $(".cardsLeft span").empty().append(0);
 
     }
@@ -385,6 +386,7 @@ function cardToField(image) {
 
     if ($(this).hasClass("action")) {
         playAction(makeCardFromUrl(image));
+        console.log("action card played ")
     }
 
 
@@ -398,7 +400,8 @@ function playAction(cardName) {
         url: "/DominionServlet",
         data: {
             operation: "actionCard",
-            cardName: cardName, 
+            cardName: cardName,
+            coins: $(".coins span").html()
 
 
 
@@ -407,6 +410,12 @@ function playAction(cardName) {
 
     });
     response.done(function (data) {
+
+        var afterAction = JSON.parse(data);
+
+        setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
+
+        newHand(data.newHand);
 
 
 
@@ -448,6 +457,16 @@ function addToHand(card) {
     }
 
     $(".hand ul li:last-of-type").css("background-image", image);
+
+
+}
+
+
+function newHand(cardArray) {
+    $(".hand ul").empty();
+    for (var i = 0; i < cardArray.length; i++){
+        addToHand(cardArray[i]);
+    }
 
 
 }

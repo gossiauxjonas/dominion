@@ -1,9 +1,6 @@
 package backend;
 
-import logic.BasicCard;
-import logic.GameEngine;
-import logic.Player;
-import logic.Shop;
+import logic.*;
 
 
 import org.json.JSONArray;
@@ -55,9 +52,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         return actionCards;
     }
 
-    private int getPlaceInShop(String card,Shop shop){
-        for (int i = 0; i < shop.getShopArray().length ; i++) {
-            if(shop.getShopArray()[i].getCard().getName().equals(card)){
+    private int getPlaceInShop(String card, Shop shop) {
+        for (int i = 0; i < shop.getShopArray().length; i++) {
+            if (shop.getShopArray()[i].getCard().getName().equals(card)) {
                 return i;
             }
 
@@ -104,8 +101,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         if (!game.getPlayer().handContainsActionCards()) {
             playerTurn.put("actionsInHand", "false");
             game.endTurnActions();
-        }
-        else{
+        } else {
             playerTurn.put("actionsInHand", "true");
         }
 
@@ -113,6 +109,107 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         return playerTurn;
 
 
+    }
+
+
+    private void doAction(String cardName,int cardPlaceInHand) {
+
+
+        switch (cardName) {
+
+            case "chapel":
+
+
+                break;
+            case "moneylender":
+
+                break;
+            case "cellar":
+
+                break;
+            case "workshop":
+
+                break;
+            case "feast":
+
+                break;
+            case "remodel":
+
+                break;
+            case "library":
+
+                break;
+            case "mine":
+
+                break;
+            case "spy":
+
+                break;
+            case "witch":
+
+                break;
+            case "thief":
+
+                break;
+            case "militia":
+
+                break;
+            case "bureaucrat":
+
+                break;
+            case "council Room":
+
+                break;
+            case "garden":
+
+                break;
+            case "chancellor":
+
+                break;
+            case "festival":
+
+                break;
+            case "laboratory":
+
+                break;
+            case "market":
+
+                break;
+            case "moat":
+
+                break;
+            case "smithy":
+
+                break;
+            case "throne room":
+
+                break;
+            case "village":
+                Village village = new Village(game);
+                village.playAction();
+                game.getPlayer().discardCardFromHand(cardPlaceInHand);
+
+                break;
+            case "woodcutter":
+
+                break;
+
+
+            default:
+
+        }
+    }
+
+
+    private int findCardPlaceInHand(String cardName) {
+        int cardPlace = -1;
+        for (int i = 0; i < game.getPlayer().getHand().size(); i++) {
+            if (game.getPlayer().getCardInHandOn(i).toString().equals(cardName)) {
+                cardPlace = i;
+            }
+        }
+
+        return cardPlace;
     }
 
 
@@ -199,14 +296,14 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 if ((game.getTurnBuys() > 0)) {
                     String Card = request.getParameter("cardPlace");
                     int treasureLeft = Integer.parseInt(request.getParameter("coins"));
-                    System.out.println(Card + " = card " + treasureLeft + " = treasureleft");
-                      int CardPlaceInShop = getPlaceInShop(Card,game.getShop());
+
+                    int CardPlaceInShop = getPlaceInShop(Card, game.getShop());
                     if (treasureLeft >= game.getShop().priceOfCard(CardPlaceInShop)) {
                         game.getPlayer().toDiscard(game.getShop().buyCard(CardPlaceInShop));
                         treasureLeft -= game.getShop().priceOfCard(CardPlaceInShop);
                         endOfBuy.put("treasureLeft", treasureLeft);
                         endOfBuy.put("bought", "true");
-                        endOfBuy.put("cardBought",game.getPlayer().getDiscard().toString());
+                        endOfBuy.put("cardBought", game.getPlayer().getDiscard().toString());
                         game.decrementTurnBuys();
                         endOfBuy.put("buysLeft", game.getTurnBuys());
                     }
@@ -219,10 +316,21 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
 
-            case "action":
+            case "actionCard":
+                JSONObject afterAction = new JSONObject();
 
+                String cardName = request.getParameter("cardName");
+                int cardPlaceInHand = findCardPlaceInHand(cardName);
 
+                int treasureLeft = Integer.parseInt(request.getParameter("coins"));
 
+                doAction(cardName,cardPlaceInHand);
+                afterAction.put("coinsLeft", game.getTurnCoins());
+                afterAction.put("newHand", makeHandArray(game.getPlayer()));
+                afterAction.put("actions", game.getTurnActions());
+                afterAction.put("buys", game.getTurnBuys());
+
+                pw.write(afterAction.toString());
 
                 break;
 
