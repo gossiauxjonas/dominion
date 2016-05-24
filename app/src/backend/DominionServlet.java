@@ -102,8 +102,11 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
 
         if (!game.getPlayer().handContainsActionCards()) {
-            playerTurn.put("actionsInHand", 0);
+            playerTurn.put("actionsInHand", "false");
             game.endTurnActions();
+        }
+        else{
+            playerTurn.put("actionsInHand", "true");
         }
 
 
@@ -202,16 +205,23 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                         game.getPlayer().toDiscard(game.getShop().buyCard(CardPlaceInShop));
                         treasureLeft -= game.getShop().priceOfCard(CardPlaceInShop);
                         endOfBuy.put("treasureLeft", treasureLeft);
-                        endOfBuy.put("buysLeft", game.getTurnBuys());
                         endOfBuy.put("bought", "true");
                         endOfBuy.put("cardBought",game.getPlayer().getDiscard().toString());
                         game.decrementTurnBuys();
+                        endOfBuy.put("buysLeft", game.getTurnBuys());
                     }
                 } else {
                     endOfBuy.put("bought", "false");
                 }
 
                 pw.write(endOfBuy.toString());
+
+
+                break;
+
+            case "action":
+
+
 
 
                 break;

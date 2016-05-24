@@ -140,10 +140,13 @@ function startTurn() {
 
         changeCurrentName(playerObject.playerName);
         setValues(playerObject.actions, playerObject.buys, 0);
-        if (playerObject.actionsInHand == 0) {
+        if (playerObject.actionsInHand == "false") {
             setPhase("buy");
         }
-
+        else if (playerObject.actionsInHand == "true") {
+            setPhase("action")
+        }
+        console.log(playerObject);
 
     });
 
@@ -320,8 +323,7 @@ function buyCard(cardName) {
         data: {
             operation: "buyCard",
             cardPlace: cardName,
-            coins:$(".coins span").html()
-            
+            coins: $(".coins span").html()
 
 
         }
@@ -330,23 +332,21 @@ function buyCard(cardName) {
     });
     response.done(function (data) {
         var buyInfo = JSON.parse(data);
-        
-        if(buyInfo.bought == "true"){
-            console.log("you bought a "+buyInfo.cardBought);
-            if(!buyInfo.buysLeft > 0 ){
+
+        if (buyInfo.bought == "true") {
+            console.log("you bought a " + buyInfo.cardBought);
+            if (!buyInfo.buysLeft > 0) {
                 endTurn();
             }
-            else{
-                setValues(0,buyInfo.buysLeft,buyInfo.treasureLeft);
+            else {
+                setValues(0, buyInfo.buysLeft, buyInfo.treasureLeft);
             }
         }
-        else{
+        else {
             console.log("you don't have enough money to buy that card!")
         }
-        
-        
-       
-        
+
+
     });
 
 }
@@ -356,15 +356,17 @@ function selectCardToBuy() {
     if ($(".phase span").html() == "buy") {
 
         var cardUrl = $(this).css("background-image");
-        var cardName = cardUrl.split("/");
-        cardName = cardName[cardName.length - 1].split(".");
-        cardName = cardName[0];
+        var cardName = makeCardFromUrl(cardUrl);
         buyCard(cardName);
     }
 
 
-
-
+}
+function makeCardFromUrl(cardUrl) {
+    var cardName = cardUrl.split("/");
+    cardName = cardName[cardName.length - 1].split(".");
+    cardName = cardName[0];
+    return cardName;
 }
 
 
@@ -374,12 +376,44 @@ function cardToField(image) {
         var image = $(this).css("background-image");
     }
 
-    $(".playmat ul").append("<li></li>");
-    $(".playmat li:last-of-type").css("background-image", image);
-    removeFromHand(image);
+    if (!$(this).hasClass("victory")) {
+
+        $(".playmat ul").append("<li></li>");
+        $(".playmat li:last-of-type").css("background-image", image);
+        removeFromHand(image);
+    }
+
+    if ($(this).hasClass("action")) {
+        playAction(makeCardFromUrl(image));
+    }
 
 
 }
+
+
+function playAction(cardName) {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "actionCard",
+            cardName: cardName, 
+
+
+
+        }
+
+
+    });
+    response.done(function (data) {
+
+
+
+    });
+
+}
+
 
 function shopToHand() {
 
@@ -405,8 +439,12 @@ function addToHand(card) {
     if (card == "copper" | card == "silver" | card == "gold") {
         $(".hand ul ").append("<li class='treasure'></li>");
     }
+
+    else if (card == "estate" | card == "duchy" | card == "province") {
+        $(".hand ul ").append("<li class='victory'></li>");
+    }
     else {
-        $(".hand ul ").append("<li></li>");
+        $(".hand ul ").append("<li class='action'></li>");
     }
 
     $(".hand ul li:last-of-type").css("background-image", image);
@@ -417,7 +455,6 @@ function addToHand(card) {
 function showCardPreview() {
     $(".cardPreview").show();
     $(".cardPreview").css("background-image", 'url("assets/media/images/Cards/' + $(this).next().val() + '.jpg")');
-
 
 
 }
@@ -449,8 +486,8 @@ $(document).ready(function () {
     $('.deckSubmit').on('click', sendArray);
     $(".standardDeckSelect").on("click", selectDeck);
     $('.hand ul').on("click", 'li', cardToField);
-    $(".table div div, .valuables div div").on("click",selectCardToBuy);
-     $(".endTurn").on("click", endTurn);
+    $(".table div div, .valuables div div").on("click", selectCardToBuy);
+    $(".endTurn").on("click", endTurn);
     $(".playTreasure").on("click", playTreasure);
 
 
