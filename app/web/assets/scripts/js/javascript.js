@@ -6,6 +6,8 @@ var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory
 
 var standardCards = [1,8,18,19,21,13,4,6,9,5];
 
+
+
 function createStandardShop(shopCards) {
 
     for (var i = 0; i < 10; i++) {
@@ -85,6 +87,7 @@ function beginSetup() {
 
 
     });
+    
 
 
 }
@@ -256,6 +259,7 @@ function removeFromHand(image) {
 
 
 function playTreasure(treasure) {
+
     setPhase("buy");
     getTreasure();
     var handLength = $(".hand li").length;
@@ -272,6 +276,7 @@ function playTreasure(treasure) {
         }
 
     }
+
 
 
 }
@@ -377,7 +382,7 @@ function cardToField(image) {
         var image = $(this).css("background-image");
     }
 
-    if ($(this).hasClass("treasure") ) {
+    if (!$(this).hasClass("treasure") && !$(this).hasClass("action")  ) {
 
         $(".playmat ul").append("<li></li>");
         $(".playmat li:last-of-type").css("background-image", image);
@@ -389,6 +394,11 @@ function cardToField(image) {
         $(".playmat li:last-of-type").css("background-image", image);
         removeFromHand(image);
         playAction(makeCardFromUrl(image));
+
+    }
+    if($(".playmat li").length>6 ){
+        var newLength = 900 / $('.playmat li').length;
+        $(".playmat li").css("width", newLength);
 
     }
 
@@ -404,29 +414,106 @@ function playAction(cardName) {
         data: {
             operation: "actionCard",
             cardName: cardName
-        
-
-
-
-        }
+              }
 
 
     });
     response.done(function (data) {
 
-        var afterAction = JSON.parse(data);
 
+        var afterAction = JSON.parse(data);
+        askPlayerSomething(afterAction.askPlayer);
         setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
         newHand(afterAction.newHand);
-        console.log(afterAction.actionsInHand);
-        if(afterAction.actionsInHand != "true"){
+        console.log("actions in hand :" + afterAction.actionsInHand);
+        if(afterAction.actionsInHand != true){
+
             setPhase("buy")
         }
 
     });
 
 }
+
+function askPlayerSomething(cardName) {
+
+
+   switch (cardName){
+
+       case "chapel":
+            $('.askScreen ul').empty();
+            $(".askScreen ul ").append($(".hand ul"));
+            $(".askScreen").show();
+            $(".askScreen").on("click","input", sendCardsToTrash);
+
+              break;
+
+
+
+   }
+
+
+
+}
+
+
+function selectThisCard(){
+
+    if( $(this).hasClass("selected")){
+
+        $(this).css("border", "").removeClass("selected");
+
+    }
+    else {
+        $(this).css("border","solid").css("border-color","white").addClass("selected");
+    }
+
+
+
+
+
+}
+
+
+function sendCardsToTrash() {
+   
+
+    var cardsToDiscard = [];
+
+   for (var i = 0; i < $(".askScreen ul li").length ; i++){
+
+       if($(".askScreen ul li").eq(i).hasClass("selected")){
+           cardsToDiscard.push(makeCardFromUrl($(".askScreen ul li").eq(i).css("background-image")))
+       }
+
+   }
+    sendCardsToServlet(cardsToDiscard);
+
+   $(".askScreen").hide(); 
+}
+
+function sendCardsToServlet(cardsToDiscard) {
+   
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "discard",
+            cards: JSON.stringify(cardsToDiscard)
+        }
+
+
+    });
+    response.done(function (data) {
+
+
+
+    });
+    
+    
+}
+
 
 
 function shopToHand() {
@@ -463,6 +550,11 @@ function addToHand(card) {
 
     $(".hand ul li:last-of-type").css("background-image", image);
 
+    if($(".hand li").length>6 ){
+        var newLength = 900 / $('.hand li').length;
+        $(".hand li").css("width", newLength);
+
+    }
 
 }
 
@@ -475,6 +567,8 @@ function newHand(cardArray) {
 
 
 }
+
+
 
 function showCardPreview() {
     $(".cardPreview").show();
@@ -495,6 +589,7 @@ $(document).ready(function () {
     var limit = 11;
 
 
+
     $('input.single-checkbox').on('change', function (evt) {
         if ($(this).siblings(':checked').length >= limit) {
             this.checked = false;
@@ -513,6 +608,11 @@ $(document).ready(function () {
     $(".table div div, .valuables div div").on("click", selectCardToBuy);
     $(".endTurn").on("click", endTurn);
     $(".playTreasure").on("click", playTreasure);
+    $(".askScreen ").on("click",'li', selectThisCard);
+    $(".askScreen").hide();
+
+
+
 
 
 });

@@ -35,9 +35,58 @@ input {
     background-color: darkslategrey;
     padding: 10px;
     border-radius: 10px;
-    color: white; !important;
+    color: white;
+
 
 }
+
+.askScreen {
+    background-color: black;
+    display: block;
+    opacity: 0.8;
+    z-index: 10;
+    width: 900px;
+    height: 600px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.askScreen span {
+    z-index: 11;
+    display: block;
+    text-align: center;
+    font-size: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    width: 400px;
+}
+
+.askScreen input {
+    color: white;
+    background-color: darkblue;
+    padding: 50px;
+    position: absolute;
+    right: 600px;
+}
+
+.askScreen  li {
+    z-index: 100000;
+    margin-top: 50px;
+    width: 90px;
+    height: 150px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+
+}
+.askScreen  li:first-of-type{
+    margin-left: 40px;
+}
+
 
 .login input {
     width: 50%;
@@ -46,10 +95,11 @@ input {
 
 }
 
-.amount input{
+.amount input {
     display: inline-block;
 }
-.amount label{
+
+.amount label {
     display: inline-block;
 }
 
@@ -92,7 +142,6 @@ input {
 .actionCards {
     float: right;
     margin-right: 100px;
-
 
 }
 
@@ -140,8 +189,7 @@ aside div {
 
 }
 
-
-.movesLeft{
+.movesLeft {
     display: block;
     position: absolute;
     size: 20px;
@@ -149,9 +197,9 @@ aside div {
     left: 450px;
     font-size: 30px;
 
-
 }
-.movesLeft li{
+
+.movesLeft li {
     background-color: black;
     color: white;
     padding: 3px;
@@ -159,6 +207,7 @@ aside div {
     margin-top: 2px;
     border-radius: 5px;
 }
+
 .cardMat {
     background-color: dimgray;
     width: 1000px;
@@ -202,7 +251,7 @@ aside div {
     height: 70%;
     top: -13%;
     left: 10%;
-    z-index: 10;
+    z-index: 9;
     background: url("../media/images/Cards/back.jpg") 0 0 repeat;
     background-size: contain;
     background-repeat: no-repeat;
@@ -221,7 +270,7 @@ aside div {
     height: 70%;
     top: 36.6%;
     left: 10%;
-    z-index: 10;
+    z-index: 9;
     background: url("../media/images/Cards/back.jpg");
     background-size: contain;
     background-repeat: no-repeat;
@@ -247,7 +296,7 @@ aside div {
     background-size: contain;
     width: 140px;
     height: 190px;
-    z-index: 10;
+    z-index: 9;
 
 }
 
@@ -266,11 +315,12 @@ aside div {
 
 }
 
-.playmat{
-   position: relative;
+.playmat {
+    position: relative;
     top: -35px;
 }
-.hiddenDiv{
+
+.hiddenDiv {
     display: none;
     width: 100%;
     height: 100%;
@@ -323,7 +373,8 @@ aside div {
 .kingdom ul li:first-of-type {
     margin-left: 50px;
 }
-.kingdom ul li :last-of-type{
+
+.kingdom ul li :last-of-type {
     width: 10px;
 }
 
@@ -337,13 +388,15 @@ input[type="checkbox"] {
     opacity: 0;
     width: 0px;
 }
-.cardPreview{
+
+.cardPreview {
 
     width: 296px;
     height: 473px;
     float: left;
     margin-left: 60px;
 }
+
 .deckSubmit {
     padding: 40px;
     position: absolute;
@@ -359,12 +412,9 @@ input[type="checkbox"] {
     border: solid;
     border-color: white;
 
-
-
-
 }
 
-.standardDeckSelect{
+.standardDeckSelect {
     padding: 40px;
     position: absolute;
     bottom: 300px;
@@ -380,7 +430,8 @@ input[type="checkbox"] {
     border-color: white;
 
 }
-.deckSubmit input{
+
+.deckSubmit input {
     color: white;
     background-color: black;
     border: none;
@@ -388,7 +439,7 @@ input[type="checkbox"] {
     font-size: 22px;
 }
 
-.cardsLeft{
+.cardsLeft {
     position: absolute;
     top: 120px;
     height: 30px;
@@ -400,7 +451,7 @@ input[type="checkbox"] {
 
 }
 
-.playmat span{
+.playmat span {
     color: white;
     background-color: black;
     position: absolute;
@@ -411,8 +462,7 @@ input[type="checkbox"] {
 
 }
 
-
-.hand span{
+.hand span {
     color: white;
     background-color: black;
     opacity: 0.8;
@@ -422,12 +472,9 @@ input[type="checkbox"] {
     padding: 5px;
     border-radius: 5px;
 
-
-
-
 }
 
-.table span{
+.table span {
     color: white;
     background-color: black;
     opacity: 0.8;
@@ -438,8 +485,7 @@ input[type="checkbox"] {
 
 }
 
-
-.activePlayer{
+.activePlayer {
     color: white;
     background-color: black;
     opacity: 0.8;
@@ -449,17 +495,16 @@ input[type="checkbox"] {
     display: inline-block;
     margin-left: 50px;
 
-
 }
 
-.phase{
+.phase {
     color: white;
     background-color: black;
     opacity: 0.8;
     padding: 5px;
     border-radius: 5px;
     display: inline-block;
-   position: relative;
+    position: relative;
     bottom: 50px;
     left: 300px;
     font-size: 30px;

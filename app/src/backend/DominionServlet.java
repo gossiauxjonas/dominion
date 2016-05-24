@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -119,8 +120,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         switch (cardName) {
 
             case "chapel":
-
-                break;
+                game.getPlayer().discardCardFromHand(cardPlaceInHand);
+                defaultAction(card);
+                 break;
             case "moneylender":
 
                 break;
@@ -312,7 +314,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 afterAction.put("actions", game.getTurnActions());
                 afterAction.put("buys", game.getTurnBuys());
                 afterAction.put("actionsInHand", game.getPlayer().handContainsActionCards());
-
+                afterAction.put("askPlayer", cardName);
                 pw.write(afterAction.toString());
 
                 break;
@@ -325,6 +327,27 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 }
 
                 game.nextTurn();
+
+
+                break;
+
+
+            case "discard":
+
+                JSONArray jsontrashCards = new JSONArray(request.getParameter("cards"));
+                String[] trashCards = new String[jsontrashCards.length()];
+
+                for (int i = 0; i <trashCards.length ; i++) {
+                    trashCards[i] = jsontrashCards.get(i).toString();
+
+                }
+
+                for (String trashCard : trashCards) {
+                    game.getPlayer().destroyCardFromHand(findCardPlaceInHand(trashCard));
+
+                }
+
+
 
 
                 break;
