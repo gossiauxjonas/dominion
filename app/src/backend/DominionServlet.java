@@ -112,13 +112,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     }
 
 
-    private void doAction(String cardName,int cardPlaceInHand) {
+    private void doAction(String cardName, int cardPlaceInHand) {
 
+        ActionCard card = (ActionCard) game.getPlayer().getCardInHandOn(cardPlaceInHand);
 
         switch (cardName) {
 
             case "chapel":
-
 
                 break;
             case "moneylender":
@@ -157,57 +157,33 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
             case "bureaucrat":
 
                 break;
-            case "council Room":
 
-                break;
-            case "garden":
-
-                break;
-            case "chancellor":
-
-                break;
-            case "festival":
-
-                break;
-            case "laboratory":
-
-                break;
-            case "market":
-
-                break;
-            case "moat":
-
-                break;
-            case "smithy":
-
-                break;
             case "throne room":
 
                 break;
-            case "village":
-                System.out.println("in village action switch");
-                Village village = new Village(game);
-                village.playAction();
-                game.getPlayer().discardCardFromHand(cardPlaceInHand);
-                System.out.println(cardName +" is the same as "+ game.getPlayer().getCardInHandOn(cardPlaceInHand));
-                break;
-            case "woodcutter":
+
+            case "adventurer":
 
                 break;
 
 
             default:
+                defaultAction(card);
+                game.getPlayer().discardCardFromHand(cardPlaceInHand);
 
         }
     }
 
+    private void defaultAction(ActionCard actionCard){
+        actionCard.playAction();
+    }
 
     private int findCardPlaceInHand(String cardName) {
         int cardPlace = -1;
         for (int i = 0; i < game.getPlayer().getHand().size(); i++) {
-            System.out.println(cardName + " cardplace test "+ game.getPlayer().getCardInHandOn(i).getName().toString());
 
-            if (game.getPlayer().getCardInHandOn(i).getName().toString().equals(cardName) ) {
+
+            if (game.getPlayer().getCardInHandOn(i).getName().toString().equals(cardName)) {
                 cardPlace = i;
 
             }
@@ -329,11 +305,13 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 System.out.println(cardPlaceInHand);
 
 
-                doAction(cardName,cardPlaceInHand);
+                doAction(cardName, cardPlaceInHand);
+                game.decrementTurnActions();
                 afterAction.put("coinsLeft", game.getTurnCoins());
                 afterAction.put("newHand", makeHandArray(game.getPlayer()));
                 afterAction.put("actions", game.getTurnActions());
                 afterAction.put("buys", game.getTurnBuys());
+                afterAction.put("actionsInHand", game.getPlayer().handContainsActionCards());
 
                 pw.write(afterAction.toString());
 

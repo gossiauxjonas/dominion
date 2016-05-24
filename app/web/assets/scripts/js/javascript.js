@@ -256,7 +256,7 @@ function removeFromHand(image) {
 
 
 function playTreasure(treasure) {
-
+    setPhase("buy");
     getTreasure();
     var handLength = $(".hand li").length;
     var i = 0;
@@ -372,21 +372,24 @@ function makeCardFromUrl(cardUrl) {
 
 
 function cardToField(image) {
-    console.log(image);
+
     if (typeof (image) != "string") {
         var image = $(this).css("background-image");
     }
 
-    if (!$(this).hasClass("victory")) {
+    if ($(this).hasClass("treasure") ) {
 
         $(".playmat ul").append("<li></li>");
         $(".playmat li:last-of-type").css("background-image", image);
         removeFromHand(image);
     }
 
-    if ($(this).hasClass("action")) {
+    if (($(this).hasClass("action")) && ($('.phase span').html() == "action") && parseInt($('.actions span').html()) > 0  )  {
+        $(".playmat ul").append("<li></li>");
+        $(".playmat li:last-of-type").css("background-image", image);
+        removeFromHand(image);
         playAction(makeCardFromUrl(image));
-        console.log("action card played ")
+
     }
 
 
@@ -416,9 +419,10 @@ function playAction(cardName) {
         setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
         newHand(afterAction.newHand);
-        console.log(afterAction);
-
-
+        console.log(afterAction.actionsInHand);
+        if(afterAction.actionsInHand != "true"){
+            setPhase("buy")
+        }
 
     });
 
