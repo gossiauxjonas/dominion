@@ -185,10 +185,11 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
             case "village":
+                System.out.println("in village action switch");
                 Village village = new Village(game);
                 village.playAction();
                 game.getPlayer().discardCardFromHand(cardPlaceInHand);
-
+                System.out.println(cardName +" is the same as "+ game.getPlayer().getCardInHandOn(cardPlaceInHand));
                 break;
             case "woodcutter":
 
@@ -204,8 +205,11 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
     private int findCardPlaceInHand(String cardName) {
         int cardPlace = -1;
         for (int i = 0; i < game.getPlayer().getHand().size(); i++) {
-            if (game.getPlayer().getCardInHandOn(i).toString().equals(cardName)) {
+            System.out.println(cardName + " cardplace test "+ game.getPlayer().getCardInHandOn(i).getName().toString());
+
+            if (game.getPlayer().getCardInHandOn(i).getName().toString().equals(cardName) ) {
                 cardPlace = i;
+
             }
         }
 
@@ -320,9 +324,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 JSONObject afterAction = new JSONObject();
 
                 String cardName = request.getParameter("cardName");
+                System.out.printf(cardName);
                 int cardPlaceInHand = findCardPlaceInHand(cardName);
+                System.out.println(cardPlaceInHand);
 
-                int treasureLeft = Integer.parseInt(request.getParameter("coins"));
 
                 doAction(cardName,cardPlaceInHand);
                 afterAction.put("coinsLeft", game.getTurnCoins());

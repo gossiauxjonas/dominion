@@ -400,8 +400,8 @@ function playAction(cardName) {
         url: "/DominionServlet",
         data: {
             operation: "actionCard",
-            cardName: cardName,
-            coins: $(".coins span").html()
+            cardName: cardName
+        
 
 
 
@@ -415,7 +415,8 @@ function playAction(cardName) {
 
         setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
-        newHand(data.newHand);
+        newHand(afterAction.newHand);
+        console.log(afterAction);
 
 
 
