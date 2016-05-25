@@ -6,7 +6,10 @@ var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory
 
 var standardCards = [1,8,18,19,21,13,4,6,9,5];
 
-var hasAsked;
+var boolean = true;
+
+var cardCost ;
+
 
 
 
@@ -259,6 +262,16 @@ function removeFromHand(image) {
 
 }
 
+function nameRemoveFromHand(name) {
+
+    for (var i = 0; i < $(".hand li").length; i++) {
+        if ($(".hand li").eq(i).css("background-image") == "'assets/media/images/Cards/" + name + ".jpg'" ) {
+            $(".hand li").eq(i).remove();
+            console.log(name +"     "+ $('.hand li').eq(i).css("background-image"))
+        }
+    }
+}
+
 
 function playTreasure(treasure) {
 
@@ -360,8 +373,9 @@ function buyCard(cardName) {
 }
 
 function selectCardToBuy() {
+    checkIfOpenShop();
 
-    if ($(".phase span").html() == "buy") {
+    if ($(".phase span").html() == "buy" && boolean) {
 
         var cardUrl = $(this).css("background-image");
         var cardName = makeCardFromUrl(cardUrl);
@@ -427,11 +441,11 @@ function playAction(cardName) {
 
 
            var afterAction = JSON.parse(data);
-           askPlayerSomething(afterAction.askPlayer);
+
            setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
            newHand(afterAction.newHand);
-           console.log("actions in hand :" + afterAction.actionsInHand);
+
            if(afterAction.actionsInHand != true){
 
                setPhase("buy")
@@ -449,13 +463,31 @@ function askPlayerSomething(cardName) {
    switch (cardName){
 
        case "chapel":
-           // $('.askScreen ul').empty();
+
             $(".askScreen ul ").append($(".hand li"));
             $(".askScreen").show();
             $(".askScreen").on("click","input", sendCardsToTrash);
 
 
               break;
+
+       case "workshop":
+
+
+           $('.oneTimeBuy').append("take a card").show();
+
+
+
+
+
+
+
+           break;
+
+       case "feast":
+
+           break;
+
        
          default:
              
@@ -500,8 +532,14 @@ function sendCardsToTrash() {
 
    }
     sendCardsToServlet(cardsToDiscard);
+    $('.askScreen ul ').empty();
 
    $(".askScreen").hide();
+
+    for(var i = 0; i <cardsToDiscard.length; i++){
+
+        nameRemoveFromHand(cardsToDiscard[i]);
+    }
 
 }
 
@@ -524,6 +562,35 @@ function sendCardsToServlet(cardsToDiscard) {
     });
     
     
+}
+
+
+function checkIfOpenShop() {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "shopIsopen"
+
+        }
+
+
+    });
+    response.done(function (data) {
+
+        var shopCheck = JSON.parse(data);
+        boolean = shopCheck.shopIsopen;
+
+
+    });
+    
+    if(!boolean){
+        endGame();
+    }
+
+
+
 }
 
 
@@ -594,8 +661,70 @@ function emptyCardPreview() {
 
 function changeCurrentName(currentName) {
     $(".activePlayer span").empty().append(currentName);
-    console.log(currentName);
+
 }
+
+
+
+
+function endGame() {
+
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "endGame"
+
+        }
+
+
+    });
+    response.done(function (data) {
+        var winnersAndLosers = JSON.parse(data);
+        var html = "THE GAME HAS ENDED: </br> </br>";
+         html += "the winner is: "+winnersAndLosers.winner+" with "+winnersAndLosers.winnerPoints+" points! </br>";
+         html += winnersAndLosers.loser1+" had "+winnersAndLosers.loser1points + " points! </br>";
+
+         if(typeof (winnersAndLosers.loser2 ) != "undefined"){
+             html += winnersAndLosers.loser2+" had "+winnersAndLosers.loser2points + " points! ";
+         }
+
+         $(".endScreen").append(html).show();
+        $(".playfield").hide();
+
+
+    });
+
+    
+    
+}
+
+function checkCardCost(card) {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "checkCardCost",
+            card: card
+
+        }
+
+
+    });
+    response.done(function (data) {
+             var price = JSON.parse(data);
+             cardCost = price.price;
+
+
+    });
+
+}
+
+
+
+
 
 $(document).ready(function () {
     var limit = 11;
@@ -622,7 +751,8 @@ $(document).ready(function () {
     $(".playTreasure").on("click", playTreasure);
     $(".askScreen ").on("click",'li', selectThisCard);
     $(".askScreen").hide();
-
+    $(".oneTimeBuy").hide();
+    $('.cardList').hide();
 
 
 

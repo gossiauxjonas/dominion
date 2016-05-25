@@ -120,7 +120,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
         switch (cardName) {
 
             case "chapel":
-                game.getPlayer().discardCardFromHand(cardPlaceInHand);
+
                 defaultAction(card);
                  break;
             case "moneylender":
@@ -171,9 +171,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
             default:
                 defaultAction(card);
-                game.getPlayer().discardCardFromHand(cardPlaceInHand);
 
         }
+        game.getPlayer().discardCardFromHand(cardPlaceInHand);
     }
 
     private void defaultAction(ActionCard actionCard){
@@ -344,12 +344,55 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 for (String trashCard : trashCards) {
                     game.getPlayer().destroyCardFromHand(findCardPlaceInHand(trashCard));
+                    game.getPlayer().removeCardFromHand(findCardPlaceInHand(trashCard));
 
                 }
 
 
 
 
+                break;
+
+            case "oneTimeBuy":
+
+                break;
+
+            case "shopIsopen":
+                JSONObject shopObject = new JSONObject();
+
+                Boolean isOpen = game.getShop().isOpen();
+                shopObject.put("shopIsopen",isOpen);
+                pw.write(shopObject.toString());
+
+
+                break;
+
+
+            case "endGame":
+                JSONObject winnersAndLosers = new JSONObject();
+                int[][] playerRank = game.playerScoreRank();
+                winnersAndLosers.put("winner",game.getPlayers()[playerRank[0][0]].getName());
+                winnersAndLosers.put("winnerPoints",playerRank[0][1]);
+                winnersAndLosers.put("loser1",game.getPlayers()[playerRank[1][0]].getName());
+                winnersAndLosers.put("loser1points",playerRank[1][1]);
+                if(game.getPlayers().length>2){
+                    winnersAndLosers.put("loser2",game.getPlayers()[playerRank[2][0]].getName());
+                    winnersAndLosers.put("loser2points",playerRank[2][1]);
+                }
+
+                pw.write(winnersAndLosers.toString());
+
+
+                break;
+
+            case "checkCardCost":
+                JSONObject cardCost = new JSONObject();
+
+                String card = request.getParameter("card");
+                int Place = getPlaceInShop(card,game.getShop());
+                int Price = game.getShop().getShopArray()[ Place].getCard().getPrice();
+                cardCost.put("price",Price);
+                pw.write(cardCost.toString());
                 break;
 
             default:
