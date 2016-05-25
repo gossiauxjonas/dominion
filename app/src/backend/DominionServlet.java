@@ -133,7 +133,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
             case "feast":
-
+                game.getPlayer().destroyCardFromHand(findCardPlaceInHand("feast"));
                 break;
             case "remodel":
 
@@ -354,6 +354,10 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 break;
 
             case "oneTimeBuy":
+                String card = request.getParameter("card");
+                System.out.println(card);
+                int Place = getPlaceInShop(card,game.getShop());
+                game.getPlayer().toDiscard(game.getShop().getShopArray()[Place].getCard());
 
                 break;
 
@@ -385,15 +389,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 break;
 
-            case "checkCardCost":
-                JSONObject cardCost = new JSONObject();
 
-                String card = request.getParameter("card");
-                int Place = getPlaceInShop(card,game.getShop());
-                int Price = game.getShop().getShopArray()[ Place].getCard().getPrice();
-                cardCost.put("price",Price);
-                pw.write(cardCost.toString());
-                break;
 
             default:
                 pw.append(" { 'status':'nok', 'errormessage':'Invalid Operation' } ");

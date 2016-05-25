@@ -457,6 +457,32 @@ function playAction(cardName) {
 
 }
 
+function chooseThisCard() {
+    var card = makeCardFromUrl($(this).css("background-image"));
+    oneTimeBuy(card);
+    $(".oneTimeBuy").hide();
+}
+
+function oneTimeBuy(card) {
+
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "oneTimeBuy",
+            card: card
+        }
+
+
+    });
+    response.done(function (data) {
+
+
+
+    });
+
+}
+
 function askPlayerSomething(cardName) {
 
 
@@ -473,18 +499,23 @@ function askPlayerSomething(cardName) {
 
        case "workshop":
 
-
-           $('.oneTimeBuy').append("take a card").show();
-
-
-
-
-
+           $('.oneTimeBuy').append("take a card costing 4 or less").show();
+           for (var i = 0; i<10;i++){
+               $('.cardList div').eq(i).css("background-image",$(".shopCards").eq(i).css("background-image"));
+           }
+           $(".cardList").on("click","div",chooseThisCard);
 
 
            break;
 
        case "feast":
+
+           $('.oneTimeBuy').append("take a card costing 5 or less").show();
+           for (var i = 0; i<10;i++){
+               $('.cardList div').eq(i).css("background-image",$(".shopCards").eq(i).css("background-image"));
+           }
+           $(".cardList").on("click","div",chooseThisCard);
+           
 
            break;
 
@@ -700,27 +731,6 @@ function endGame() {
     
 }
 
-function checkCardCost(card) {
-
-    var response = $.ajax({
-        dataType: "text",
-        url: "/DominionServlet",
-        data: {
-            operation: "checkCardCost",
-            card: card
-
-        }
-
-
-    });
-    response.done(function (data) {
-             var price = JSON.parse(data);
-             cardCost = price.price;
-
-
-    });
-
-}
 
 
 
@@ -752,7 +762,7 @@ $(document).ready(function () {
     $(".askScreen ").on("click",'li', selectThisCard);
     $(".askScreen").hide();
     $(".oneTimeBuy").hide();
-    $('.cardList').hide();
+
 
 
 
