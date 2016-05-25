@@ -152,8 +152,7 @@ function startTurn() {
         else if (playerObject.actionsInHand == "true") {
             setPhase("action")
         }
-
-
+        
     });
 
 
@@ -350,7 +349,7 @@ function buyCard(cardName) {
             }
         }
         else {
-            alert("you don't have enough money to buy that card!");
+            alert("you can't buy this card, either you don't have enough coins or the stack is empty");
         }
 
 
