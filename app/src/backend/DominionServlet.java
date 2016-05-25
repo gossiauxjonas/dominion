@@ -281,7 +281,6 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                     int CardPlaceInShop = getPlaceInShop(Card, game.getShop());
                     if (treasureLeft >= game.getShop().priceOfCard(CardPlaceInShop) && game.getShop().getShopArray()[CardPlaceInShop].getAmountOfCards() > 0) {
-                        game.getShop().getShopArray()[CardPlaceInShop].decrementStack();
                         game.getPlayer().toDiscard(game.getShop().buyCard(CardPlaceInShop));
                         treasureLeft -= game.getShop().priceOfCard(CardPlaceInShop);
                         endOfBuy.put("treasureLeft", treasureLeft);
