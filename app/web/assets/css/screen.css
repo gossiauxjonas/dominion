@@ -71,20 +71,19 @@ input {
     position: absolute;
     right: 600px;
 }
-
+.askScreen ul{
+    width: 700px;
+}
 .askScreen  li {
     z-index: 100000;
     margin-top: 50px;
-    width: 90px;
+    width: 80px;
     height: 150px;
     display: inline-block;
     background-size: contain;
     background-repeat: no-repeat;
 
 
-}
-.askScreen  li:first-of-type{
-    margin-left: 40px;
 }
 
 .oneTimeBuy{

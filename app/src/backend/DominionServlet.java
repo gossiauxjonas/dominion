@@ -302,9 +302,9 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
                 JSONObject afterAction = new JSONObject();
 
                 String cardName = request.getParameter("cardName");
-                System.out.printf(cardName);
+                System.out.println(cardName);
                 int cardPlaceInHand = findCardPlaceInHand(cardName);
-                System.out.println(cardPlaceInHand);
+
 
 
                 doAction(cardName, cardPlaceInHand);
@@ -359,7 +359,7 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 boolean bought = false;
 
-                System.out.println(maxPrice +" "+cardPrice);
+
 
                 if(cardPrice<= maxPrice){
                     game.getPlayer().toDiscard(game.getShop().getShopArray()[Place].getCard());

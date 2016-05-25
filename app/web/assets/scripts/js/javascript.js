@@ -82,7 +82,7 @@ function beginSetup() {
 
     });
     response.done(function (data) {
-        console.log(data);
+
         var globalObject = JSON.parse(data);
         var shopCards = globalObject.shopCards;
         createStandardShop(shopCards);
@@ -152,7 +152,7 @@ function startTurn() {
         else if (playerObject.actionsInHand == "true") {
             setPhase("action")
         }
-        console.log(playerObject);
+
 
     });
 
@@ -341,7 +341,7 @@ function buyCard(cardName) {
         var buyInfo = JSON.parse(data);
 
         if (buyInfo.bought == "true") {
-            console.log("you bought a " + buyInfo.cardBought);
+
             if (!buyInfo.buysLeft > 0) {
                 endTurn();
             }
@@ -477,7 +477,7 @@ function oneTimeBuy(card) {
         }
         else {
             $(".oneTimeBuy span").empty().append("that card is to expensive! Try again.");
-            console.log("the card was to expensive")
+
         }
 
 
@@ -525,7 +525,7 @@ function askPlayerSomething(cardName) {
 
 
         default:
-            globalCard ="";
+            globalCard = "";
             break;
 
 
@@ -542,7 +542,7 @@ function selectThisCard() {
         $(this).css("border", "").removeClass("selected");
 
     }
-    else {
+    else if ($(".askScreen .selected").length < 4) {
         $(this).css("border", "solid").css("border-color", "white").addClass("selected");
     }
 
