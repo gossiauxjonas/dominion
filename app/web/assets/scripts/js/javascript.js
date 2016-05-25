@@ -4,13 +4,11 @@
 
 var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory", "moat", "woodcutter", "chancellor", "adventurer", "council Room", "witch", "throne room", "chapel", "moneylender", "cellar", "workshop", "feast", "remodel", "library", "mine", "spy", "thief", "militia", "bureaucrat"];
 
-var standardCards = [1,8,18,19,21,13,4,6,9,5];
+var standardCards = [1, 8, 18, 19, 21, 13, 4, 6, 9, 5];
 
 var boolean = true;
 
-var cardCost ;
-
-
+var globalCard;
 
 
 function createStandardShop(shopCards) {
@@ -92,7 +90,6 @@ function beginSetup() {
 
 
     });
-    
 
 
 }
@@ -262,16 +259,6 @@ function removeFromHand(image) {
 
 }
 
-function nameRemoveFromHand(name) {
-
-    for (var i = 0; i < $(".hand li").length; i++) {
-        if ($(".hand li").eq(i).css("background-image") == "'assets/media/images/Cards/" + name + ".jpg'" ) {
-            $(".hand li").eq(i).remove();
-            console.log(name +"     "+ $('.hand li').eq(i).css("background-image"))
-        }
-    }
-}
-
 
 function playTreasure(treasure) {
 
@@ -291,7 +278,6 @@ function playTreasure(treasure) {
         }
 
     }
-
 
 
 }
@@ -364,7 +350,7 @@ function buyCard(cardName) {
             }
         }
         else {
-            console.log("you don't have enough money to buy that card!")
+            alert("you don't have enough money to buy that card!");
         }
 
 
@@ -398,21 +384,21 @@ function cardToField(image) {
         var image = $(this).css("background-image");
     }
 
-    if (!$(this).hasClass("victory") && !$(this).hasClass("action")  ) {
+    if (!$(this).hasClass("victory") && !$(this).hasClass("action")) {
 
         $(".playmat ul").append("<li></li>");
         $(".playmat li:last-of-type").css("background-image", image);
         removeFromHand(image);
     }
 
-    if (($(this).hasClass("action")) && ($('.phase span').html() == "action") && parseInt($('.actions span').html()) > 0  )  {
+    if (($(this).hasClass("action")) && ($('.phase span').html() == "action") && parseInt($('.actions span').html()) > 0) {
         $(".playmat ul").append("<li></li>");
         $(".playmat li:last-of-type").css("background-image", image);
         removeFromHand(image);
         playAction(makeCardFromUrl(image));
 
     }
-    if($(".playmat li").length>6 ){
+    if ($(".playmat li").length > 6) {
         var newLength = 900 / $('.playmat li').length;
         $(".playmat li").css("width", newLength);
 
@@ -424,35 +410,34 @@ function cardToField(image) {
 
 function playAction(cardName) {
 
-   askPlayerSomething(cardName);
-
-   
-       var response = $.ajax({
-       dataType: "text",
-       url: "/DominionServlet",
-       data: {
-           operation: "actionCard",
-           cardName: cardName
-       }
+    askPlayerSomething(cardName);
 
 
-   });
-       response.done(function (data) {
+    var response = $.ajax({
+        dataType: "text",
+        url: "/DominionServlet",
+        data: {
+            operation: "actionCard",
+            cardName: cardName
+        }
 
 
-           var afterAction = JSON.parse(data);
+    });
+    response.done(function (data) {
 
-           setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
-           newHand(afterAction.newHand);
+        var afterAction = JSON.parse(data);
 
-           if(afterAction.actionsInHand != true){
+        setValues(afterAction.actions, afterAction.buys, afterAction.coinsLeft);
 
-               setPhase("buy")
-           }
+        newHand(afterAction.newHand);
 
-       });
-       
+        if (afterAction.actionsInHand != true) {
+
+            setPhase("buy")
+        }
+
+    });
 
 
 }
@@ -460,23 +445,40 @@ function playAction(cardName) {
 function chooseThisCard() {
     var card = makeCardFromUrl($(this).css("background-image"));
     oneTimeBuy(card);
-    $(".oneTimeBuy").hide();
+
 }
 
 function oneTimeBuy(card) {
+    var maxPrice = 4;
+
+    if (globalCard == "feast") {
+        maxPrice = 5;
+    }
 
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
         data: {
             operation: "oneTimeBuy",
-            card: card
+            card: card,
+            maxPrice: maxPrice
         }
 
 
     });
     response.done(function (data) {
 
+        var data = JSON.parse(data);
+        var valid = data.bought;
+
+        if (valid) {
+            $(".oneTimeBuy").hide();
+            $(".oneTimeBuy span").empty();
+        }
+        else {
+            $(".oneTimeBuy span").empty().append("that card is to expensive! Try again.");
+            console.log("the card was to expensive")
+        }
 
 
     });
@@ -486,96 +488,96 @@ function oneTimeBuy(card) {
 function askPlayerSomething(cardName) {
 
 
-   switch (cardName){
+    switch (cardName) {
 
-       case "chapel":
+        case "chapel":
 
             $(".askScreen ul ").append($(".hand li"));
             $(".askScreen").show();
-            $(".askScreen").on("click","input", sendCardsToTrash);
+            $(".askScreen").on("click", "input", sendCardsToTrash);
 
 
-              break;
+            break;
 
-       case "workshop":
-
-           $('.oneTimeBuy').append("take a card costing 4 or less").show();
-           for (var i = 0; i<10;i++){
-               $('.cardList div').eq(i).css("background-image",$(".shopCards").eq(i).css("background-image"));
-           }
-           $(".cardList").on("click","div",chooseThisCard);
-
-
-           break;
-
-       case "feast":
-
-           $('.oneTimeBuy').append("take a card costing 5 or less").show();
-           for (var i = 0; i<10;i++){
-               $('.cardList div').eq(i).css("background-image",$(".shopCards").eq(i).css("background-image"));
-           }
-           $(".cardList").on("click","div",chooseThisCard);
-           
-
-           break;
-
-       
-         default:
-             
-           break;
+        case "workshop":
+            globalCard = "workshop";
+            $(".oneTimeBuy strong").empty().append("take a card costing 4 or less");
+            $('.oneTimeBuy').show();
+            for (var i = 0; i < 10; i++) {
+                $('.cardList div').eq(i).css("background-image", $(".shopCards").eq(i).css("background-image"));
+            }
+            $(".cardList").on("click", "div", chooseThisCard);
 
 
-   }
+            break;
 
+        case "feast":
+            globalCard = "feast";
+            $(".oneTimeBuy strong").empty().append("take a card costing 5 or less");
+            $('.oneTimeBuy').show();
+            for (var i = 0; i < 10; i++) {
+                $('.cardList div').eq(i).css("background-image", $(".shopCards").eq(i).css("background-image"));
+            }
+            $(".cardList").on("click", "div", chooseThisCard);
+
+
+            break;
+
+
+        default:
+            globalCard ="";
+            break;
+
+
+    }
 
 
 }
 
 
-function selectThisCard(){
+function selectThisCard() {
 
-    if( $(this).hasClass("selected")){
+    if ($(this).hasClass("selected")) {
 
         $(this).css("border", "").removeClass("selected");
 
     }
     else {
-        $(this).css("border","solid").css("border-color","white").addClass("selected");
+        $(this).css("border", "solid").css("border-color", "white").addClass("selected");
     }
-
-
-
 
 
 }
 
 
 function sendCardsToTrash() {
-   
+
 
     var cardsToDiscard = [];
+    var urlArray = [];
 
-   for (var i = 0; i < $(".askScreen ul li").length ; i++){
+    for (var i = 0; i < $(".askScreen ul li").length; i++) {
 
-       if($(".askScreen ul li").eq(i).hasClass("selected")){
-           cardsToDiscard.push(makeCardFromUrl($(".askScreen ul li").eq(i).css("background-image")))
-       }
+        if ($(".askScreen ul li").eq(i).hasClass("selected")) {
+            cardsToDiscard.push(makeCardFromUrl($(".askScreen ul li").eq(i).css("background-image")));
+            urlArray.push($(".askScreen ul li").eq(i).css("background-image"));
+        }
 
-   }
+    }
     sendCardsToServlet(cardsToDiscard);
     $('.askScreen ul ').empty();
 
-   $(".askScreen").hide();
+    $(".askScreen").hide();
 
-    for(var i = 0; i <cardsToDiscard.length; i++){
+    for (var i = 0; i < cardsToDiscard.length; i++) {
 
-        nameRemoveFromHand(cardsToDiscard[i]);
+        removeFromHand(urlArray[i]);
     }
 
 }
 
 function sendCardsToServlet(cardsToDiscard) {
-   
+
     var response = $.ajax({
         dataType: "text",
         url: "/DominionServlet",
@@ -588,11 +590,10 @@ function sendCardsToServlet(cardsToDiscard) {
     });
     response.done(function (data) {
 
-        
 
     });
-    
-    
+
+
 }
 
 
@@ -615,23 +616,10 @@ function checkIfOpenShop() {
 
 
     });
-    
-    if(!boolean){
+
+    if (!boolean) {
         endGame();
     }
-
-
-
-}
-
-
-
-function shopToHand() {
-
-    var image = $(this).css("background-image");
-
-    $(".hand ul ").append("<li></li>");
-    $(".hand ul li:last-of-type").css("background-image", image);
 
 
 }
@@ -644,6 +632,7 @@ function cardPlace(cardName) {
         }
     }
 }
+
 function addToHand(card) {
 
     var image = 'url("assets/media/images/Cards/' + card + '.jpg")';
@@ -660,7 +649,7 @@ function addToHand(card) {
 
     $(".hand ul li:last-of-type").css("background-image", image);
 
-    if($(".hand li").length>6 ){
+    if ($(".hand li").length > 6) {
         var newLength = 900 / $('.hand li').length;
         $(".hand li").css("width", newLength);
 
@@ -671,13 +660,12 @@ function addToHand(card) {
 
 function newHand(cardArray) {
     $(".hand ul").empty();
-    for (var i = 0; i < cardArray.length; i++){
+    for (var i = 0; i < cardArray.length; i++) {
         addToHand(cardArray[i]);
     }
 
 
 }
-
 
 
 function showCardPreview() {
@@ -696,8 +684,6 @@ function changeCurrentName(currentName) {
 }
 
 
-
-
 function endGame() {
 
 
@@ -714,31 +700,25 @@ function endGame() {
     response.done(function (data) {
         var winnersAndLosers = JSON.parse(data);
         var html = "THE GAME HAS ENDED: </br> </br>";
-         html += "the winner is: "+winnersAndLosers.winner+" with "+winnersAndLosers.winnerPoints+" points! </br>";
-         html += winnersAndLosers.loser1+" had "+winnersAndLosers.loser1points + " points! </br>";
+        html += "the winner is: " + winnersAndLosers.winner + " with " + winnersAndLosers.winnerPoints + " points! </br>";
+        html += winnersAndLosers.loser1 + " had " + winnersAndLosers.loser1points + " points! </br>";
 
-         if(typeof (winnersAndLosers.loser2 ) != "undefined"){
-             html += winnersAndLosers.loser2+" had "+winnersAndLosers.loser2points + " points! ";
-         }
+        if (typeof (winnersAndLosers.loser2 ) != "undefined") {
+            html += winnersAndLosers.loser2 + " had " + winnersAndLosers.loser2points + " points! ";
+        }
 
-         $(".endScreen").append(html).show();
+        $(".endScreen").append(html).show();
         $(".playfield").hide();
 
 
     });
 
-    
-    
+
 }
-
-
-
-
 
 
 $(document).ready(function () {
     var limit = 11;
-
 
 
     $('input.single-checkbox').on('change', function (evt) {
@@ -759,12 +739,7 @@ $(document).ready(function () {
     $(".table div div, .valuables div div").on("click", selectCardToBuy);
     $(".endTurn").on("click", endTurn);
     $(".playTreasure").on("click", playTreasure);
-    $(".askScreen ").on("click",'li', selectThisCard);
+    $(".askScreen ").on("click", 'li', selectThisCard);
     $(".askScreen").hide();
     $(".oneTimeBuy").hide();
-
-
-
-
-
 });

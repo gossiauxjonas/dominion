@@ -348,16 +348,28 @@ public class DominionServlet extends javax.servlet.http.HttpServlet {
 
                 }
 
-
-
-
                 break;
 
             case "oneTimeBuy":
+                JSONObject jason = new JSONObject();
                 String card = request.getParameter("card");
-                System.out.println(card);
+                int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
                 int Place = getPlaceInShop(card,game.getShop());
-                game.getPlayer().toDiscard(game.getShop().getShopArray()[Place].getCard());
+                int cardPrice = game.getShop().getShopArray()[Place].getPriceOfCard();
+
+                boolean bought = false;
+
+                System.out.println(maxPrice +" "+cardPrice);
+
+                if(cardPrice<= maxPrice){
+                    game.getPlayer().toDiscard(game.getShop().getShopArray()[Place].getCard());
+                    game.getShop().getShopArray()[Place].decrementStack();
+                    bought = true;
+                }
+
+
+                jason.put("bought",bought);
+                pw.write(jason.toString());
 
                 break;
 

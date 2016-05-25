@@ -702,8 +702,6 @@ public class ConsoleReadingDemo {
         ConsoleReadingDemo consoleReadingDemo = new ConsoleReadingDemo();
         consoleReadingDemo.run();
 
-
-
     }
 
 }
