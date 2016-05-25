@@ -6,6 +6,8 @@ var AllCards = ["garden", "smithy", "village", "festival", "market", "laboratory
 
 var standardCards = [1,8,18,19,21,13,4,6,9,5];
 
+var hasAsked;
+
 
 
 function createStandardShop(shopCards) {
@@ -382,7 +384,7 @@ function cardToField(image) {
         var image = $(this).css("background-image");
     }
 
-    if (!$(this).hasClass("treasure") && !$(this).hasClass("action")  ) {
+    if (!$(this).hasClass("victory") && !$(this).hasClass("action")  ) {
 
         $(".playmat ul").append("<li></li>");
         $(".playmat li:last-of-type").css("background-image", image);
@@ -408,31 +410,36 @@ function cardToField(image) {
 
 function playAction(cardName) {
 
-    var response = $.ajax({
-        dataType: "text",
-        url: "/DominionServlet",
-        data: {
-            operation: "actionCard",
-            cardName: cardName
-              }
+   askPlayerSomething(cardName);
+
+   
+       var response = $.ajax({
+       dataType: "text",
+       url: "/DominionServlet",
+       data: {
+           operation: "actionCard",
+           cardName: cardName
+       }
 
 
-    });
-    response.done(function (data) {
+   });
+       response.done(function (data) {
 
 
-        var afterAction = JSON.parse(data);
-        askPlayerSomething(afterAction.askPlayer);
-        setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
+           var afterAction = JSON.parse(data);
+           askPlayerSomething(afterAction.askPlayer);
+           setValues(afterAction.actions,afterAction.buys,afterAction.coinsLeft);
 
-        newHand(afterAction.newHand);
-        console.log("actions in hand :" + afterAction.actionsInHand);
-        if(afterAction.actionsInHand != true){
+           newHand(afterAction.newHand);
+           console.log("actions in hand :" + afterAction.actionsInHand);
+           if(afterAction.actionsInHand != true){
 
-            setPhase("buy")
-        }
+               setPhase("buy")
+           }
 
-    });
+       });
+       
+
 
 }
 
@@ -442,13 +449,17 @@ function askPlayerSomething(cardName) {
    switch (cardName){
 
        case "chapel":
-            $('.askScreen ul').empty();
-            $(".askScreen ul ").append($(".hand ul"));
+           // $('.askScreen ul').empty();
+            $(".askScreen ul ").append($(".hand li"));
             $(".askScreen").show();
             $(".askScreen").on("click","input", sendCardsToTrash);
 
-              break;
 
+              break;
+       
+         default:
+             
+           break;
 
 
    }
@@ -490,7 +501,8 @@ function sendCardsToTrash() {
    }
     sendCardsToServlet(cardsToDiscard);
 
-   $(".askScreen").hide(); 
+   $(".askScreen").hide();
+
 }
 
 function sendCardsToServlet(cardsToDiscard) {
@@ -507,7 +519,7 @@ function sendCardsToServlet(cardsToDiscard) {
     });
     response.done(function (data) {
 
-
+        
 
     });
     
